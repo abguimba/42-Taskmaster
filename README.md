@@ -12,14 +12,14 @@ All info about making your own config file is in exampleconfig.yaml.
 To launch the script, you can either use:
 
 ```
-$/> python3 taskmanager.py config_files/testconfig.yaml
+$/> python3 taskmaster.py config_files/testconfig.yaml
 ```
 
 or
 
 
 ```
-$/> ./taskmanager.py config_files/testconfig.yaml
+$/> ./taskmaster.py config_files/testconfig.yaml
 ```
 
 dependencies: yaml
