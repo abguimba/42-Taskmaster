@@ -1,16 +1,24 @@
 #42-Taskmaster
-Just a little python module that fetchs the ETH/USD ticker in real time from the Delta's Exchange API.
+In this 42 project we were asked to create a basic version of [supervisor](https://github.com/Supervisor/supervisor).
+We were restricted to our language of choice's standard library. Except for the config file parsing.
 
-You can either launch the main script wich will call the module with
+The script reads the tasks parameters from the yaml file, and executes some kind of user prompt to effectively control this tasks.
+
+The only argument needed is a config file.
+
+All info about making your own config file is in exampleconfig.yaml.
+
+To launch the script, you can either use:
 
 ```
-$/> python3 main.py
+$/> python3 taskmanager.py config_files/testconfig.yaml
 ```
 
-or you can also launch the module directly and it will fetch the ticker for you too with
+or
+
 
 ```
-$/> python3 tickerfetcher.py
+$/> ./taskmanager.py config_files/testconfig.yaml
 ```
 
 dependencies: yaml
