@@ -1,0 +1,36 @@
+programs:
+    sleep:
+        cmd: "sleep 1000 &"
+        cmdammount: 10
+        autostart: true
+        autorestart: "never"
+        exitcodes: None
+        starttime: 5
+        stoptime: 10
+        workingdir: "/tmp/"
+        restartretries: 3
+        quitsig: TERM
+        umask: 777
+        stdout: None
+        stderr: None
+        env: None
+    ls:
+        cmd: "ls -l R /"
+        cmdammount: 1
+        autostart: false
+        autorestart: "always"
+        exitcodes:
+            - 0
+            - 2
+            - 15
+        starttime: 5
+        stoptime: 10
+        workingdir: "/Users/abe/Desktop/"
+        restartretries: 3
+        quitsig: TERM
+        umask: 022
+        stdout: "/dev/random"
+        stderr: "/dev/random"
+        env:
+            - STARTED_BY=TASKMASTER
+            - ANSWER=42
