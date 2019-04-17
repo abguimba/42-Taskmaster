@@ -13,7 +13,10 @@ def main():
 		exit(1)
 	with open(sys.argv[1], 'r') as stream:
 		try:
-			print(yaml.safe_load(stream))
+			config = yaml.safe_load(stream)
+			for i in config:
+				print("XDXD\n")
+				print(config[i])
 		except yaml.YAMLError as exc:
 			print(exc)
 	stdin = sys.stdin
