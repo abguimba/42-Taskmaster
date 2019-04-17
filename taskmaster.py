@@ -45,17 +45,17 @@ def main():
 					for param in configload[data][program]:
 						config.append(configload[data][program][param])
 					configList.append(config)
-					# classList[classCounter] = Program(config)
-					# classCounter += 1
 		except yaml.YAMLError as exc:
 			errors.error_yaml(exc)
 	
 	
-	classCounter = 0
 	classList = []
 	
-	for i in configList:
-		print(i)
+	for config in configList:
+		newClass = Program(config)
+		classList.append(newClass)
+	
+
 	stdin = sys.stdin
 	fd = stdin.fileno()
 
