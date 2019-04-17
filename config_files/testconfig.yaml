@@ -4,12 +4,12 @@ programs:
         cmdammount: 10
         autostart: true
         autorestart: "never"
-        exitcodes: None
         starttime: 5
         stoptime: 10
-        workingdir: "/tmp/"
         restartretries: 3
         quitsig: TERM
+        exitcodes: None
+        workingdir: "/tmp/"
         umask: 777
         stdout: None
         stderr: None
@@ -19,15 +19,15 @@ programs:
         cmdammount: 1
         autostart: false
         autorestart: "always"
+        starttime: 5
+        stoptime: 10
+        restartretries: 3
+        quitsig: TERM
         exitcodes:
             - 0
             - 2
             - 15
-        starttime: 5
-        stoptime: 10
         workingdir: "/Users/abe/Desktop/"
-        restartretries: 3
-        quitsig: TERM
         umask: 022
         stdout: "/dev/random"
         stderr: "/dev/random"
