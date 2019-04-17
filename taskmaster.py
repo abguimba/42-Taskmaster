@@ -15,7 +15,6 @@ def main():
 		try:
 			config = yaml.safe_load(stream)
 			for i in config:
-				print("XDXD\n")
 				print(config[i])
 		except yaml.YAMLError as exc:
 			print(exc)
