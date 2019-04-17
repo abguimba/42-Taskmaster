@@ -6,18 +6,56 @@ import termios
 import tty
 import yaml
 
+import errors
+import tools
+
+class Program():
+	"""base class for all programs to be executed"""
+
+	def __init__(self, config):
+		"""assigns config for a program to his object"""
+		self.config = config
+		# self.name = 
+		# self.cmd = 
+		# self.cmdammount = 
+		# self.autostart = 
+		# self.autorestart = 
+		# self.starttime = 
+		# self. stoptime = 
+		# self.restartretries = 
+		# self.quisig = 
+		# self.exitcodes = 
+		# self.workingdir = 
+		# self.umask = 
+		# self.stdout = 
+		# self.stdin = 
+		# self.env = 
+
 def main():
 	"""main function"""
-	if len(sys.argv) != 2:
-		print("usage: main.py config_file")
-		exit(1)
+	errors.error_check_params()
+
 	with open(sys.argv[1], 'r') as stream:
 		try:
-			config = yaml.safe_load(stream)
-			for i in config:
-				print(config[i])
+			configload = yaml.safe_load(stream)
+			for data in configload:
+				configList = []
+				for program in configload[data]:
+					config = []
+					for param in configload[data][program]:
+						config.append(configload[data][program][param])
+					configList.append(config)
+					# classList[classCounter] = Program(config)
+					# classCounter += 1
 		except yaml.YAMLError as exc:
-			print(exc)
+			errors.error_yaml(exc)
+	
+	
+	classCounter = 0
+	classList = []
+	
+	for i in configList:
+		print(i)
 	stdin = sys.stdin
 	fd = stdin.fileno()
 
