@@ -1,3 +1,5 @@
+"""test file for Cython tests"""
+
 from libc.math cimport pow
 
 cdef double square_and_add (double x):

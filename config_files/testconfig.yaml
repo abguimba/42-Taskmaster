@@ -2,7 +2,7 @@ programs:
     sleep:
         cmd: "sleep 1000"
         cmdammount: 10
-        autostart: true
+        autostart: True
         autorestart: "never"
         starttime: 5
         stoptime: 10
@@ -17,7 +17,7 @@ programs:
     ls:
         cmd: "ls -l R /"
         cmdammount: 1
-        autostart: false
+        autostart: False
         autorestart: "always"
         starttime: 5
         stoptime: 10
