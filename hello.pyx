@@ -13,5 +13,3 @@ cdef double square_and_add (double x):
 cpdef print_result (double x):
     """This is a cpdef function that can be called from Python."""
     print("({} ^ 2) + {} = {}".format(x, x, square_and_add(x)))
- 
-
