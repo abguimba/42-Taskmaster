@@ -1,4 +1,4 @@
-#42-Taskmaster
+# 42-Taskmaster
 
 In this 42 project we were asked to create a basic version of [supervisor](https://github.com/Supervisor/supervisor).
 We were restricted to our language of choice's standard library. Except for the config file parsing.
