@@ -9,22 +9,29 @@ import yaml
 import errors
 import tools
 import classes
+import userinput
+import output
+import time
 
 def main():
 	"""main function"""
 	errors.error_check_params()
+	output.display_progress()
+	start = time.time()
 	configList = tools.parse_yaml_file()
 	tools.verify_config(configList)
-	classes.init_classes(configList)
+	classList = classes.init_classes(configList)
+	end = time.time()
+	userinput.ask_for_confirmation(classList, str(end - start))
 
-	stdin = sys.stdin
-	fd = stdin.fileno()
-	new = old = termios.tcgetattr(fd)
-	new[3] &= ~termios.ICANON
-	termios.tcsetattr(fd, termios.TCSAFLUSH, new)
-	tty.setraw(sys.stdin)
-	char = stdin.read(1)
-	termios.tcsetattr(fd, termios.TCSAFLUSH, old)
+	# stdin = sys.stdin
+	# fd = stdin.fileno()
+	# new = old = termios.tcgetattr(fd)
+	# new[3] &= ~termios.ICANON
+	# termios.tcsetattr(fd, termios.TCSAFLUSH, new)
+	# tty.setraw(sys.stdin)
+	# char = stdin.read(1)
+	# termios.tcsetattr(fd, termios.TCSAFLUSH, old)
 
 if __name__ == '__main__':
 	main()

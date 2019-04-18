@@ -5,13 +5,13 @@ name = "taskmaster : "
 
 def error_ammount_cmds(str):
 	"""error for when a command has less than 1 instance in config file"""
-	print(name, end='')
+	print('\n' + name, end='')
 	print("command -> " + str + " has less than one desired instance in the config file")
 	exit(1)
 
 def error_config(command, param):
 	"""Base error function for config file errors"""
-	print(name, end='')
+	print('\n' + name, end='')
 	print("command -> ", end='')
 	print(command, end=' ')
 	print("has ", end='')
@@ -21,14 +21,14 @@ def error_config(command, param):
 
 def error_yaml(exc):
 	"""error function for when yaml file doesn't load"""
+	print('\n' + name, end='')
 	print(exc)
-	print(name, end='')
 	print("bad formatting or error loading yaml file")
 	exit(1)
 
 def error_config_len():
 	"""error function for when the yaml file doesn't contain all the fields"""
-	print(name, end='')
+	print('\n' + name, end='')
 	print("Not all parameters are present in the config file!")
 	exit(1)
 

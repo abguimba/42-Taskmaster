@@ -19,7 +19,7 @@ class Program():
 		self.workingdir = config[10]
 		self.umask = config[11]
 		self.stdout = config[12]
-		self.stdin = config[13]
+		self.stderr = config[13]
 		self.env = config[14]
 
 def init_classes(configList):
@@ -28,3 +28,4 @@ def init_classes(configList):
 	for config in configList:
 		newClass = Program(config)
 		classList.append(newClass)
+	return classList
