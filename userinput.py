@@ -1,9 +1,16 @@
+"""File dedicated to user input handling"""
+
 import output
 import sys
 
 def ask_for_confirmation(classList, time):
+	"""Asks for confirmation of current setup"""
 	output.display_summary(classList, time)
-	confirmation = sys.stdin.read(1)
-	if confirmation == 'n':
-		print(output.bcolors.FAIL, "\n/!\\Aborting execution /!\\", output.bcolors.ENDC)
-		exit(0)
+	confirmation = input()
+	while confirmation != 'y' and confirmation != "yes":
+		if confirmation == 'n' or confirmation == "no":
+			print(output.bcolors.FAIL, "\n/!\\Aborting execution /!\\",
+			output.bcolors.ENDC)
+			exit(0)
+		print("Please answer with yes/y or no/n")
+		confirmation = input()

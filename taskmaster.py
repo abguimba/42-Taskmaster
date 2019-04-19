@@ -24,14 +24,26 @@ def main():
 	end = time.time()
 	userinput.ask_for_confirmation(classList, str(end - start))
 
-	# stdin = sys.stdin
-	# fd = stdin.fileno()
-	# new = old = termios.tcgetattr(fd)
-	# new[3] &= ~termios.ICANON
-	# termios.tcsetattr(fd, termios.TCSAFLUSH, new)
-	# tty.setraw(sys.stdin)
-	# char = stdin.read(1)
-	# termios.tcsetattr(fd, termios.TCSAFLUSH, old)
+	try:
+		stdin = sys.stdin
+		fd = stdin.fileno()
+		new = old = termios.tcgetattr(fd)
+		new[3] &= ~termios.ICANON
+		termios.tcsetattr(fd, termios.TCSAFLUSH, new)
+		tty.setraw(sys.stdin)
+		char = 'a'
+		# while char != '\x1b':
+		char = stdin.read(3)
+		print("JAA")
+		print("XDDDDDDD")
+	except:
+		termios.tcsetattr(fd, termios.TCSAFLUSH, old)
+		exit(0)
+	finally:
+		termios.tcsetattr(fd, termios.TCSAFLUSH, old)
+	# print(str(int(char)))
+	# if char == '\x1b':
+	print(int(char))
 
 if __name__ == '__main__':
 	main()

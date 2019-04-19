@@ -6,7 +6,8 @@ name = "taskmaster : "
 def error_ammount_cmds(str):
 	"""error for when a command has less than 1 instance in config file"""
 	print('\n' + name, end='')
-	print("command -> " + str + " has less than one desired instance in the config file")
+	print("command -> " + str + " has less than one desired instance"
+	+ "in the config file")
 	exit(1)
 
 def error_config(command, param):

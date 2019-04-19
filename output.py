@@ -1,3 +1,5 @@
+"""File for general output purposes"""
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -9,6 +11,9 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 def display_summary(classList, time):
+	"""Displays a summary of the config file and the programs that are about
+	to be loaded
+	"""
 	print("took -> " + time[:-14] + " seconds")
 	print("config file summary: \n")
 	for instance in classList:
@@ -19,7 +24,8 @@ def display_summary(classList, time):
 		print("Autorestart:", bcolors.BOLD, instance.autorestart, bcolors.ENDC)
 		print("Starttime:", bcolors.BOLD, instance.starttime, bcolors.ENDC)
 		print("Stoptime:", bcolors.BOLD, instance.stoptime, bcolors.ENDC)
-		print("Restartretries:", bcolors.BOLD, instance.restartretries, bcolors.ENDC)
+		print("Restartretries:", bcolors.BOLD, instance.restartretries,
+		bcolors.ENDC)
 		print("Quitsig:", bcolors.BOLD, instance.quitsig, bcolors.ENDC)
 		print("Exitcodes:", bcolors.BOLD, instance.exitcodes, bcolors.ENDC)
 		print("Workingdir:", bcolors.BOLD, instance.workingdir, bcolors.ENDC)
@@ -28,9 +34,11 @@ def display_summary(classList, time):
 		print("Stderr:", bcolors.BOLD, instance.stderr, bcolors.ENDC)
 		print("env:", bcolors.BOLD, instance.env, bcolors.ENDC)
 		print('\n')
-	print("#######################################################")
-	print(bcolors.HEADER + "Would you really like to load this configuration ? y/n" + bcolors.ENDC)
-	print("#######################################################")
+	print("#####################################################")
+	print(bcolors.HEADER + "Would you really like to load this configuration"
+	+ "? y/n" + bcolors.ENDC)
+	print("#####################################################")
 
 def display_progress():
+	"""Displays a little progress message"""
 	print(bcolors.OKGREEN + "Processing config..." + bcolors.ENDC, end=' ')

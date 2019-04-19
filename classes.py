@@ -1,6 +1,6 @@
 """File to store all class related functions"""
 
-class Program():
+class Program:
 	"""base class for all programs to be executed"""
 
 	def __init__(self, config):
