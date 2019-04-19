@@ -4,6 +4,7 @@ import termios
 import sys
 
 def init_term():
+	"""This function tries to initialise the terminal, or exits gracefully"""
 	try:
 		stdin = sys.stdin
 		fd = stdin.fileno()

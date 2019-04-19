@@ -3,6 +3,7 @@
 import os
 import sys
 import termios
+import signal
 
 import term_setup
 
@@ -16,26 +17,34 @@ class Taskmaster:
 		self.columns = columns
 		self.termios = termios
 
-def initloop(classList, configList, taskmaster):
-	pass
+	def update_term(self):
+		self.rows, self.columns = os.popen('stty size', 'r').read().split()
+
+def initloop(classList, configList, taskmaster, stdin):
+	"""This function initialises the loop"""
+	char = None
+	while True:
+		char = stdin.read(1)
+		if char == '\x1b':
+			break
+		elif char == '\x1b':
+			char = stdin.read(1)
+			if char == '[':
+				char = stdin.read(1)
+				if char == 'C':
+					print("FLECHA DERECHA")
+				elif char == 'D':
+					print("FLECHA IZQ")
+
+	def sigwinch_handler():
+		"""This function inside initloop handles window size"""
+		pass
+	signal.signal(signal.SIGWINCH, sigwinch_handler)
 
 def setuploop(classList, configList):
 	"""This function setups the menu loop"""
 	rows, columns = os.popen('stty size', 'r').read().split()
 	terminfo, fd = term_setup.init_term()
 	taskmaster = Taskmaster(rows, columns, terminfo)
-	# char = None
-	# while True:
-	# 	char = stdin.read(1)
-	# 	if char == '\x1b':
-	# 		break
-	# 	elif char == '\x1b':
-	# 		char = stdin.read(1)
-	# 		if char == '[':
-	# 			char = stdin.read(1)
-	# 			if char == 'C':
-	# 				print("FLECHA DERECHA")
-	# 			elif char == 'D':
-	# 				print("FLECHA IZQ")
-	initloop(classList, configList, taskmaster)
+	initloop(classList, configList, taskmaster, sys.stdin)
 	termios.tcsetattr(fd, termios.TCSAFLUSH, terminfo)
