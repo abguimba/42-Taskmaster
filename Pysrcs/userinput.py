@@ -2,6 +2,9 @@
 
 import output
 import sys
+import termios
+
+import curses
 
 def ask_for_confirmation(classList, time):
 	"""Asks for confirmation of current setup"""

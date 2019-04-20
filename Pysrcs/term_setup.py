@@ -10,7 +10,6 @@ def init_term():
 		fd = stdin.fileno()
 		new = old = termios.tcgetattr(fd)
 		new[3] &= ~termios.ICANON
-		new[3] &= ~termios.ECHO
 		termios.tcsetattr(fd, termios.TCSAFLUSH, new)
 	except:
 		termios.tcsetattr(fd, termios.TCSAFLUSH, old)

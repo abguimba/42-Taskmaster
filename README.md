@@ -9,17 +9,16 @@ The only argument needed is a config file.
 
 All info about making your own config file is in exampleconfig.yaml.
 
-To launch the script, you can either use:
+To launch the script, you first need to do a simple `make` and then either:
 
-```
-$/> python3 taskmaster.py config_files/testconfig.yaml
+``` zsh
+$/> python3 taskmaster.py config_files/<yourconfig>.yaml
 ```
 
 or
 
-
-```
-$/> ./taskmaster.py config_files/testconfig.yaml
+``` zsh
+$/> ./taskmaster.py config_files/<yourconfig>.yaml
 ```
 
 dependencies: yaml
