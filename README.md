@@ -6,8 +6,9 @@ We were restricted to our language of choice's standard library. Except for the 
 The script reads the tasks parameters from the yaml file, and executes some kind of user prompt to effectively manage these tasks.
 
 The only argument needed is a config file.
-
 All info about making your own config file is in exampleconfig.yaml.
+
+Partners in this project -> [@toshuomj](https://github.com/toshuomj)
 
 To launch the script, you first need to do a simple `make` and then either:
 
