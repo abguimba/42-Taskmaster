@@ -22,10 +22,15 @@ class Taskmaster:
 
 def initloop(classList, configList, taskmaster, stdin):
 	"""This function initialises the loop"""
-	char = None
+
+	def sigwinch_handler():
+		"""This function is a signal handler to update the output"""
+		taskmaster.update_term()
+
+	signal.signal(signal.SIGWINCH, sigwinch_handler)
 	while True:
 		char = stdin.read(1)
-		if char == '\x1b':
+		if char == 'x':
 			break
 		elif char == '\x1b':
 			char = stdin.read(1)
@@ -35,11 +40,6 @@ def initloop(classList, configList, taskmaster, stdin):
 					print("FLECHA DERECHA")
 				elif char == 'D':
 					print("FLECHA IZQ")
-
-	def sigwinch_handler():
-		"""This function inside initloop handles window size"""
-		pass
-	signal.signal(signal.SIGWINCH, sigwinch_handler)
 
 def setuploop(classList, configList):
 	"""This function setups the menu loop"""
