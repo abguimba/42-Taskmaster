@@ -16,6 +16,6 @@ def init_term():
 		termios.tcsetattr(fd, termios.TCSAFLUSH, old)
 		print("There was an error setting the terminal settings"
 		+ ", resetting base terminal settings")
-		exit(0)
+		sys.exit(0)
 	finally:
 		return old, fd

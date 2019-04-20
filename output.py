@@ -1,6 +1,7 @@
 """File for general output purposes"""
 
 class bcolors:
+	"""class for general colouring"""
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
@@ -9,6 +10,17 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
+def init_menu(option, classList, configList, taskmaster):
+	"""This function updates and initialises the menu of the taskmaster"""
+	if option == None:
+		print(taskmaster.get_columns())
+		if taskmaster.get_columns() >= 37:
+			pass
+		elif taskmaster.get_columns() >= 8:
+			print("No space")
+	STATUS START STOP RESTART RELOAD EXIT
+	
 
 def display_summary(classList, time):
 	"""Displays a summary of the config file and the programs that are about

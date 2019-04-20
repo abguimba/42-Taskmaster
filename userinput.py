@@ -11,6 +11,6 @@ def ask_for_confirmation(classList, time):
 		if confirmation == 'n' or confirmation == "no":
 			print(output.bcolors.FAIL, "\n/!\\Aborting execution /!\\",
 			output.bcolors.ENDC)
-			exit(0)
+			sys.exit(0)
 		print("Please answer with yes/y or no/n")
 		confirmation = input()
