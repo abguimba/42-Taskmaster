@@ -1,14 +1,33 @@
 """File for general output purposes"""
 
 class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+	HEADER = '\033[95m'
+	OKBLUE = '\033[94m'
+	OKGREEN = '\033[92m'
+	WARNING = '\033[93m'
+	FAIL = '\033[91m'
+	ENDC = '\033[0m'
+	BOLD = '\033[1m'
+	REV	= '\033[7m'
+	UNDERLINED = '\033[4m'
+
+def display_special_str(str, mode):
+	"""Displays strings normally, underlined, or underlined + reversed"""
+	if mode == 0:
+		print(str, end=' ')
+	elif mode == 1:
+		print(bcolors.UNDERLINED, str, bcolors.ENDC, end='')
+	elif mode == 2:
+		print(bcolors.UNDERLINED, bcolors.REV, str, bcolors.ENDC, end='')
+
+def display_basic_menu(taskmaster):
+	"""Displays the basic instance of the taskmaster's menu"""
+	display_special_str("STATUS", taskmaster.statusselected)
+	display_special_str("START", taskmaster.startselected)
+	display_special_str("RESTART", taskmaster.restartselected)
+	display_special_str("STOP", taskmaster.stopselected)
+	display_special_str("RELOAD", taskmaster.reloadselected)
+	display_special_str("EXIT", taskmaster.exitselected)
 
 def display_summary(classList, time):
 	"""Displays a summary of the config file and the programs that are about

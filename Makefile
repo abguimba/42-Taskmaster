@@ -6,7 +6,7 @@
 #    By: abe <abe@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 17:04:04 by abe               #+#    #+#              #
-#    Updated: 2019/04/20 21:08:31 by abe              ###   ########.fr        #
+#    Updated: 2019/04/21 07:05:06 by abguimba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,9 +43,10 @@ all: $(NAME)
 
 $(NAME):
 		@$(CC) $(FLAGS) -o $(LIBPATH) -l $(TERMLIB) $(C_SRC)
-		@echo "$(GRE)C Library and put in Pysrcs folder!$(DEF)"
+		@echo "$(GRE)Compiled C Library and put in Pysrcs folder!$(DEF)"
 
 clean:
 		@rm -f $(LIBPATH)
+		@echo "$(RED)Deleted C Library (Pysrcs/libCtaskmaster.so)!$(DEF)"
 
 .PHONY: clean all

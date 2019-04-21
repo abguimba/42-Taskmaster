@@ -18,14 +18,14 @@ class Taskmaster:
 		self.columns = columns
 		self.termios = termios
 		self.menustate = "base"
-		self.startselected = False
-		self.restartselected = False
-		self.stopselected = False
-		self.statusselected = True
-		self.reloadselected = False
-		self.exitselected = False
-		self.yesselected = False
-		self.cancelselected = False
+		self.statusselected = 1
+		self.startselected = 0
+		self.restartselected = 0
+		self.stopselected = 0
+		self.reloadselected = 0
+		self.exitselected = 0
+		self.confirmselected = 0
+		self.cancelselected = 0
 
 	def update_term(self):
 		"""updates terminal rows and cols after a SIGWNCH"""
@@ -39,13 +39,27 @@ class Taskmaster:
 		"""returns terminal columns"""
 		return int(self.columns)
 
-def init_menu(option, classList, configList, taskmaster):
+def init_menu(key, classList, configList, taskmaster):
 	"""This function updates and initialises the menu of the taskmaster"""
-	if option == "base":
-		if taskmaster.get_columns() >= 37:
-			pass
-		elif taskmaster.get_columns() >= 8:
-			print("No space")
+	if key == "enter":
+		pass
+	elif key == "right":
+		pass
+	elif key == "left":
+		pass
+	if taskmaster.menustate == "base":
+		output.display_basic_menu(taskmaster)
+		print('\r', end='')
+	elif taskmaster.menustate == "startselect":
+		pass
+	elif taskmaster.menustate == "restartselect":
+		pass
+	elif taskmaster.menustate == "stopselect":
+		pass
+	elif taskmaster.menustate == "confirm":
+		pass
+	elif taskmaster.menustate == "startselect":
+		pass
 
 
 def initloop(classList, configList, taskmaster, stdin):
@@ -56,24 +70,24 @@ def initloop(classList, configList, taskmaster, stdin):
 		taskmaster.update_term()
 
 	signal.signal(signal.SIGWINCH, sigwinch_handler)
-	option = "base"
+	key = None
 	while True:
-		init_menu(option, classList, configList, taskmaster)
+		init_menu(key, classList, configList, taskmaster)
 		keychar = stdin.read(1)
 		if keychar == 'x':
 			break
 		elif keychar == '\n':
-			option = "enter"
+			key = "enter"
 		elif keychar == '\x1b':
 			keychar = stdin.read(1)
 			if keychar == '[':
 				keychar = stdin.read(1)
 				if keychar == 'C':
-					option = "right"
+					key = "right"
 				elif keychar == 'D':
-					option = "left"
+					key = "left"
 		else:
-			option = "base"
+			key = "base"
 
 def setuploop(classList, configList):
 	"""This function setups the menu loop"""

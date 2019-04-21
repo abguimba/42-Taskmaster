@@ -17,3 +17,4 @@ def ask_for_confirmation(classList, time):
 			sys.exit(0)
 		print("Please answer with yes/y or no/n")
 		confirmation = input()
+	print('\n', end='')
