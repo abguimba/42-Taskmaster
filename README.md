@@ -10,6 +10,8 @@ All info about making your own config file is in exampleconfig.yaml.
 
 Partners in this project -> [@toshuomj](https://github.com/toshuomj)
 
+<img src="/images/Taskmaster01.gif" alt="Taskmaster01" width="700"/>
+
 To launch the script, you first need to do a simple `make` and then either:
 
 ``` zsh
