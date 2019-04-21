@@ -10,6 +10,7 @@ def restore_term(terminfo, fd):
 	termios.tcsetattr(fd, termios.TCSAFLUSH, terminfo)
 	sys.stdout.write("\033[?25h")
 	sys.stdout.flush()
+	print("Default terminal configuration restored, bye")
 
 def init_term():
 	"""This function tries to initialise the terminal, or exits gracefully"""

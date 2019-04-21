@@ -6,9 +6,9 @@ import termios
 
 import curses
 
-def ask_for_confirmation(classList, time):
+def ask_for_confirmation(programList, time):
 	"""Asks for confirmation of current setup"""
-	output.display_summary(classList, time)
+	output.display_summary(programList, time)
 	confirmation = input()
 	while confirmation != 'y' and confirmation != "yes":
 		if confirmation == 'n' or confirmation == "no":

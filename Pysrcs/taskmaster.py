@@ -20,11 +20,11 @@ def main():
 	start = time.time()
 	configList = tools.parse_yaml_file()
 	tools.verify_config(configList)
-	classList = classes.init_classes(configList)
+	programList = classes.init_classes(configList)
 	end = time.time()
-	userinput.ask_for_confirmation(classList, str(end - start))
+	userinput.ask_for_confirmation(programList, str(end - start))
 	#  start the base commands
-	menuloop.setuploop(classList, configList)
+	menuloop.setuploop(programList, configList)
 
 if __name__ == '__main__':
 	main()

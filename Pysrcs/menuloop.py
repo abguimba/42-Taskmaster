@@ -28,6 +28,66 @@ class Taskmaster:
 		self.confirmselected = 1
 		self.cancelselected = 0
 
+	def enter_key(self, programList):
+		"""switches elements on enter key press"""
+		if self.menustate == "base":
+			if self.statusselected == 1:
+				output.display_status(programList)
+			elif self.startselected == 1:
+				pass
+			elif self.restartselected == 1:
+				pass
+			elif self.stopselected == 1:
+				pass
+			elif self.reloadselected == 1:
+				pass
+			elif self.exitselected == 1:
+				self.menustate = "confirm"
+				print("Exiting will close all programs, are you sure?")
+		elif (self.menustate == "startselect"
+		or self.menustate == "restartselect" or self.menustate == "stopselect"):
+			pass
+		elif self.menustate == "confirm":
+			if self.confirmselected == 1:
+				return (1)
+			elif self.cancelselected == 1:
+				self.menustate = "base"
+				self.cancelselected = 0
+				self.confirmselected = 1
+		return (0)
+
+	def left_key(self):
+		"""switches elements on left key press"""
+		if self.menustate == "base":
+			if self.statusselected == 1:
+				self.statusselected = 0
+				self.exitselected = 1
+			elif self.startselected == 1:
+				self.startselected = 0
+				self.statusselected = 1
+			elif self.restartselected == 1:
+				self.restartselected = 0
+				self.startselected = 1
+			elif self.stopselected == 1:
+				self.stopselected = 0
+				self.restartselected = 1
+			elif self.reloadselected == 1:
+				self.reloadselected = 0
+				self.stopselected = 1
+			elif self.exitselected == 1:
+				self.exitselected = 0
+				self.reloadselected = 1
+		elif (self.menustate == "startselect"
+		or self.menustate == "restartselect" or self.menustate == "stopselect"):
+			pass
+		elif self.menustate == "confirm":
+			if self.confirmselected == 1:
+				self.confirmselected = 0
+				self.cancelselected = 1
+			elif self.cancelselected == 1:
+				self.cancelselected = 0
+				self.confirmselected = 1
+
 	def right_key(self):
 		"""switches elements on right key press"""
 		if self.menustate == "base":
@@ -53,7 +113,12 @@ class Taskmaster:
 		or self.menustate == "restartselect" or self.menustate == "stopselect"):
 			pass
 		elif self.menustate == "confirm":
-			pass
+			if self.confirmselected == 1:
+				self.confirmselected = 0
+				self.cancelselected = 1
+			elif self.cancelselected == 1:
+				self.cancelselected = 0
+				self.confirmselected = 1
 
 	def update_term(self):
 		"""updates terminal rows and cols after a SIGWNCH"""
@@ -67,14 +132,7 @@ class Taskmaster:
 		"""returns terminal columns"""
 		return int(self.columns)
 
-def init_menu(key, classList, configList, taskmaster):
-	"""This function updates and initialises the menu of the taskmaster"""
-	if key == "enter":
-		pass
-	elif key == "right":
-		taskmaster.right_key()
-	elif key == "left":
-		pass
+def draw_menu(taskmaster):
 	if taskmaster.get_columns() >= 39:
 		if taskmaster.menustate == "base":
 			output.display_basic_menu(taskmaster)
@@ -82,7 +140,7 @@ def init_menu(key, classList, configList, taskmaster):
 		or taskmaster.menustate == "restartselect" or taskmaster.menustate == "stopselect"):
 			pass
 		elif taskmaster.menustate == "confirm":
-			pass
+			output.display_confirm_menu(taskmaster)
 		print('\r', end='')
 	elif taskmaster.get_columns() >= 8:
 		print('\r', end='')
@@ -94,8 +152,21 @@ def init_menu(key, classList, configList, taskmaster):
 		print("No space", end='')
 		print('\r', end='')
 
+def init_menu(key, programList, configList, taskmaster):
+	"""This function updates the menu of the taskmaster"""
+	if key == "enter":
+		exiting = taskmaster.enter_key(programList)
+		if exiting == 1:
+			return (1)
+	elif key == "right":
+		taskmaster.right_key()
+	elif key == "left":
+		taskmaster.left_key()
+	draw_menu(taskmaster)
+	return (0)
 
-def initloop(classList, configList, taskmaster, stdin):
+
+def initloop(programList, configList, taskmaster, stdin):
 	"""This function initialises the loop"""
 
 	def sigwinch_handler(sig, frame):
@@ -105,11 +176,11 @@ def initloop(classList, configList, taskmaster, stdin):
 	signal.signal(signal.SIGWINCH, sigwinch_handler)
 	key = None
 	while True:
-		init_menu(key, classList, configList, taskmaster)
-		keychar = stdin.read(1)
-		if keychar == 'x':
+		exiting = init_menu(key, programList, configList, taskmaster)
+		if exiting == 1:
 			break
-		elif keychar == '\n':
+		keychar = stdin.read(1)
+		if keychar == '\n':
 			key = "enter"
 		elif keychar == '\x1b':
 			keychar = stdin.read(1)
@@ -126,10 +197,10 @@ def initloop(classList, configList, taskmaster, stdin):
 		stdscr.refresh()
 		curses.endwin()
 
-def setuploop(classList, configList):
+def setuploop(programList, configList):
 	"""This function setups the menu loop"""
 	rows, columns = os.popen('stty size', 'r').read().split()
 	terminfo, fd = term_setup.init_term()
 	taskmaster = Taskmaster(rows, columns, terminfo)
-	initloop(classList, configList, taskmaster, sys.stdin)
+	initloop(programList, configList, taskmaster, sys.stdin)
 	term_setup.restore_term(terminfo, fd)

@@ -11,12 +11,41 @@ class bcolors:
 	REV	= '\033[7m'
 	UNDERLINED = '\033[4m'
 
+def display_status(programList):
+	"""Displays program's status"""
+	print('\r', end='')
+	print("                                              ")
+	print("\r################################")
+	print(bcolors.HEADER + "General Status\n"
+	+ bcolors.ENDC)
+	for program in programList:
+		print(bcolors.UNDERLINED, program.name, bcolors.ENDC)
+		print("      ", "State ->", program.state)
+		print("      ", "Instances ->", program.cmdammount)
+		print("      ", "stdout ->", "n/a")
+		print("      ", "stderr ->", "n/a")
+		if program.autorestart == "always":
+			print("      ", "Restart ->", "always")
+		elif program.autorestart == "never":
+			print("      ", "Restart ->", "never")
+		if program.autorestart == "unexpected":
+			print("      ", "Restart ->", "on exitcodes ->", end='')
+			for code in program.exitcodes:
+				print(code, end='')
+			print('\n', end='')
+	print("\n################################\n")
+
 def display_special_str(str, mode):
 	"""Displays strings normally, underlined, or underlined + reversed"""
 	if mode == 0:
 		print(str, end=' ')
 	elif mode == 1:
 		print(bcolors.REV, str, bcolors.ENDC, end='')
+
+def display_confirm_menu(taskmaster):
+	"""Displays the confirm instance of the taskmaster's menu"""
+	display_special_str("CONFIRM", taskmaster.confirmselected)
+	display_special_str("CANCEL", taskmaster.cancelselected)
 
 def display_basic_menu(taskmaster):
 	"""Displays the basic instance of the taskmaster's menu"""

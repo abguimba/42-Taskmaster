@@ -21,11 +21,18 @@ class Program:
 		self.stdout = config[12]
 		self.stderr = config[13]
 		self.env = config[14]
+		if self.autostart == 1:
+			self.state = "Running"
+		else:
+			self.state = "Not started"
+		self.exited = 0
+		self.stopped = 0
+		self.restarting = 0
 
 def init_classes(configList):
 	"""initialises program classes with their corresponding config"""
-	classList = []
+	programList = []
 	for config in configList:
 		newClass = Program(config)
-		classList.append(newClass)
-	return classList
+		programList.append(newClass)
+	return programList
