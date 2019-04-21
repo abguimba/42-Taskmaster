@@ -6,6 +6,7 @@ class Program:
 	def __init__(self, config):
 		"""assigns config for a program to his object"""
 		self.config = config
+		self.pidList = []
 		self.name = config[0]
 		self.cmd = config[1]
 		self.cmdammount = config[2]
@@ -25,9 +26,9 @@ class Program:
 			self.state = "Running"
 		else:
 			self.state = "Not started"
-		self.exited = 0
-		self.stopped = 0
-		self.restarting = 0
+		# self.exited = 0
+		# self.stopped = 0
+		# self.restarting = 0
 
 def init_classes(configList):
 	"""initialises program classes with their corresponding config"""

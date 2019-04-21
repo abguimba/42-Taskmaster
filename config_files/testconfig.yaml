@@ -1,7 +1,7 @@
 programs:
     sleep:
-        cmd: "sleep 1000"
-        cmdammount: 10
+        cmd: "sleep 10"
+        cmdammount: 5
         autostart: True
         autorestart: "never"
         starttime: 5
@@ -15,10 +15,10 @@ programs:
         stderr: None
         env: None
     ls:
-        cmd: "ls -l R /"
-        cmdammount: 1
+        cmd: "ls -l /"
+        cmdammount: 3
         autostart: False
-        autorestart: "always"
+        autorestart: "unexpected"
         starttime: 5
         stoptime: 10
         restartretries: 3

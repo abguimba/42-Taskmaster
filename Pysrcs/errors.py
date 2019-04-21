@@ -1,14 +1,25 @@
 """General error output and handling file"""
 import sys
+import output
 
-def error_ammount_cmds(str):
+def error_execution(str):
+	print(output.bcolors.FAIL + "There was an error starting command:", str,
+	", not executing any instance of this command", output.bcolors.ENDC)
+
+def error_reload_config():
+	print(output.bcolors.FAIL + "There was an error reloading the config file" +
+	", staying on old config", output.bcolors.ENDC)
+
+def error_ammount_cmds(mode, str):
 	"""error for when a command has less than 1 instance in config file"""
 	print('\n' + "taskmaster : ", end='')
 	print("command -> " + str + " has less than one desired instance"
 	+ "in the config file")
-	exit(1)
+	if mode == 0:
+		exit(1)
+	return 1
 
-def error_config(command, param):
+def error_config(mode, command, param):
 	"""Base error function for config file errors"""
 	print('\n' + "taskmaster : ", end='')
 	print("command -> ", end='')
@@ -16,7 +27,9 @@ def error_config(command, param):
 	print("has ", end='')
 	print(param, end=' ')
 	print("not set correctly in the config file")
-	exit(1)
+	if mode == 0:
+		exit(1)
+	return (1)
 
 def error_yaml(exc):
 	"""error function for when yaml file doesn't load"""
@@ -25,11 +38,13 @@ def error_yaml(exc):
 	print("bad formatting or error loading yaml file")
 	exit(1)
 
-def error_config_len():
+def error_config_len(mode):
 	"""error function for when the yaml file doesn't contain all the fields"""
 	print('\n' + "taskmaster : ", end='')
 	print("Not all parameters are present in the config file!")
-	exit(1)
+	if mode == 0:
+		exit(1)
+	return (1)
 
 def error_check_params():
 	"""Initial error checking"""

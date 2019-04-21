@@ -1,6 +1,7 @@
 """File for general output purposes"""
 
 class bcolors:
+	CYA = '\033[36m'
 	HEADER = '\033[95m'
 	OKBLUE = '\033[94m'
 	OKGREEN = '\033[92m'
@@ -16,11 +17,19 @@ def display_status(programList):
 	print('\r', end='')
 	print("                                              ")
 	print("\r################################")
-	print(bcolors.HEADER + "General Status\n"
-	+ bcolors.ENDC)
+	print(bcolors.HEADER, "STATUS\n", bcolors.ENDC)
 	for program in programList:
 		print(bcolors.UNDERLINED, program.name, bcolors.ENDC)
-		print("      ", "State ->", program.state)
+		print("      ", "State ->", end='')
+		if program.state == "Running":
+			print(bcolors.OKGREEN, program.state, bcolors.ENDC)
+		elif program.state == "Not started" or program.state == "Exited":
+			print(bcolors.FAIL, program.state, bcolors.ENDC)
+		elif program.state == "Stopped":
+			print(bcolors.WARNING, program.state, bcolors.ENDC)
+		else:
+			print(bcolors.CYA, program.state, bcolors.ENDC)
+		print("      ", "Command ->", program.cmd)
 		print("      ", "Instances ->", program.cmdammount)
 		print("      ", "stdout ->", "n/a")
 		print("      ", "stderr ->", "n/a")
@@ -29,9 +38,9 @@ def display_status(programList):
 		elif program.autorestart == "never":
 			print("      ", "Restart ->", "never")
 		if program.autorestart == "unexpected":
-			print("      ", "Restart ->", "on exitcodes ->", end='')
+			print("      ", "Restart ->", "on exitcodes -> ", end='')
 			for code in program.exitcodes:
-				print(code, end='')
+				print(code, end=' ')
 			print('\n', end='')
 	print("\n################################\n")
 
