@@ -3,6 +3,7 @@
 from ctypes import cdll
 from ctypes import CDLL
 
-cdll.LoadLibrary("Pysrcs/libCtaskmaster.so")
-libCtaskmaster = CDLL("Pysrcs/libCtaskmaster.so")
-print(libCtaskmaster.refresh_screen(5))
+def refresh_screenC():
+	cdll.LoadLibrary("Pysrcs/libCtaskmaster.so")
+	libCtaskmaster = CDLL("Pysrcs/libCtaskmaster.so")
+	print(libCtaskmaster.refresh_screen(5))

@@ -4,6 +4,7 @@ import os
 import sys
 import termios
 import signal
+import curses
 
 import term_setup
 import output
@@ -24,8 +25,35 @@ class Taskmaster:
 		self.stopselected = 0
 		self.reloadselected = 0
 		self.exitselected = 0
-		self.confirmselected = 0
+		self.confirmselected = 1
 		self.cancelselected = 0
+
+	def right_key(self):
+		"""switches elements on right key press"""
+		if self.menustate == "base":
+			if self.statusselected == 1:
+				self.statusselected = 0
+				self.startselected = 1
+			elif self.startselected == 1:
+				self.startselected = 0
+				self.restartselected = 1
+			elif self.restartselected == 1:
+				self.restartselected = 0
+				self.stopselected = 1
+			elif self.stopselected == 1:
+				self.stopselected = 0
+				self.reloadselected = 1
+			elif self.reloadselected == 1:
+				self.reloadselected = 0
+				self.exitselected = 1
+			elif self.exitselected == 1:
+				self.exitselected = 0
+				self.statusselected = 1
+		elif (self.menustate == "startselect"
+		or self.menustate == "restartselect" or self.menustate == "stopselect"):
+			pass
+		elif self.menustate == "confirm":
+			pass
 
 	def update_term(self):
 		"""updates terminal rows and cols after a SIGWNCH"""
@@ -44,22 +72,27 @@ def init_menu(key, classList, configList, taskmaster):
 	if key == "enter":
 		pass
 	elif key == "right":
-		pass
+		taskmaster.right_key()
 	elif key == "left":
 		pass
-	if taskmaster.menustate == "base":
-		output.display_basic_menu(taskmaster)
+	if taskmaster.get_columns() >= 39:
+		if taskmaster.menustate == "base":
+			output.display_basic_menu(taskmaster)
+		elif (taskmaster.menustate == "startselect"
+		or taskmaster.menustate == "restartselect" or taskmaster.menustate == "stopselect"):
+			pass
+		elif taskmaster.menustate == "confirm":
+			pass
 		print('\r', end='')
-	elif taskmaster.menustate == "startselect":
-		pass
-	elif taskmaster.menustate == "restartselect":
-		pass
-	elif taskmaster.menustate == "stopselect":
-		pass
-	elif taskmaster.menustate == "confirm":
-		pass
-	elif taskmaster.menustate == "startselect":
-		pass
+	elif taskmaster.get_columns() >= 8:
+		print('\r', end='')
+		i = taskmaster.get_columns()
+		while i > 0:
+			print(' ', end='')
+			i -= 1
+		print('\r', end='')
+		print("No space", end='')
+		print('\r', end='')
 
 
 def initloop(classList, configList, taskmaster, stdin):
@@ -87,7 +120,11 @@ def initloop(classList, configList, taskmaster, stdin):
 				elif keychar == 'D':
 					key = "left"
 		else:
-			key = "base"
+			key = None
+		curses.filter()
+		stdscr = curses.initscr()
+		stdscr.refresh()
+		curses.endwin()
 
 def setuploop(classList, configList):
 	"""This function setups the menu loop"""
@@ -95,4 +132,4 @@ def setuploop(classList, configList):
 	terminfo, fd = term_setup.init_term()
 	taskmaster = Taskmaster(rows, columns, terminfo)
 	initloop(classList, configList, taskmaster, sys.stdin)
-	termios.tcsetattr(fd, termios.TCSAFLUSH, terminfo)
+	term_setup.restore_term(terminfo, fd)

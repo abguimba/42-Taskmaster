@@ -16,9 +16,7 @@ def display_special_str(str, mode):
 	if mode == 0:
 		print(str, end=' ')
 	elif mode == 1:
-		print(bcolors.UNDERLINED, str, bcolors.ENDC, end='')
-	elif mode == 2:
-		print(bcolors.UNDERLINED, bcolors.REV, str, bcolors.ENDC, end='')
+		print(bcolors.REV, str, bcolors.ENDC, end='')
 
 def display_basic_menu(taskmaster):
 	"""Displays the basic instance of the taskmaster's menu"""

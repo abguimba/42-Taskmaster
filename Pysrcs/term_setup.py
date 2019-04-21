@@ -4,7 +4,12 @@ import termios
 import sys
 import tty
 import os
-import curses
+
+def restore_term(terminfo, fd):
+	"""restores original termios structure and shows cursor back again"""
+	termios.tcsetattr(fd, termios.TCSAFLUSH, terminfo)
+	sys.stdout.write("\033[?25h")
+	sys.stdout.flush()
 
 def init_term():
 	"""This function tries to initialise the terminal, or exits gracefully"""
@@ -15,18 +20,8 @@ def init_term():
 		new[3] &= ~termios.ICANON
 		new[3] &= ~termios.ECHO
 		termios.tcsetattr(fd, termios.TCSAFLUSH, new)
-		tty.setraw(fd)
-		
-		curses.filter()
-		stdscr = curses.initscr()
-		stdscr.addstr("normal-")
-		stdscr.addstr("Hello world!", curses.A_REVERSE)
-		stdscr.addstr("-normal")
-		stdscr.refresh()
-		curses.endwin()
-		print
-		# curses.filter()
-		# curses.curs_set(0)
+		sys.stdout.write("\033[?25l")
+		sys.stdout.flush()
 	except:
 		termios.tcsetattr(fd, termios.TCSAFLUSH, old)
 		print("There was an error setting the terminal settings"
