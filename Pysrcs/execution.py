@@ -52,3 +52,4 @@ def load_or_reload(programList, prevprogramList):
 					program.pidList.append([proc.pid, "Running", None])
 					instances -= 1
 				program.state = "Started"
+	# ACABAR LA FUNCION CUANDO PREVPROGRAMLIST EXISTE

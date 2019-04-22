@@ -40,11 +40,11 @@ class Taskmaster:
 			if self.statusselected == 1:
 				output.display_status(programList)
 			elif self.startselected == 1:
-				pass
+				self.menustate = "startselect"
 			elif self.restartselected == 1:
-				pass
+				self.menustate = "restartselect"
 			elif self.stopselected == 1:
-				pass
+				self.menustate = "stopselect"
 			elif self.reloadselected == 1:
 				self.menustate = "confirm"
 				print("This will reload the config file, "
@@ -160,18 +160,18 @@ class Taskmaster:
 		"""returns terminal columns"""
 		return int(self.columns)
 
-def draw_menu(taskmaster):
-	if taskmaster.get_columns() >= 39:
+def draw_menu(taskmaster, programList):
+	if taskmaster.get_columns() >= 39 and taskmaster.get_rows() >= 8:
 		if taskmaster.menustate == "base":
 			output.display_basic_menu(taskmaster)
 		elif (taskmaster.menustate == "startselect"
 		or taskmaster.menustate == "restartselect"
 		or taskmaster.menustate == "stopselect"):
-			pass
+			output.display_programs_menu(taskmaster, programList)
 		elif taskmaster.menustate == "confirm":
 			output.display_confirm_menu(taskmaster)
 		print('\r', end='')
-	elif taskmaster.get_columns() >= 8:
+	elif taskmaster.get_columns() >= 8 and taskmaster.get_rows() >= 8:
 		print('\r', end='')
 		i = taskmaster.get_columns()
 		while i > 0:
@@ -191,7 +191,7 @@ def init_menu(key, programList, configList, taskmaster):
 		taskmaster.right_key()
 	elif key == "left":
 		taskmaster.left_key()
-	draw_menu(taskmaster)
+	draw_menu(taskmaster, programList)
 	return programList, 0
 
 

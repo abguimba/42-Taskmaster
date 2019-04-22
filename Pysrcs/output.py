@@ -12,6 +12,12 @@ class bcolors:
 	REV	= '\033[7m'
 	UNDERLINED = '\033[4m'
 
+def display_programs_menu(taskmaster, programList):
+	"""Displays the program selection menu"""
+	for program in programList:
+		display_special_str(program.name, program.selected)
+		print('\n')
+
 def display_status(programList):
 	"""Displays program's status"""
 	print('\r', end='')

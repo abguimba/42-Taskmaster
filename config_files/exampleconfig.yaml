@@ -6,7 +6,7 @@ programs:                                 #a list of programs
         autostart: True                       #cmd started at launch True/False? *Required*
         autorestart: "never"                                #restart this program on "never", "always", or on "unexpected" termination *Required*
         starttime: 5                                     #amount of time to go by before the program is considered "succesfully started" *Required*
-        stoptime: 10                          #amount of time to go by after sending quisit to program before killing it completely with SIGKILL *Required*
+        stoptime: 10                          #amount of time to go by after sending quitsit to program before killing it completely with SIGKILL *Required*
         restartretries: 3                     #amount of times a program will be tried to be restarted or started at the beginning before giving up on it *Required*
         quitsig: TERM                                    #signal that will be sent to the command to be gracefully exited (QUIT, TERM, INT, KILL) *Required*
         exitcodes:                            #exitcodes that define an expected termination for use autorestart or None for all exitcodes being considered unexpected

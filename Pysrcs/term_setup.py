@@ -20,6 +20,8 @@ def init_term():
 		new = old = termios.tcgetattr(fd)
 		new[3] &= ~termios.ICANON
 		new[3] &= ~termios.ECHO
+		new[6][termios.VTIME] = 1
+		new[6][termios.VMIN] = 0
 		termios.tcsetattr(fd, termios.TCSAFLUSH, new)
 		sys.stdout.write("\033[?25l")
 		sys.stdout.flush()
