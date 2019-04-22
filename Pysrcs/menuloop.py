@@ -221,6 +221,7 @@ def initloop(programList, configList, taskmaster, stdin):
 					key = "left"
 		else:
 			key = None
+		execution.update_program_status(programList)
 		curses.filter()
 		stdscr = curses.initscr()
 		stdscr.refresh()

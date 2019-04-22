@@ -33,7 +33,11 @@ def display_status(programList):
 		if len(program.pidList) > 0:
 			print("      ", "Instances ->", program.cmdammount)
 			for pid in program.pidList:
-				print("             ", pid[0], "->", pid[1])
+				print("             ", pid[0], "->", pid[1], end='')
+				if pid[2] != None:
+					print(" with exitcode ->", pid[2])
+				else:
+					print('')
 		print("      ", "stdout ->", "n/a")
 		print("      ", "stderr ->", "n/a")
 		if program.autorestart == "always":
