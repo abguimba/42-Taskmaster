@@ -1,8 +1,15 @@
 """File for general tooling"""
 import sys
 import yaml
+import os
+import signal
 
 import errors
+
+def kill_jobs(programList):
+	for program in programList:
+		for pid in program.pidList:
+			os.kill(pid[0], signal.SIGKILL)
 
 def verify_config(mode, configList):
 	"""Verifies that the parsed yaml file doesn't contain any errors and has 

@@ -13,6 +13,8 @@ import signals
 import menuloop
 import execution
 
+import subprocess
+
 def main():
 	"""main function"""
 	errors.error_check_params()

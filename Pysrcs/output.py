@@ -20,17 +20,20 @@ def display_status(programList):
 	print(bcolors.HEADER, "STATUS\n", bcolors.ENDC)
 	for program in programList:
 		print(bcolors.UNDERLINED, program.name, bcolors.ENDC)
+		print("      ", "Command ->", program.cmd)
 		print("      ", "State ->", end='')
-		if program.state == "Running":
+		if program.state == "Started":
 			print(bcolors.OKGREEN, program.state, bcolors.ENDC)
-		elif program.state == "Not started" or program.state == "Exited":
+		elif program.state == "Not started" or program.state == "Finished":
 			print(bcolors.FAIL, program.state, bcolors.ENDC)
 		elif program.state == "Stopped":
 			print(bcolors.WARNING, program.state, bcolors.ENDC)
 		else:
 			print(bcolors.CYA, program.state, bcolors.ENDC)
-		print("      ", "Command ->", program.cmd)
-		print("      ", "Instances ->", program.cmdammount)
+		if len(program.pidList) > 0:
+			print("      ", "Instances ->", program.cmdammount)
+			for pid in program.pidList:
+				print("             ", pid[0], "->", pid[1])
 		print("      ", "stdout ->", "n/a")
 		print("      ", "stderr ->", "n/a")
 		if program.autorestart == "always":

@@ -17,7 +17,7 @@ programs:
     ls:
         cmd: "ls -l /"
         cmdammount: 3
-        autostart: False
+        autostart: True
         autorestart: "unexpected"
         starttime: 5
         stoptime: 10
@@ -29,8 +29,8 @@ programs:
             - 15
         workingdir: "/Users/abe/Desktop/"
         umask: 022
-        stdout: "/dev/random"
-        stderr: "/dev/random"
+        stdout: "outfile.log"
+        stderr: "outfile.log"
         env:
             - STARTED_BY=TASKMASTER
             - ANSWER=42

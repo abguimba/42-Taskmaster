@@ -23,12 +23,11 @@ class Program:
 		self.stderr = config[13]
 		self.env = config[14]
 		if self.autostart == 1:
-			self.state = "Running"
+			self.state = "Started"
 		else:
 			self.state = "Not started"
-		# self.exited = 0
-		# self.stopped = 0
-		# self.restarting = 0
+		# self.state = "Finished"
+		# self.state = "Stopped"
 
 def init_classes(configList):
 	"""initialises program classes with their corresponding config"""

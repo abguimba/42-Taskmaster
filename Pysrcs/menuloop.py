@@ -13,6 +13,8 @@ import classes
 import output
 import errors
 import execution
+
+
 class Taskmaster:
 	"""Class for the main program"""
 
@@ -231,3 +233,4 @@ def setuploop(programList, configList):
 	taskmaster = Taskmaster(rows, columns, terminfo)
 	initloop(programList, configList, taskmaster, sys.stdin)
 	term_setup.restore_term(terminfo, fd)
+	tools.kill_jobs(programList)

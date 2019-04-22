@@ -5,27 +5,23 @@ import os
 
 import errors
 import term_setup
+import signals
 
 def load_or_reload(programList, prevprogramList):
 	"""this function loads the first batch of programs, or reloads new ones"""
 	if prevprogramList == None:
 		for program in programList:
-			cmdList = program.cmd.split()
-			instances = program.cmdammount
-			while instances > 0:
-				try:
-					pid = os.fork()
-				except OSError:
-					print("Could not fork, exiting")
-					exit(1)
-				if pid == 0:
+			if program.autostart == 1:
+				cmdList = program.cmd.split()
+				instances = program.cmdammount
+				while instances > 0:
 					try:
-						status = subprocess.run(cmdList)
+						with open("/dev/null", "wb", 0) as out:
+							proc = subprocess.Popen(cmdList, stdout=out)
 					except OSError:
 						print("Could not run the subprocess for", program.name,
 						"skipping this execution")
-						exit(1)
-					exit(status.returncode)
-				else:
-					program.pidList.append(pid)
-				instances -= 1
+						break
+					program.pidList.append((proc.pid, "Running"))
+					instances -= 1
+				program.state = "Started"
