@@ -32,7 +32,9 @@ def verify_config(mode, configList):
 			return errors.error_config(mode, config[0],
 			"starttime/stoptime/startretries")
 		elif (isinstance(config[8], str) != True or (config[8] != "TERM" and
-		config[8] != "QUIT" and config[8] != "INT" and config[8] != "KILL")):
+		config[8] != "QUIT" and config[8] != "INT" and config[8] != "KILL"
+		and config[8] != "STP" and config[8] != "ABRT"
+		and config[8] != "HUP" and config[8] != "STOP" )):
 			return errors.error_config(mode, config[0], "quitsig")
 
 def parse_yaml_file():
