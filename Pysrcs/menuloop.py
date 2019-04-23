@@ -40,21 +40,32 @@ class Taskmaster:
 			if self.statusselected == 1:
 				output.display_status(programList)
 			elif self.startselected == 1:
+				programList[0].firsttime = 1
 				self.menustate = "startselect"
 			elif self.restartselected == 1:
+				programList[0].firsttime = 1
 				self.menustate = "restartselect"
 			elif self.stopselected == 1:
+				programList[0].firsttime = 1
 				self.menustate = "stopselect"
 			elif self.reloadselected == 1:
 				self.menustate = "confirm"
 				print("This will reload the config file, "
-				+ "potentially killing previous jobs, are you sure?")
+				+ "potentially killing previous jobs, are you sure?\n")
 			elif self.exitselected == 1:
 				self.menustate = "confirm"
 				print("Exiting will close all programs, are you sure?")
 		elif (self.menustate == "startselect"
 		or self.menustate == "restartselect" or self.menustate == "stopselect"):
-			pass
+			count = len(programList)
+			while count > -1:
+				print('\r', end='')
+				sys.stdout.write("\033[K")
+				print('\r', end='')
+				sys.stdout.write("\033[F")
+				sys.stdout.write("\033[K")
+				count -= 1
+			self.menustate = "base"
 		elif self.menustate == "confirm":
 			if self.exitselected == 1:
 				if self.confirmselected == 1:
@@ -79,12 +90,22 @@ class Taskmaster:
 						output.bcolors.ENDC)
 						return programList, 0
 				elif self.cancelselected == 1:
+					print('\r', end='')
+					sys.stdout.write("\033[K")
+					print('\r', end='')
+					sys.stdout.write("\033[F")
+					sys.stdout.write("\033[K")
+					print('\r', end='')
+					sys.stdout.write("\033[K")
+					print('\r', end='')
+					sys.stdout.write("\033[F")
+					sys.stdout.write("\033[K")
 					self.menustate = "base"
 					self.cancelselected = 0
 					self.confirmselected = 1
 		return programList, 0
 
-	def left_key(self):
+	def left_key(self, programList):
 		"""switches elements on left key press"""
 		if self.menustate == "base":
 			if self.statusselected == 1:
@@ -107,7 +128,16 @@ class Taskmaster:
 				self.reloadselected = 1
 		elif (self.menustate == "startselect"
 		or self.menustate == "restartselect" or self.menustate == "stopselect"):
-			pass
+			i = 0
+			for program in programList:
+				if program.selected == 1:
+					program.selected = 0
+					if i == len(programList) - 1:
+						programList[0].selected = 1
+					else:
+						programList[i + 2].selected = 1
+				i += 1
+			return programList
 		elif self.menustate == "confirm":
 			if self.confirmselected == 1:
 				self.confirmselected = 0
@@ -115,8 +145,9 @@ class Taskmaster:
 			elif self.cancelselected == 1:
 				self.cancelselected = 0
 				self.confirmselected = 1
+		return programList
 
-	def right_key(self):
+	def right_key(self, programList):
 		"""switches elements on right key press"""
 		if self.menustate == "base":
 			if self.statusselected == 1:
@@ -139,7 +170,16 @@ class Taskmaster:
 				self.statusselected = 1
 		elif (self.menustate == "startselect"
 		or self.menustate == "restartselect" or self.menustate == "stopselect"):
-			pass
+			i = 0
+			for program in programList:
+				if program.selected == 1:
+					program.selected = 0
+					if i == 0:
+						programList[len(programList) - 1].selected = 1
+					else:
+						programList[i - 2].selected = 1
+				i += 1
+			return programList
 		elif self.menustate == "confirm":
 			if self.confirmselected == 1:
 				self.confirmselected = 0
@@ -147,6 +187,7 @@ class Taskmaster:
 			elif self.cancelselected == 1:
 				self.cancelselected = 0
 				self.confirmselected = 1
+		return programList
 
 	def update_term(self):
 		"""updates terminal rows and cols after a SIGWNCH"""
@@ -167,7 +208,7 @@ def draw_menu(taskmaster, programList):
 		elif (taskmaster.menustate == "startselect"
 		or taskmaster.menustate == "restartselect"
 		or taskmaster.menustate == "stopselect"):
-			output.display_programs_menu(taskmaster, programList)
+			programList = output.display_programs_menu(taskmaster, programList)
 		elif taskmaster.menustate == "confirm":
 			output.display_confirm_menu(taskmaster)
 		print('\r', end='')
@@ -180,6 +221,7 @@ def draw_menu(taskmaster, programList):
 		print('\r', end='')
 		print("No space", end='')
 		print('\r', end='')
+	return programList
 
 def init_menu(key, programList, configList, taskmaster):
 	"""This function updates the menu of the taskmaster"""
@@ -188,10 +230,10 @@ def init_menu(key, programList, configList, taskmaster):
 		if exiting == 1:
 			return programList, 1
 	elif key == "right":
-		taskmaster.right_key()
+		programList = taskmaster.right_key(programList)
 	elif key == "left":
-		taskmaster.left_key()
-	draw_menu(taskmaster, programList)
+		programList = taskmaster.left_key(programList)
+	programList = draw_menu(taskmaster, programList)
 	return programList, 0
 
 

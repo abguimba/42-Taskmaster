@@ -13,11 +13,10 @@ def update_program_status(programList):
 		if program.state != "Finished":
 			for pid in program.pidList:
 				if pid[1] != "Finished":
-					status = os.waitpid(pid[0], os.WNOHANG | os.WCONTINUED | os.WUNTRACED)
-					if status != (0, 0):
-						if os.WIFEXITED(status[1]) == True:
-							pid[1] = "Finished"
-							pid[2] = os.WEXITSTATUS(status[1])
+					status = pid[0].poll()
+					if status != None:
+						pid[1] = "Finished"
+						pid[2] = status
 		if program.state == "Started":
 			runningCount = 0
 			finishedCount = 0
@@ -49,7 +48,7 @@ def load_or_reload(programList, prevprogramList):
 						print("Could not run the subprocess for", program.name,
 						"skipping this execution")
 						break
-					program.pidList.append([proc.pid, "Running", None])
+					program.pidList.append([proc, "Running", None])
 					instances -= 1
 				program.state = "Started"
 	# ACABAR LA FUNCION CUANDO PREVPROGRAMLIST EXISTE

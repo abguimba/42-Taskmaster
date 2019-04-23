@@ -1,5 +1,7 @@
 """File for general output purposes"""
 
+import sys
+
 class bcolors:
 	CYA = '\033[36m'
 	HEADER = '\033[95m'
@@ -14,9 +16,35 @@ class bcolors:
 
 def display_programs_menu(taskmaster, programList):
 	"""Displays the program selection menu"""
+	if programList[0].firsttime == 1:
+		print('\r', end='')
+		print("                                                   ", end='')
+		print('\r', end='')
+		if taskmaster.menustate == "startselect":
+			print("Which program would you like to start?\n")
+		elif taskmaster.menustate == "restartselect":
+			print("Which program would you like to restart?\n")
+		elif taskmaster.menustate == "stopselect":
+			print("Which program would you like to stop?\n")
+		programList[0].firsttime = 0
+	else:
+		count = len(programList)
+		while count > 1:
+			print('\r', end='')
+			sys.stdout.write("\033[K")
+			print('\r', end='')
+			sys.stdout.write("\033[F")
+			count -= 1
+	print('\r', end='')
+	sys.stdout.write("\033[K")
+	print('\r', end='')
+	count = len(programList)
 	for program in programList:
-		display_special_str(program.name, program.selected)
-		print('\n')
+		count -= 1
+		display_special_str(program.name, program.selected, False)
+		if count > 0:
+			print('\n', end='')
+	return programList
 
 def display_status(programList):
 	"""Displays program's status"""
@@ -39,7 +67,7 @@ def display_status(programList):
 		if len(program.pidList) > 0:
 			print("      ", "Instances ->", program.cmdammount)
 			for pid in program.pidList:
-				print("             ", pid[0], "->", pid[1], end='')
+				print("             ", pid[0].pid, "->", pid[1], end='')
 				if pid[2] != None:
 					print(" with exitcode ->", pid[2])
 				else:
@@ -57,26 +85,28 @@ def display_status(programList):
 			print('\n', end='')
 	print("\n################################\n")
 
-def display_special_str(str, mode):
+def display_special_str(str, mode, newline):
 	"""Displays strings normally, underlined, or underlined + reversed"""
 	if mode == 0:
 		print(str, end=' ')
 	elif mode == 1:
 		print(bcolors.REV, str, bcolors.ENDC, end='')
+	if newline == True:
+		print('\n')
 
 def display_confirm_menu(taskmaster):
 	"""Displays the confirm instance of the taskmaster's menu"""
-	display_special_str("CONFIRM", taskmaster.confirmselected)
-	display_special_str("CANCEL", taskmaster.cancelselected)
+	display_special_str("CONFIRM", taskmaster.confirmselected, False)
+	display_special_str("CANCEL", taskmaster.cancelselected, False)
 
 def display_basic_menu(taskmaster):
 	"""Displays the basic instance of the taskmaster's menu"""
-	display_special_str("STATUS", taskmaster.statusselected)
-	display_special_str("START", taskmaster.startselected)
-	display_special_str("RESTART", taskmaster.restartselected)
-	display_special_str("STOP", taskmaster.stopselected)
-	display_special_str("RELOAD", taskmaster.reloadselected)
-	display_special_str("EXIT", taskmaster.exitselected)
+	display_special_str("STATUS", taskmaster.statusselected, False)
+	display_special_str("START", taskmaster.startselected, False)
+	display_special_str("RESTART", taskmaster.restartselected, False)
+	display_special_str("STOP", taskmaster.stopselected, False)
+	display_special_str("RELOAD", taskmaster.reloadselected, False)
+	display_special_str("EXIT", taskmaster.exitselected, False)
 
 def display_summary(classList, time):
 	"""Displays a summary of the config file and the programs that are about

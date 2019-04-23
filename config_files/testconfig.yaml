@@ -34,3 +34,21 @@ programs:
         env:
             - STARTED_BY=TASKMASTER
             - ANSWER=42
+    pwd:
+        cmd: "pwd"
+        cmdammount: 20
+        autostart: True
+        autorestart: "unexpected"
+        starttime: 5
+        stoptime: 10
+        restartretries: 3
+        quitsig: TERM
+        exitcodes:
+            - 0
+            - 2
+            - 15
+        workingdir: "/Users/abe/Desktop/"
+        umask: 022
+        stdout: None
+        stderr: None
+        env: None

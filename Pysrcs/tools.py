@@ -10,10 +10,11 @@ def kill_jobs(programList):
 	for program in programList:
 		if program.state != "Finished" and program.state != "Not started":
 			for pid in program.pidList:
-				os.kill(pid[0], signal.SIGKILL)
+				if pid[1] != "Finished":
+					os.kill(pid[0].pid, signal.SIGKILL)
 
 def verify_config(mode, configList):
-	"""Verifies that the parsed yaml file doesn't contain any errors and has 
+	"""Verifies that the parsed yaml file doesn't contain any errors and has
 	all required parameters
 	"""
 	for config in configList:
