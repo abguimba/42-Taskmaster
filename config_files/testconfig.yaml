@@ -1,6 +1,6 @@
 programs:
     sleep:
-        cmd: "sleep 10"
+        cmd: "sleep 1000"
         cmdammount: 5
         autostart: True
         autorestart: "never"

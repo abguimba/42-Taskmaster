@@ -12,7 +12,7 @@ Partners in this project -> [@toshuomj](https://github.com/toshuomj)
 
 <img src="/images/Taskmaster01.gif" alt="Taskmaster01" width="700"/>
 
-To launch the script, you first need to do a simple `make` and then either:
+To launch the script, you just need to either:
 
 ``` zsh
 $/> python3 taskmaster.py config_files/<yourconfig>.yaml

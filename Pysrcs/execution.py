@@ -16,19 +16,26 @@ def update_program_status(programList):
 					status = pid[0].poll()
 					if status != None:
 						pid[1] = "Finished"
+						status = str(status)
+						if status[0] == '-':
+							pid[1] = "Killed"
+							status = status[1]
 						pid[2] = status
 		if program.state == "Started":
 			runningCount = 0
 			finishedCount = 0
 			stoppedCount = 0
+			killedCount = 0
 			for pid in program.pidList:
 				if pid[1] == "Finished":
 					finishedCount += 1
+				elif pid[1] == "Killed":
+					killedCount += 1
 				elif pid[1] == "Running":
 					runningCount += 1
 				elif pid[1] == "Stopped":
 					stoppedCount += 1
-			if finishedCount == len(program.pidList):
+			if runningCount == 0 and stoppedCount == 0:
 				program.state = "Finished"
 			elif stoppedCount == len(program.pidList):
 				program.state = "Stopped"

@@ -7,6 +7,7 @@ import signal
 import errors
 
 def kill_jobs(programList):
+	"""kills remaining processes on exit"""
 	for program in programList:
 		if program.state != "Finished" and program.state != "Not started":
 			for pid in program.pidList:

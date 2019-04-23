@@ -132,10 +132,12 @@ class Taskmaster:
 			for program in programList:
 				if program.selected == 1:
 					program.selected = 0
-					if i == len(programList) - 1:
-						programList[0].selected = 1
+					if i == 0:
+						programList[len(programList) - 1].selected = 1
+						return programList
 					else:
-						programList[i + 2].selected = 1
+						programList[i - 1].selected = 1
+						return programList
 				i += 1
 			return programList
 		elif self.menustate == "confirm":
@@ -174,10 +176,12 @@ class Taskmaster:
 			for program in programList:
 				if program.selected == 1:
 					program.selected = 0
-					if i == 0:
-						programList[len(programList) - 1].selected = 1
+					if i == len(programList) - 1:
+						programList[0].selected = 1
+						return programList
 					else:
-						programList[i - 2].selected = 1
+						programList[i + 1].selected = 1
+						return programList
 				i += 1
 			return programList
 		elif self.menustate == "confirm":
