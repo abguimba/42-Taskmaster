@@ -42,15 +42,21 @@ def update_program_status(programList):
 
 def load_or_reload(programList, prevprogramList):
 	"""this function loads the first batch of programs, or reloads new ones"""
+	def initchildproc(program):
+		"""this function modifies a popen process"""
+		os.setpgrp()
+		os.umask(program.umask)
+
 	if prevprogramList == None:
 		for program in programList:
-			if program.autostart == 1:
+			if program.autostart == True:
+				program.started = True
 				cmdList = program.cmd.split()
 				instances = program.cmdammount
 				while instances > 0:
 					try:
 						with open("/dev/null", "wb", 0) as out:
-							proc = subprocess.Popen(cmdList, stdout=out)
+							proc = subprocess.Popen(cmdList, stdout=out, shell=False, preexec_fn=initchildproc(program))
 					except OSError:
 						print("Could not run the subprocess for", program.name,
 						"skipping this execution")

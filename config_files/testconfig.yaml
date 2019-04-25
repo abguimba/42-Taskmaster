@@ -10,7 +10,7 @@ programs:
         quitsig: TERM
         exitcodes: None
         workingdir: "/tmp/"
-        umask: 777
+        umask: 000
         stdout: None
         stderr: None
         env: None

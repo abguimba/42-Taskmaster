@@ -22,6 +22,7 @@ class Program:
 		self.stdout = config[12]
 		self.stderr = config[13]
 		self.env = config[14]
+		self.started = False
 		if self.autostart == 1:
 			self.state = "Started"
 		else:
