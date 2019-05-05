@@ -37,7 +37,7 @@ programs:
     pwd:
         cmd: "pwd"
         cmdammount: 20
-        autostart: True
+        autostart: False
         autorestart: "unexpected"
         starttime: 5
         stoptime: 10
