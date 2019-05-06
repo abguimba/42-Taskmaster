@@ -14,7 +14,6 @@ import output
 import errors
 import execution
 
-
 class Taskmaster:
 	"""Class for the main program"""
 

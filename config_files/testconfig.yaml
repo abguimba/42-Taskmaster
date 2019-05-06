@@ -1,7 +1,7 @@
 programs:
     sleep:
         cmd: "sleep 1000"
-        cmdammount: 5
+        cmdammount: 10
         autostart: True
         autorestart: "never"
         starttime: 5
@@ -23,10 +23,7 @@ programs:
         stoptime: 10
         restartretries: 3
         quitsig: TERM
-        exitcodes:
-            - 0
-            - 2
-            - 15
+        exitcodes: None
         workingdir: "/Users/abe/Desktop/"
         umask: 022
         stdout: "outfile.log"

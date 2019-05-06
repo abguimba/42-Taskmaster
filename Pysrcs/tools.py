@@ -21,21 +21,41 @@ def verify_config(mode, configList):
 	for config in configList:
 		if len(config) != 15:
 			return errors.error_config_len(mode)
+		elif isinstance(config[0], str) != True:
+			return errors.error_config(mode, config[0], "name")
+		elif isinstance(config[1], str) != True:
+			return errors.error_config(mode, config[0], "cmd")
+		elif isinstance(config[2], int) != True or config[2] < 1:
+			return errors.error_config(mode, config[0], "cmdammount") 
 		elif config[2] < 1:
 			return errors.error_ammount_cmds(mode, config[0])
-		elif config[3] != True and config[3] != False:
+		elif isinstance(config[3], bool) != True or (config[3] != True and config[3] != False):
 			return errors.error_config(mode, config[0], "autostart")
-		elif (config[4] != "never" and config[4] != "always"
+		elif isinstance(config[4], str) != True or (config[4] != "never" and config[4] != "always"
 		and config[4] != "unexpected"):
 			return errors.error_config(mode, config[0], "autorestart")
-		elif config[5] < 0 or config[6] < 0 or config[7] < 0:
+		elif ((config[5] < 0 or isinstance(config[5], int) != True)
+		or (config[6] < 0 or isinstance(config[6], int) != True)
+		or (config[7] < 0 or isinstance(config[7], int))) != True:
 			return errors.error_config(mode, config[0],
-			"starttime/stoptime/startretries")
+			"starttime/stoptime/restartretries")
 		elif (isinstance(config[8], str) != True or (config[8] != "TERM" and
 		config[8] != "QUIT" and config[8] != "INT" and config[8] != "KILL"
 		and config[8] != "STP" and config[8] != "ABRT"
 		and config[8] != "HUP" and config[8] != "STOP" )):
 			return errors.error_config(mode, config[0], "quitsig")
+		elif isinstance(config[9], str) != True and isinstance(config[9], list) != True:
+			return errors.error_config(mode, config[0], "exitcodes")
+		elif isinstance(config[10], str) != True:
+			return errors.error_config(mode, config[0], "workingdir")
+		elif isinstance(config[11], str) != True and isinstance(config[11], int) != True:
+			return errors.error_config(mode, config[0], "umask")
+		elif isinstance(config[12], str) != True:
+			return errors.error_config(mode, config[0], "stdout")
+		elif isinstance(config[13], str) != True:
+			return errors.error_config(mode, config[0], "stdin")
+		elif isinstance(config[14], str) != True and isinstance(config[14], list) != True:
+			return errors.error_config(mode, config[0], "env")
 
 def parse_yaml_file():
 	"""parses the yaml config file and returns it to the main function"""
@@ -50,6 +70,6 @@ def parse_yaml_file():
 					for param in configload[data][program]:
 						config.append(configload[data][program][param])
 					configList.append(config)
-		except yaml.YAMLError as exc:
-			errors.error_yaml(exc)
+		except:
+			errors.error_yaml("Yaml file")
 	return configList
