@@ -13,16 +13,18 @@ import classes
 import output
 import errors
 import execution
+import processes
 
 class Taskmaster:
 	"""Class for the main program"""
 
-	def __init__(self, rows, columns, termios):
+	def __init__(self, rows, columns, termios, configList):
 		"""starts base settings"""
 		self.name = "taskmaster"
 		self.rows = rows
 		self.columns = columns
 		self.termios = termios
+		self.config = configList
 		self.menustate = "base"
 		self.statusselected = 1
 		self.startselected = 0
@@ -56,6 +58,7 @@ class Taskmaster:
 				print("Exiting will close all programs, are you sure?")
 		elif (self.menustate == "startselect"
 		or self.menustate == "restartselect" or self.menustate == "stopselect"):
+			error = processes.handle_program(programList, self.menustate)
 			count = len(programList)
 			while count > -1:
 				print('\r', end='')
@@ -64,6 +67,10 @@ class Taskmaster:
 				sys.stdout.write("\033[F")
 				sys.stdout.write("\033[K")
 				count -= 1
+			if error == 1:
+				print(output.bcolors.FAIL + "Program already started/finished!" + output.bcolors.ENDC)
+			elif error == 2:
+				print(output.bcolors.FAIL + "Program is not running!" + output.bcolors.ENDC)
 			self.menustate = "base"
 		elif self.menustate == "confirm":
 			if self.exitselected == 1:
@@ -276,7 +283,7 @@ def setuploop(programList, configList):
 	"""This function setups the menu loop"""
 	rows, columns = os.popen('stty size', 'r').read().split()
 	terminfo, fd = term_setup.init_term()
-	taskmaster = Taskmaster(rows, columns, terminfo)
+	taskmaster = Taskmaster(rows, columns, terminfo, configList)
 	initloop(programList, configList, taskmaster, sys.stdin)
 	term_setup.restore_term(terminfo, fd)
 	tools.kill_jobs(programList)

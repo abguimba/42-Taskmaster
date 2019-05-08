@@ -38,6 +38,14 @@ def error_yaml(exc):
 	print("bad formatting or error loading yaml file")
 	exit(1)
 
+def error_repeated_names(mode):
+	"""error function for when there's repeated program names"""
+	print('\n' + "taskmaster : ", end='')
+	print("Repeated command names!")
+	if mode == 0:
+		exit(1)
+	return (1)
+
 def error_config_len(mode):
 	"""error function for when the yaml file doesn't contain all the fields"""
 	print('\n' + "taskmaster : ", end='')

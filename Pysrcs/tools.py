@@ -18,6 +18,14 @@ def verify_config(mode, configList):
 	"""Verifies that the parsed yaml file doesn't contain any errors and has
 	all required parameters
 	"""
+	i = 0
+	while i < len(configList):
+		j = i + 1
+		while j < len(configList):
+			if configList[i][0] == configList[j][0]:
+				return errors.error_repeated_names(mode)
+			j += 1
+		i += 1
 	for config in configList:
 		if len(config) != 15:
 			return errors.error_config_len(mode)
@@ -41,8 +49,7 @@ def verify_config(mode, configList):
 			"starttime/stoptime/restartretries")
 		elif (isinstance(config[8], str) != True or (config[8] != "TERM" and
 		config[8] != "QUIT" and config[8] != "INT" and config[8] != "KILL"
-		and config[8] != "STP" and config[8] != "ABRT"
-		and config[8] != "HUP" and config[8] != "STOP" )):
+		and config[8] != "TSTP" and config[8] != "HUP" and config[8] != "STOP" )):
 			return errors.error_config(mode, config[0], "quitsig")
 		elif isinstance(config[9], str) != True and isinstance(config[9], list) != True:
 			return errors.error_config(mode, config[0], "exitcodes")

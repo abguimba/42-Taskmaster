@@ -15,26 +15,26 @@ programs:
         stderr: None
         env: None
     ls:
-        cmd: "ls -l /"
-        cmdammount: 3
-        autostart: True
+        cmd: "ls -lR /"
+        cmdammount: 1
+        autostart: False
         autorestart: "unexpected"
         starttime: 5
         stoptime: 10
         restartretries: 3
         quitsig: TERM
         exitcodes: None
-        workingdir: "/Users/abe/Desktop/"
-        umask: 022
+        workingdir: "/Users/abguimba/Desktop/"
+        umask: None
         stdout: "outfile.log"
         stderr: "outfile.log"
         env:
             - STARTED_BY=TASKMASTER
             - ANSWER=42
-    pwd:
-        cmd: "pwd"
-        cmdammount: 20
-        autostart: False
+    env:
+        cmd: "env"
+        cmdammount: 1
+        autostart: True
         autorestart: "unexpected"
         starttime: 5
         stoptime: 10
@@ -44,8 +44,10 @@ programs:
             - 0
             - 2
             - 15
-        workingdir: "/Users/abe/Desktop/"
+        workingdir: None
         umask: 022
-        stdout: None
+        stdout: "/Users/abguimba/Desktop/caca"
         stderr: None
-        env: None
+        env:
+            - STARTED_BY=TASKMASTER
+            - ANSWER=42

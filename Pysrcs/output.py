@@ -83,8 +83,11 @@ def display_status(programList):
 			print("      ", "Restart ->", "never")
 		if program.autorestart == "unexpected":
 			print("      ", "Restart ->", "on exitcodes -> ", end='')
-			for code in program.exitcodes:
-				print(code, end=' ')
+			if isinstance(program.exitcodes, str):
+				print(program.exitcodes, end=' ')
+			else:
+				for code in program.exitcodes:
+					print(code, end=' ')
 			print('\n', end='')
 	print("\n################################\n")
 

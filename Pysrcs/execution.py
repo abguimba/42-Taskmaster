@@ -1,4 +1,4 @@
-"""Module for the executioon of the commands"""
+"""Module for the execution of the commands"""
 
 import subprocess
 import os
@@ -6,6 +6,14 @@ import os
 import errors
 import term_setup
 import signals
+
+def initchildproc(program):
+		"""this function modifies a popen process"""
+		os.setpgrp()
+		if isinstance(program.umask, int):
+			os.umask(program.umask)
+		if program.workingdir != "None" and isinstance(program.workingdir, str):
+			os.chdir(program.workingdir)
 
 def update_program_status(programList):
 	"""updates every instance's status"""
@@ -42,22 +50,33 @@ def update_program_status(programList):
 
 def load_or_reload(programList, prevprogramList):
 	"""this function loads the first batch of programs, or reloads new ones"""
-	def initchildproc(program):
-		"""this function modifies a popen process"""
-		os.setpgrp()
-		os.umask(program.umask)
 
 	if prevprogramList == None:
 		for program in programList:
+			envcopy = os.environ.copy()
+			if program.env != "None" and isinstance(program.env, list):
+				for envitem in program.env:
+					l = envitem.split('=', 2)
+					envcopy[l[0]] = l[1]
+			if (isinstance(program.stdout, str)
+				and program.stdout != "None" and program.stdout != "discard"):
+				outpath = program.stdout
+			else:
+				outpath = "/dev/null"
+			if (isinstance(program.stderr, str)
+				and program.stderr != "None" and program.stderr != "discard"):
+				errpath = program.stderr
+			else:
+				errpath = "/dev/null"
 			if program.autostart == True:
 				program.started = True
 				cmdList = program.cmd.split()
 				instances = program.cmdammount
 				while instances > 0:
 					try:
-						with open("/dev/null", "wb", 0) as out:
-							proc = subprocess.Popen(cmdList, stdout=out, shell=False, preexec_fn=initchildproc(program))
-					except OSError:
+						with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
+							proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=initchildproc(program))
+					except:
 						print("Could not run the subprocess for", program.name,
 						"skipping this execution")
 						break

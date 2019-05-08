@@ -23,9 +23,7 @@ class Program:
 		self.stderr = config[13]
 		self.env = config[14]
 		self.started = False
-		if self.autostart == 1:
-			self.state = "Started"
-		else:
+		if self.autostart != 1:
 			self.state = "Not started"
 		self.selected = 0
 
