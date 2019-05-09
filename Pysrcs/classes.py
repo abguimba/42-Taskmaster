@@ -25,7 +25,13 @@ class Program:
 		self.started = False
 		if self.autostart != 1:
 			self.state = "Not started"
+		else:
+			self.state = "Starting"
 		self.selected = 0
+
+	def update_state(self):
+		"""function that updates state after X time has run"""
+		self.state = "Started"
 
 def init_classes(configList):
 	"""initialises program classes with their corresponding config"""

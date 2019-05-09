@@ -70,7 +70,7 @@ def display_status(programList):
 				print("             ", pid[0].pid, "->", pid[1], end='')
 				if pid[2] != None:
 					if pid[1] == "Killed":
-						print(" killed by ->", pid[2])
+						print(" by ->", pid[2])
 					else:
 						print(" with exitcode ->", pid[2])
 				else:

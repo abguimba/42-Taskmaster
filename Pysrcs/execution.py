@@ -6,6 +6,7 @@ import os
 import errors
 import term_setup
 import signals
+import execution
 
 def initchildproc(program):
 		"""this function modifies a popen process"""
@@ -14,6 +15,84 @@ def initchildproc(program):
 			os.umask(program.umask)
 		if program.workingdir != "None" and isinstance(program.workingdir, str):
 			os.chdir(program.workingdir)
+
+def check_revive_process(programList):
+	"""function to revive process on unexpected exit"""
+	for program in programList:
+		l = program.autorestart
+		if l != "never":
+			if l == "unexpected" and isinstance(program.exitcodes, list) == True:
+				codes = program.exitcodes
+				for code in codes:
+					for pid in program.pidList:
+						if pid[1] == "Killed" or pid[1] == "Finished":
+							if int(pid[2]) == code:
+								program.pidList = []
+								envcopy = os.environ.copy()
+								if program.env != "None" and isinstance(program.env, list):
+									for envitem in program.env:
+										l = envitem.split('=', 2)
+										envcopy[l[0]] = l[1]
+								if (isinstance(program.stdout, str)
+									and program.stdout != "None" and program.stdout != "discard"):
+									outpath = program.stdout
+								else:
+									outpath = "/dev/null"
+								if (isinstance(program.stderr, str)
+									and program.stderr != "None" and program.stderr != "discard"):
+									errpath = program.stderr
+								else:
+									errpath = "/dev/null"
+								program.started = True
+								cmdList = program.cmd.split()
+								instances = program.cmdammount
+								while instances > 0:
+									try:
+										with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
+											proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=execution.initchildproc(program))
+									except:
+										print("Could not run the subprocess for", program.name,
+										"skipping this execution")
+										break
+									program.pidList.append([proc, "Running", None])
+									instances -= 1
+								program.state = "Started"
+								break
+			elif l == "always":
+				for pid in program.pidList:
+					if pid[1] == "Killed" or pid[1] == "Finished":
+						program.pidList = []
+						envcopy = os.environ.copy()
+						if program.env != "None" and isinstance(program.env, list):
+							for envitem in program.env:
+								l = envitem.split('=', 2)
+								envcopy[l[0]] = l[1]
+						if (isinstance(program.stdout, str)
+							and program.stdout != "None" and program.stdout != "discard"):
+							outpath = program.stdout
+						else:
+							outpath = "/dev/null"
+						if (isinstance(program.stderr, str)
+							and program.stderr != "None" and program.stderr != "discard"):
+							errpath = program.stderr
+						else:
+							errpath = "/dev/null"
+						program.started = True
+						cmdList = program.cmd.split()
+						instances = program.cmdammount
+						while instances > 0:
+							try:
+								with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
+									proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=execution.initchildproc(program))
+							except:
+								print("Could not run the subprocess for", program.name,
+								"skipping this execution")
+								break
+							program.pidList.append([proc, "Running", None])
+							instances -= 1
+						program.state = "Started"
+						break
+				
 
 def update_program_status(programList):
 	"""updates every instance's status"""
@@ -27,7 +106,7 @@ def update_program_status(programList):
 						status = str(status)
 						if status[0] == '-':
 							pid[1] = "Killed"
-							status = status[1]
+							status = status[1:]
 						pid[2] = status
 		if program.state == "Started":
 			runningCount = 0
@@ -47,6 +126,7 @@ def update_program_status(programList):
 				program.state = "Finished"
 			elif stoppedCount == len(program.pidList):
 				program.state = "Stopped"
+	check_revive_process(programList)
 
 def load_or_reload(programList, prevprogramList):
 	"""this function loads the first batch of programs, or reloads new ones"""

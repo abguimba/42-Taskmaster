@@ -24,11 +24,9 @@ def stop_program(programList):
 					s = signal.SIGTSTP
 				elif program.quitsig == "STOP":
 					s = signal.SIGSTOP
-				elif program.quitsig == "HUP":
-					s = signal.SIGHUP
 				for pid in program.pidList:
-					os.kill(pid[0].pid, s)
-				execution.update_program_status(programList)
+					if pid[1] != "Finished" and pid[1] != "Killed":
+							os.kill(pid[0].pid, s)
 				return 0
 			else:
 				return 2
@@ -38,11 +36,15 @@ def restart_program(programList):
 	for program in programList:
 		if program.selected == 1:
 			for pid in program.pidList:
-				if pid[1] != "Finished":
+				if pid[1] != "Finished" and pid[1] != "Killed":
 					os.kill(pid[0].pid, signal.SIGKILL)
 			program.state = "Not started"
 			program.started = False
-			program.pidList = []	
+			program.pidList = []
+		else:
+			program.state = "Not started"
+			program.started = False
+			program.pidList = []
 	return start_program(programList)
 
 def start_program(programList):

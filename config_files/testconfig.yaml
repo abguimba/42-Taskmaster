@@ -1,7 +1,7 @@
 programs:
     sleep:
         cmd: "sleep 1000"
-        cmdammount: 10
+        cmdammount: 398
         autostart: True
         autorestart: "never"
         starttime: 5
@@ -18,7 +18,7 @@ programs:
         cmd: "ls -lR /"
         cmdammount: 1
         autostart: False
-        autorestart: "unexpected"
+        autorestart: "always"
         starttime: 5
         stoptime: 10
         restartretries: 3
@@ -41,7 +41,7 @@ programs:
         restartretries: 3
         quitsig: TERM
         exitcodes:
-            - 0
+            - 1
             - 2
             - 15
         workingdir: None

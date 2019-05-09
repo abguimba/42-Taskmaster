@@ -46,6 +46,14 @@ def error_repeated_names(mode):
 		exit(1)
 	return (1)
 
+def error_instances(mode):
+	"""error function for when the yaml file contains too many instances"""
+	print('\n' + "taskmaster : ", end='')
+	print("Too many instances of some program in config file (fork bomb)")
+	if mode == 0:
+		exit(1)
+	return (1)
+
 def error_config_len(mode):
 	"""error function for when the yaml file doesn't contain all the fields"""
 	print('\n' + "taskmaster : ", end='')
