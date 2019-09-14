@@ -32,11 +32,12 @@ def error_config(mode, command, param):
 		exit(1)
 	return (1)
 
-def error_json(exc):
+def error_json(exc, e):
 	"""error function for when json file doesn't load"""
 	print('\n' + "taskmaster : ", end='')
 	print(exc)
 	print("bad formatting or error loading json file")
+	logging.error(f'Json file {sys.argv[1]} can\'t be load: {e}')
 	exit(1)
 
 def error_repeated_names(mode):
