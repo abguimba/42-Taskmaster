@@ -1,7 +1,7 @@
 programs:
-    sleep:
+    al:
         cmd: "sleep 1000"
-        cmdammount: 398
+        cmdammount: 10
         autostart: True
         autorestart: "never"
         starttime: 5

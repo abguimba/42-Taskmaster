@@ -39,5 +39,4 @@ def init_classes(configList):
 	for config in configList:
 		newClass = Program(config)
 		programList.append(newClass)
-	programList[0].selected = 1
 	return programList
