@@ -139,7 +139,7 @@ class TaskmasterShell(cmd.Cmd):
 	
     def do_reload(self, arg):
         'Reloads the whole configuration. Usage -> reload'
-        pass
+		pass
         # execution.update_program_status(globProgramList)
         # args = arg.split(' ')
         # checker = 0
