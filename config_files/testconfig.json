@@ -50,8 +50,8 @@
                 15
             ],
             "workingdir": "None",
-            "umask": 18,
-            "stdout": "/Users/abguimba/Desktop/caca",
+            "umask": "None",
+            "stdout": "/Users/mjose/Documents/caca",
             "stderr": "None",
             "env": [
                 "STARTED_BY=TASKMASTER",
