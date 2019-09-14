@@ -17,4 +17,4 @@ def ask_for_confirmation(programList, time):
 			sys.exit(0)
 		print("Please answer with yes/y or no/n")
 		confirmation = input().lower()
-	print('\n', end='')
+	# print('\n', end='')

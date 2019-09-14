@@ -5,6 +5,7 @@ import sys
 import termios
 import signal
 import curses
+import cmd
 
 import term_setup
 import output
@@ -14,6 +15,178 @@ import output
 import errors
 import execution
 import processes
+
+globProgramList = []
+globProgramconfigList = []
+
+class TaskmasterShell(cmd.Cmd):
+    global globProgramList
+    global globConfigList
+    intro = 'Welcome to the Taskmaster shell. Type help or ? to list commands. Also type help <command> for further information about a specific command\n'
+    prompt = '($>) '
+    file = None
+
+    # ----- basic taskmaster commands -----
+    def do_status(self, arg):
+        'Displays status for all supervised programs, or invididual programs. Usage -> status or status <program name>'
+        execution.update_program_status(globProgramList)
+        output.display_status(globProgramList, arg)
+        execution.update_program_status(globProgramList)
+    def do_start(self, arg):
+        'Starts desired program(s). Usage -> start <program name(s)>'
+        execution.update_program_status(globProgramList)
+        args = arg.split(' ')
+        checker = 0
+        if len(args) == 1:
+            for c in args:
+                if c.isalpha():
+                    checker = 1
+                    break
+        if checker == 0:
+            args = ""
+        if len(args) < 1:		
+            print(output.bcolors.FAIL + "Please select valid program(s) to start!" + output.bcolors.ENDC)
+            print(output.bcolors.FAIL + "Possible programs: " + output.bcolors.ENDC)
+            for program in globProgramList:
+                print(output.bcolors.FAIL + program.name + output.bcolors.ENDC)
+        else:
+            counter = 0
+            for a in args:
+                for program in globProgramList:
+                    if program.name == a:
+                        program.selected = 1
+                        counter += 1
+            if counter == 0:
+                print(output.bcolors.FAIL + "Please select valid program(s) to start!" + output.bcolors.ENDC)
+                print(output.bcolors.FAIL + "Possible programs: " + output.bcolors.ENDC)
+                for program in globProgramList:
+                    print(output.bcolors.FAIL + program.name + output.bcolors.ENDC)
+            else:
+                processes.handle_program(globProgramList, 'startselect')            
+        for program in globProgramList:
+            program.selected = 0
+        execution.update_program_status(globProgramList)
+	
+    def do_stop(self, arg):
+        'Stops desired program(s). Usage -> stop <program name(s)>'
+        execution.update_program_status(globProgramList)
+        args = arg.split(' ')
+        checker = 0
+        if len(args) == 1:
+            for c in args:
+                if c.isalpha():
+                    checker = 1
+                    break
+        if checker == 0:
+            args = ""
+        if len(args) < 1:		
+            print(output.bcolors.FAIL + "Please select valid program(s) to stop!" + output.bcolors.ENDC)
+            print(output.bcolors.FAIL + "Possible programs: " + output.bcolors.ENDC)
+            for program in globProgramList:
+                print(output.bcolors.FAIL + program.name + output.bcolors.ENDC)
+        else:
+            counter = 0
+            for a in args:
+                for program in globProgramList:
+                    if program.name == a:
+                        program.selected = 1
+                        counter += 1
+            if counter == 0:
+                print(output.bcolors.FAIL + "Please select valid program(s) to stop!" + output.bcolors.ENDC)
+                print(output.bcolors.FAIL + "Possible programs: " + output.bcolors.ENDC)
+                for program in globProgramList:
+                    print(output.bcolors.FAIL + program.name + output.bcolors.ENDC)
+            else:
+                processes.handle_program(globProgramList, 'stopselect')
+        for program in globProgramList:
+            program.selected = 0
+        execution.update_program_status(globProgramList)
+	
+    def do_restart(self, arg):
+        'Restarts desired program(s). Usage -> stop <program name(s)>'
+        execution.update_program_status(globProgramList)
+        args = arg.split(' ')
+        checker = 0
+        if len(args) == 1:
+            for c in args:
+                if c.isalpha():
+                    checker = 1
+                    break
+        if checker == 0:
+            args = ""
+        if len(args) < 1:		
+            print(output.bcolors.FAIL + "Please select valid program(s) to restart!" + output.bcolors.ENDC)
+            print(output.bcolors.FAIL + "Possible programs: " + output.bcolors.ENDC)
+            for program in globProgramList:
+                print(output.bcolors.FAIL + program.name + output.bcolors.ENDC)
+        else:
+            counter = 0
+            for a in args:
+                for program in globProgramList:
+                    if program.name == a:
+                        program.selected = 1
+                        counter += 1
+            if counter == 0:
+                print(output.bcolors.FAIL + "Please select valid program(s) to restart!" + output.bcolors.ENDC)
+                print(output.bcolors.FAIL + "Possible programs: " + output.bcolors.ENDC)
+                for program in globProgramList:
+                    print(output.bcolors.FAIL + program.name + output.bcolors.ENDC)
+            else:
+                processes.handle_program(globProgramList, 'restartselect')
+        for program in globProgramList:
+            program.selected = 0
+        execution.update_program_status(globProgramList)
+	
+    def do_reload(self, arg):
+        'Reloads the whole configuration. Usage -> reload'
+        pass
+        # execution.update_program_status(globProgramList)
+        # args = arg.split(' ')
+        # checker = 0
+        # if len(args) == 1:
+        #     for c in args:
+        #         if c.isalpha():
+        #             checker = 1
+        #             break
+        # if checker == 0:
+        #     args = ""
+        # if len(args) < 1:		
+        #     print(output.bcolors.FAIL + "Please select valid program(s) to restart!" + output.bcolors.ENDC)
+        #     print(output.bcolors.FAIL + "Possible programs: " + output.bcolors.ENDC)
+        #     for program in globProgramList:
+        #         print(output.bcolors.FAIL + program.name + output.bcolors.ENDC)
+        # else:
+        #     counter = 0
+        #     for a in args:
+        #         for program in globProgramList:
+        #             if program.name == a:
+        #                 program.selected = 1
+        #                 counter += 1
+        #     if counter == 0:
+        #         print(output.bcolors.FAIL + "Please select valid program(s) to restart!" + output.bcolors.ENDC)
+        #         print(output.bcolors.FAIL + "Possible programs: " + output.bcolors.ENDC)
+        #         for program in globProgramList:
+        #             print(output.bcolors.FAIL + program.name + output.bcolors.ENDC)
+        #     else:
+        #         processes.handle_program(globProgramList, 'restartselect')
+        # for program in globProgramList:
+        #     program.selected = 0
+        # execution.update_program_status(globProgramList)
+	
+    def do_exit(self, arg):
+        'Stop recording, close the Taskmaster window, and exit. Usage -> exit'
+        print('\nAll programs have been terminated. Thank you for using our Taskmaster')
+        self.close()
+        return True
+
+    def close(self):
+        if self.file:
+            self.file.close()
+            self.file = None
+
+def parse(arg):
+    'Convert a series of zero or more numbers to an argument tuple'
+    return tuple(map(int, arg.split()))
 
 class Taskmaster:
 	"""Class for the main program"""
@@ -281,9 +454,14 @@ def initloop(programList, configList, taskmaster, stdin):
 
 def setuploop(programList, configList):
 	"""This function setups the menu loop"""
-	rows, columns = os.popen('stty size', 'r').read().split()
-	terminfo, fd = term_setup.init_term()
-	taskmaster = Taskmaster(rows, columns, terminfo, configList)
-	initloop(programList, configList, taskmaster, sys.stdin)
-	term_setup.restore_term(terminfo, fd)
+	global globProgramList
+	global globConfigList
+	globProgramList = programList
+	globConfigList = configList
+	# rows, columns = os.popen('stty size', 'r').read().split()
+	# terminfo, fd = term_setup.init_term()
+	# taskmaster = Taskmaster(rows, columns, terminfo, configList)
+	# initloop(programList, configList, taskmaster, sys.stdin)
+	TaskmasterShell().cmdloop()
+	# term_setup.restore_term(terminfo, fd)
 	tools.kill_jobs(programList)
