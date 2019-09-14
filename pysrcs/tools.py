@@ -4,6 +4,7 @@ import yaml
 import json
 import os
 import signal
+import logging
 
 import errors
 
@@ -71,8 +72,11 @@ def verify_config(mode, configList):
 
 def parse_json_file():
     """parses the json config file and returns it to the main function"""
+    logging.info(f'Opening config file... {sys.argv[1]}')
     with open(sys.argv[1], 'r') as stream:
+        logging.info(f'Config file {sys.argv[1]} open.')
         try:
+            logging.info(f'Loading config file... {sys.argv[1]}')
             configload = json.load(stream)
             for data in configload:
                 configList = []
@@ -83,5 +87,6 @@ def parse_json_file():
                         config.append(configload[data][program][param])
                     configList.append(config)
         except Exception as e:
-            errors.error_json(f"Json file: {e}")
+            errors.error_json(f"Json file: {e}", e)
+        logging.info(f'Config file {sys.argv[1]} loaded.')
     return configList
