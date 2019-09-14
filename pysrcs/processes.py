@@ -6,6 +6,8 @@ import os
 import signal
 import time
 
+import output
+
 def stop_program(programList):
 	"""this function stops a program with the desired signal"""
 	for program in programList:
@@ -27,9 +29,9 @@ def stop_program(programList):
 				for pid in program.pidList:
 					if pid[1] != "Finished" and pid[1] != "Killed":
 							os.kill(pid[0].pid, s)
-				return 0
 			else:
-				return 2
+				print(output.bcolors.FAIL + "Program " + program.name + " was already stopped/finished!" + output.bcolors.ENDC)
+	return 0
 
 def restart_program(programList):
 	"""this function restarts a program"""
@@ -73,7 +75,10 @@ def start_program(programList):
 				while instances > 0:
 					try:
 						with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
-							proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=execution.initchildproc(program))
+							proc = subprocess.Popen(cmdList, stdout=out, 
+													stderr=err, 
+													env=envcopy,
+													preexec_fn=execution.initchildproc(program))	
 					except:
 						print("Could not run the subprocess for", program.name,
 						"skipping this execution")
@@ -81,9 +86,9 @@ def start_program(programList):
 					program.pidList.append([proc, "Running", None])
 					instances -= 1
 				program.state = "Started"
-				return 0
 			else:
-				return 1
+				print(output.bcolors.FAIL + "Program " + program.name + " was already started/finished!" + output.bcolors.ENDC)
+	return 0
 
 def	handle_program(programList, menustate):
 	"""this function handles start/stop/restart of programs"""

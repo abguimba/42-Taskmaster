@@ -46,12 +46,37 @@ def display_programs_menu(taskmaster, programList):
 			print('\n', end='')
 	return programList
 
-def display_status(programList):
+def display_status(programList, args):
 	"""Displays program's status"""
 	print('\r', end='')
 	print("                                              ")
 	print("\r################################")
 	print(bcolors.HEADER, "STATUS\n", bcolors.ENDC)
+	args = args.split(' ')
+	checker = 0
+	if len(args) >= 1:
+		for c in args:
+			if c.isalpha():
+				checker = 1
+				break
+	if checker == 0:
+		args = ""
+	if len(args) > 0:
+		newProgramList = []
+		for name in args:
+			counter = 0
+			for program in programList:
+				if name == program.name:
+					counter += 1
+					newProgramList.append(program)
+			if counter == 0:
+				print(bcolors.FAIL + "Program: " + name + " not found!" + bcolors.ENDC)
+				print(bcolors.FAIL + "Possible programs: " + bcolors.ENDC)
+				for program in programList:
+					print(bcolors.FAIL + program.name + bcolors.ENDC)
+				return
+			else:
+				programList = newProgramList
 	for program in programList:
 		print(bcolors.UNDERLINED, program.name, bcolors.ENDC)
 		print("      ", "Command ->", program.cmd)
