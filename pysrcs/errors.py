@@ -32,11 +32,11 @@ def error_config(mode, command, param):
 		exit(1)
 	return (1)
 
-def error_yaml(exc):
-	"""error function for when yaml file doesn't load"""
+def error_json(exc):
+	"""error function for when json file doesn't load"""
 	print('\n' + "taskmaster : ", end='')
 	print(exc)
-	print("bad formatting or error loading yaml file")
+	print("bad formatting or error loading json file")
 	exit(1)
 
 def error_repeated_names(mode):
@@ -69,7 +69,8 @@ def error_check_params():
 	if len(sys.argv) != 2:
 		print("taskmaster : ", end='')
 		print("usage: main.py config_file")
-		logging.info(f'Invalid params found: arguments found {len(sys.argv)}, expected 2.')
+		logging.error(f'Invalid params found: arguments found {len(sys.argv)}, expected 2.')
+		logging.info(f'Exit Taskmaster')
 		exit(1)
 	logging.info('Params checked: VALID')
 

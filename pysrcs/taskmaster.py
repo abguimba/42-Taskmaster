@@ -25,7 +25,7 @@ def main():
 	signals.set_signal_handlers_taskmaster()
 	output.display_progress()
 	start = time.time()
-	configList = tools.parse_yaml_file()
+	configList = tools.parse_json_file()
 	tools.verify_config(0, configList)
 	programList = classes.init_classes(configList)
 	end = time.time()
