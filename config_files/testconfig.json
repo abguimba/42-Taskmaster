@@ -1,0 +1,62 @@
+{
+    "programs": {
+        "sleep": {
+            "cmd": "sleep 1000",
+            "cmdammount": 10,
+            "autostart": true,
+            "autorestart": "never",
+            "starttime": 5,
+            "stoptime": 10,
+            "restartretries": 3,
+            "quitsig": "TERM",
+            "exitcodes": "None",
+            "workingdir": "/tmp/",
+            "umask": 0,
+            "stdout": "None",
+            "stderr": "None",
+            "env": "None"
+        },
+        "ls": {
+            "cmd": "ls -lR /",
+            "cmdammount": 1,
+            "autostart": false,
+            "autorestart": "always",
+            "starttime": 5,
+            "stoptime": 10,
+            "restartretries": 3,
+            "quitsig": "TERM",
+            "exitcodes": "None",
+            "workingdir": "/Users/abguimba/Desktop/",
+            "umask": "None",
+            "stdout": "outfile.log",
+            "stderr": "outfile.log",
+            "env": [
+                "STARTED_BY=TASKMASTER",
+                "ANSWER=42"
+            ]
+        },
+        "env": {
+            "cmd": "env",
+            "cmdammount": 1,
+            "autostart": true,
+            "autorestart": "unexpected",
+            "starttime": 5,
+            "stoptime": 10,
+            "restartretries": 3,
+            "quitsig": "TERM",
+            "exitcodes": [
+                1,
+                2,
+                15
+            ],
+            "workingdir": "None",
+            "umask": 18,
+            "stdout": "/Users/abguimba/Desktop/caca",
+            "stderr": "None",
+            "env": [
+                "STARTED_BY=TASKMASTER",
+                "ANSWER=42"
+            ]
+        }
+    }
+}

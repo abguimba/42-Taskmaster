@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
 """Main module for this taskmaster project"""
-import yaml
-
 import errors
 import tools
 import classes
@@ -12,11 +10,17 @@ import time
 import signals
 import menuloop
 import execution
+import logging
 
 import subprocess
 
+
 def main():
 	"""main function"""
+	logging.basicConfig(filename='taskmaster.log',
+						level=logging.DEBUG,
+						filemode='w',
+						format='%(asctime)s %(levelname)s\t%(message)s')
 	errors.error_check_params()
 	signals.set_signal_handlers_taskmaster()
 	output.display_progress()
@@ -28,6 +32,7 @@ def main():
 	userinput.ask_for_confirmation(programList, str(end - start))
 	execution.load_or_reload(programList, None)
 	menuloop.setuploop(programList, configList)
+
 
 if __name__ == '__main__':
 	main()
