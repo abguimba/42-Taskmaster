@@ -69,8 +69,8 @@ def verify_config(mode, configList):
         elif isinstance(config[14], str) != True and isinstance(config[14], list) != True:
             return errors.error_config(mode, config[0], "env")
 
-def parse_yaml_file():
-    """parses the yaml config file and returns it to the main function"""
+def parse_json_file():
+    """parses the json config file and returns it to the main function"""
     with open(sys.argv[1], 'r') as stream:
         try:
             configload = json.load(stream)
@@ -83,6 +83,5 @@ def parse_yaml_file():
                         config.append(configload[data][program][param])
                     configList.append(config)
         except Exception as e:
-            print(e)
-            errors.error_yaml("Yaml file")
+            errors.error_json(f"Json file: {e}")
     return configList
