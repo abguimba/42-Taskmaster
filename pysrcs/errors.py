@@ -1,6 +1,7 @@
 """General error output and handling file"""
 import sys
 import output
+import logging
 
 def error_execution(str):
 	print(output.bcolors.FAIL + "There was an error starting command:", str,
@@ -64,7 +65,11 @@ def error_config_len(mode):
 
 def error_check_params():
 	"""Initial error checking"""
+	logging.info('Checking valid params...')
 	if len(sys.argv) != 2:
 		print("taskmaster : ", end='')
 		print("usage: main.py config_file")
+		logging.info(f'Invalid params found: arguments found {len(sys.argv)}, expected 2.')
 		exit(1)
+	logging.info('Params checked: VALID')
+
