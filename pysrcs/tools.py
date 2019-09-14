@@ -22,9 +22,10 @@ def verify_config(mode, configList):
     """
     i = 0
     totalinstances = 0
+    logging.info(f'Checking configuration...')
     while i < len(configList):
         j = i + 1
-        totalinstances = totalinstances + configList[i][2]
+        totalinstances += configList[i][2]
         while j < len(configList):
             if configList[i][0] == configList[j][0]:
                 return errors.error_repeated_names(mode)
@@ -32,6 +33,7 @@ def verify_config(mode, configList):
         i += 1
     if totalinstances > 400:
         errors.error_instances(mode)
+    logging.info(f'{totalinstances} instances have been found')
     for config in configList:
         if len(config) != 15:
             return errors.error_config_len(mode)
