@@ -1,13 +1,8 @@
-<<<<<<< Updated upstream
-2019-09-14 20:21:16,676 INFO	Checking valid params...
-2019-09-14 20:21:16,676 INFO	Params checked: VALID
-2019-09-14 20:21:16,677 INFO	Setting signal handlers...
-2019-09-14 20:21:16,677 INFO	Signal handlers setted.
-2019-09-14 20:21:16,677 INFO	Opening config file... config_files/testconfig.json
-2019-09-14 20:21:16,677 INFO	Config file config_files/testconfig.json open.
-2019-09-14 20:21:16,677 INFO	Loading config file... config_files/testconfig.json
-2019-09-14 20:21:16,678 ERROR	Json file config_files/testconfig.json can't be load: Expecting ',' delimiter: line 16 column 13 (char 422)
-=======
-2019-09-14 20:25:02,366 INFO	Checking valid params...
-2019-09-14 20:25:02,366 INFO	Params checked: VALID
->>>>>>> Stashed changes
+2019-09-14 20:31:43,139 INFO	Checking valid params...
+2019-09-14 20:31:43,139 INFO	Params checked: VALID
+2019-09-14 20:31:43,140 INFO	Setting signal handlers...
+2019-09-14 20:31:43,140 INFO	Signal handlers setted.
+2019-09-14 20:31:43,140 INFO	Opening config file... config_files/testconfig.json
+2019-09-14 20:31:43,140 INFO	Config file config_files/testconfig.json open.
+2019-09-14 20:31:43,140 INFO	Loading config file... config_files/testconfig.json
+2019-09-14 20:31:43,140 ERROR	Json file config_files/testconfig.json can't be load: Expecting ',' delimiter: line 16 column 13 (char 434)
