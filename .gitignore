@@ -1,2 +1,12 @@
 .vscode
 __pycache__
+
+.idea/
+
+Pipfile
+
+venv/bin/
+
+venv/lib/python3.7/site-packages/
+
+venv/
