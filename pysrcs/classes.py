@@ -1,4 +1,5 @@
 """File to store all class related functions"""
+import logging
 
 class Program:
 	"""base class for all programs to be executed"""
@@ -35,8 +36,10 @@ class Program:
 
 def init_classes(configList):
 	"""initialises program classes with their corresponding config"""
+	logging.info(f'Initializing programs list')
 	programList = []
 	for config in configList:
 		newClass = Program(config)
 		programList.append(newClass)
+	logging.info(f'Programs list initilized')
 	return programList
