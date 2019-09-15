@@ -17,10 +17,13 @@ import subprocess
 
 def main():
 	"""main function"""
-	logging.basicConfig(filename='taskmaster.log',
-						level=logging.DEBUG,
-						filemode='w',
-						format='%(asctime)s %(levelname)s\t%(message)s')
+	try:
+		logging.basicConfig(filename='taskmaster.log',
+							level=logging.DEBUG,
+							filemode='w',
+							format='%(asctime)s %(levelname)s\t%(message)s')
+	except Exception as error_log:
+		userinput.ask_for_confirmation(None, None, error_log)
 	errors.error_check_params()
 	signals.set_signal_handlers_taskmaster()
 	output.display_progress()
@@ -29,7 +32,9 @@ def main():
 	tools.verify_config(0, configList)
 	programList = classes.init_classes(configList)
 	end = time.time()
-	userinput.ask_for_confirmation(programList, str(end - start))
+	userinput.ask_for_confirmation(programList,
+									str(end - start),
+									None)
 	execution.load_or_reload(programList, None)
 	menuloop.setuploop(programList, configList)
 

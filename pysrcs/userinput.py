@@ -6,11 +6,15 @@ import termios
 import logging
 
 import curses
+import errors
 
-def ask_for_confirmation(programList, time):
+def ask_for_confirmation(programList, time, error):
 	"""Asks for confirmation of current setup"""
-	logging.info(f'Asking the user, if he wants to launch the loaded configuration.')
-	output.display_summary(programList, time)
+	logging.info(f'Asking the user if he wants to continue')
+	if time != None:
+		output.display_summary(programList, time)
+	else:
+		errors.error_log(error)
 	confirmation = input().lower()
 	while confirmation != 'y' and confirmation != "yes":
 		if confirmation == 'n' or confirmation == "no":
