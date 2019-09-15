@@ -61,7 +61,7 @@ def verify_config(mode, configList):
             return errors.error_config(mode, config[0], "quitsig")
         elif isinstance(config[9], str) != True and isinstance(config[9], list) != True:
             return errors.error_config(mode, config[0], "exitcodes")
-        elif isinstance(config[10], str) != True:
+        elif isinstance(config[10], str) != True or os.path.isdir(config[10]) == False:
             return errors.error_config(mode, config[0], "workingdir")
         elif isinstance(config[11], str) != True and isinstance(config[11], int) != True:
             return errors.error_config(mode, config[0], "umask")
@@ -71,7 +71,9 @@ def verify_config(mode, configList):
             return errors.error_config(mode, config[0], "stdin")
         elif isinstance(config[14], str) != True and isinstance(config[14], list) != True:
             return errors.error_config(mode, config[0], "env")
-    logging.info(f'Config verified succesfully')
+        if config[10][len(config[10]) - 1] != '/':
+            config[10] += '/'
+        logging.info(f'Config verified succesfully')
 
 def parse_json_file():
     """parses the json config file and returns it to the main function"""
