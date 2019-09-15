@@ -18,8 +18,8 @@ def error_ammount_cmds(mode, str):
 	+ "in the config file")
 	if mode == 0:
 		logging.error(f'Command {str} has less than one desired instance'
-		+ f' in the config file, exit TaskMaster')
-		exit(1)
+		+ f' in the config file, exit TaskMaster. RC=1')
+		sys.exit(1)
 	logging.error(f'Command {str} has less than one desired instance'
 	+ f' in the config file')
 	return 1
@@ -34,8 +34,8 @@ def error_config(mode, command, param):
 	print("not set correctly in the config file")
 	if mode == 0:
 		logging.error(f'Command {command} has {param} not seted'
-		+ f' correctly in the config file, exit TaskMaster.')
-		exit(1)
+		+ f' correctly in the config file, exit TaskMaster. RC=1')
+		sys.exit(1)
 	logging.error(f'Command {command} has {param} not seted'
 	+ f' correctly in the config file')
 	return (1)
@@ -45,15 +45,17 @@ def error_json(exc, e):
 	print('\n' + "taskmaster : ", end='')
 	print(exc)
 	print("bad formatting or error loading json file")
-	logging.error(f'Json file {sys.argv[1]} can\'t be load: {e}')
-	exit(1)
+	logging.error(f'Json file {sys.argv[1]} can\'t be load: {e}, exit TaskMaster RC=1')
+	sys.exit(1)
 
 def error_repeated_names(mode):
 	"""error function for when there's repeated program names"""
 	print('\n' + "taskmaster : ", end='')
 	print("Repeated command names!")
 	if mode == 0:
-		exit(1)
+		logging.error(f'Invalid program names have been detected. Exit TaskMaster RC=1')
+		sys.exit(1)
+	logging.error(f'Invalid program names have been detected.')
 	return (1)
 
 def error_instances(mode, totalinstances):
@@ -61,8 +63,8 @@ def error_instances(mode, totalinstances):
 	print('\n' + "taskmaster : ", end='')
 	print("Too many instances of some program in config file (fork bomb)")
 	if mode == 0:
-		logging.error(f'{totalinstances} instances have been found, the limit is 400, exit TaskMaster.')
-		exit(1)
+		logging.error(f'{totalinstances} instances have been found, the limit is 400, exit TaskMaster. RC=1')
+		sys.exit(1)
 	logging.error(f'{totalinstances} instances have been found, the limit is 400')
 	return (1)
 
@@ -71,8 +73,8 @@ def error_config_len(mode, len_param):
 	print('\n' + "taskmaster : ", end='')
 	print("Not all parameters are present in the config file!")
 	if mode == 0:
-		logging.error(f'Parameters found {len_param}, expected 15, exit TaskMaster.')
-		exit(1)
+		logging.error(f'Parameters found {len_param}, expected 15, exit TaskMaster. RC=1')
+		sys.exit(1)
 	logging.error(f'Parameters found {len_param}, expected 15.')
 	return (1)
 
@@ -83,7 +85,7 @@ def error_check_params():
 		print("taskmaster : ", end='')
 		print("usage: main.py config_file")
 		logging.error(f'Invalid params found: arguments found {len(sys.argv)}, expected 2.')
-		logging.info(f'Exit TaskMaster')
-		exit(1)
+		logging.info(f'Exit TaskMaster RC=1')
+		sys.exit(1)
 	logging.info('Params checked: VALID')
 
