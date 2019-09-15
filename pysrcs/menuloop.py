@@ -175,7 +175,7 @@ class TaskmasterShell(cmd.Cmd):
 	
     def do_exit(self, arg):
         'Stop recording, close the Taskmaster window, and exit. Usage -> exit'
-        print('\nAll programs have been terminated. Thank you for using our Taskmaster')
+        print('\nAll programs are being terminated... Please wait. Thank you for using our Taskmaster')
         self.close()
         return True
 

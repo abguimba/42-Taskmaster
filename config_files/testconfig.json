@@ -1,11 +1,11 @@
 {
     "programs": {
         "sleep": {
-            "cmd": "sleep 10",
-            "cmdammount": 10,
+            "cmd": "sleep 1000",
+            "cmdammount": 1,
             "autostart": true,
             "autorestart": "never",
-            "starttime": 5,
+            "starttime": 10,
             "stoptime": 10,
             "restartretries": 3,
             "quitsig": "TERM",
@@ -19,9 +19,9 @@
         "ls": {
             "cmd": "ls",
             "cmdammount": 1,
-            "autostart": true,
+            "autostart": false,
             "autorestart": "always",
-            "starttime": 5,
+            "starttime": 20,
             "stoptime": 10,
             "restartretries": 3,
             "quitsig": "TERM",
@@ -40,7 +40,7 @@
             "cmdammount": 5,
             "autostart": false,
             "autorestart": "unexpected",
-            "starttime": 5,
+            "starttime": 3,
             "stoptime": 10,
             "restartretries": 3,
             "quitsig": "TERM",
