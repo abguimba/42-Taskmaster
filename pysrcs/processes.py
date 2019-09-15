@@ -61,12 +61,18 @@ def start_program(programList):
 						envcopy[l[0]] = l[1]
 				if (isinstance(program.stdout, str)
 					and program.stdout != "None" and program.stdout != "discard"):
-					outpath = program.stdout
+						if program.workingdir != "None":
+							outpath = program.workingdir + program.stdout
+						else:
+							outpath = program.stdout
 				else:
 					outpath = "/dev/null"
 				if (isinstance(program.stderr, str)
 					and program.stderr != "None" and program.stderr != "discard"):
-					errpath = program.stderr
+						if program.workingdir != "None":
+							errpath = program.workingdir + program.stderr
+						else:
+							errpath = program.stderr
 				else:
 					errpath = "/dev/null"
 				program.started = True

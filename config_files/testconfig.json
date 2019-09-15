@@ -1,8 +1,8 @@
 {
     "programs": {
         "sleep": {
-            "cmd": "sleep 1000",
-            "cmdammount": 397,
+            "cmd": "sleep 10",
+            "cmdammount": 10,
             "autostart": true,
             "autorestart": "never",
             "starttime": 5,
@@ -19,14 +19,14 @@
         "ls": {
             "cmd": "ls",
             "cmdammount": 1,
-            "autostart": false,
+            "autostart": true,
             "autorestart": "always",
             "starttime": 5,
             "stoptime": 10,
             "restartretries": 3,
             "quitsig": "TERM",
             "exitcodes": "None",
-            "workingdir": "/tmp/",
+            "workingdir": "/tmp",
             "umask": "None",
             "stdout": "outfile.log",
             "stderr": "outfile.log",
@@ -38,7 +38,7 @@
         "env": {
             "cmd": "env",
             "cmdammount": 1,
-            "autostart": true,
+            "autostart": false,
             "autorestart": "unexpected",
             "starttime": 5,
             "stoptime": 10,
