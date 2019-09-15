@@ -2,7 +2,7 @@
     "programs": {
         "sleep": {
             "cmd": "sleep 1000",
-            "cmdammount": 10,
+            "cmdammount": 397,
             "autostart": true,
             "autorestart": "never",
             "starttime": 5,
@@ -11,13 +11,13 @@
             "quitsig": "TERM",
             "exitcodes": "None",
             "workingdir": "/tmp/",
-            "umask": 0,
-            "stdout": "None",
-            "stderr": "None",
+            "umask": "None",
+            "stdout": "outfile.log",
+            "stderr": "outfile.log",
             "env": "None"
         },
         "ls": {
-            "cmd": "ls -lR /",
+            "cmd": "ls",
             "cmdammount": 1,
             "autostart": false,
             "autorestart": "always",
@@ -26,7 +26,7 @@
             "restartretries": 3,
             "quitsig": "TERM",
             "exitcodes": "None",
-            "workingdir": "/Users/abguimba/Desktop/",
+            "workingdir": "/tmp/",
             "umask": "None",
             "stdout": "outfile.log",
             "stderr": "outfile.log",
@@ -49,9 +49,9 @@
                 2,
                 15
             ],
-            "workingdir": "None",
+            "workingdir": "/tmp/",
             "umask": "None",
-            "stdout": "/Users/mjose/Documents/caca",
+            "stdout": "cacafile.log",
             "stderr": "None",
             "env": [
                 "STARTED_BY=TASKMASTER",

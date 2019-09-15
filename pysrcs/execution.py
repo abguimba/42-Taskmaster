@@ -15,6 +15,8 @@ def initchildproc(program):
 			os.umask(program.umask)
 		if program.workingdir != "None" and isinstance(program.workingdir, str):
 			os.chdir(program.workingdir)
+		else:
+			os.chdir(os.getcwd())
 
 def check_revive_process(programList):
 	"""function to revive process on unexpected exit"""

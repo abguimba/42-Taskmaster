@@ -1,10 +1,11 @@
-2019-09-14 22:06:54,247 INFO	Checking valid params...
-2019-09-14 22:06:54,247 INFO	Params checked: VALID
-2019-09-14 22:06:54,247 INFO	Setting signal handlers...
-2019-09-14 22:06:54,247 INFO	Signal handlers setted.
-2019-09-14 22:06:54,248 INFO	Opening config file... config_files/testconfig.json
-2019-09-14 22:06:54,248 INFO	Config file config_files/testconfig.json open.
-2019-09-14 22:06:54,248 INFO	Loading config file... config_files/testconfig.json
-2019-09-14 22:06:54,248 INFO	Config file config_files/testconfig.json loaded.
-2019-09-14 22:06:54,249 INFO	Checking configuration...
-2019-09-14 22:06:54,249 INFO	12 instances have been found
+2019-09-15 17:29:54,863 INFO	Checking valid params...
+2019-09-15 17:29:54,863 INFO	Params checked: VALID
+2019-09-15 17:29:54,863 INFO	Setting signal handlers...
+2019-09-15 17:29:54,864 INFO	Signal handlers setted.
+2019-09-15 17:29:54,864 INFO	Opening config file... config_files/testconfig.json
+2019-09-15 17:29:54,864 INFO	Config file config_files/testconfig.json open.
+2019-09-15 17:29:54,864 INFO	Loading config file... config_files/testconfig.json
+2019-09-15 17:29:54,864 INFO	Config file config_files/testconfig.json loaded.
+2019-09-15 17:29:54,865 INFO	Checking configuration...
+2019-09-15 17:29:54,865 INFO	399 instances have been found
+2019-09-15 17:29:54,865 INFO	Config verified succesfully
