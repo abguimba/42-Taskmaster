@@ -73,7 +73,7 @@ def verify_config(mode, configList):
             return errors.error_config(mode, config[0], "env")
         if config[10][len(config[10]) - 1] != '/':
             config[10] += '/'
-        logging.info(f'Config verified succesfully')
+        logging.info(f'Config verified succesfully: {config[0]}')
 
 def parse_json_file():
     """parses the json config file and returns it to the main function"""
