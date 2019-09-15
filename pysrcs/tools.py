@@ -31,12 +31,12 @@ def verify_config(mode, configList):
                 return errors.error_repeated_names(mode)
             j += 1
         i += 1
-    if totalinstances > 400:
-        errors.error_instances(mode)
+    if totalinstances >= 400:
+        errors.error_instances(mode, totalinstances)
     logging.info(f'{totalinstances} instances have been found')
     for config in configList:
         if len(config) != 15:
-            return errors.error_config_len(mode)
+            return errors.error_config_len(mode, len(config))
         elif isinstance(config[0], str) != True:
             return errors.error_config(mode, config[0], "name")
         elif isinstance(config[1], str) != True:
@@ -73,6 +73,7 @@ def verify_config(mode, configList):
             return errors.error_config(mode, config[0], "env")
         if config[10][len(config[10]) - 1] != '/':
             config[10] += '/'
+        logging.info(f'Config verified succesfully')
 
 def parse_json_file():
     """parses the json config file and returns it to the main function"""
