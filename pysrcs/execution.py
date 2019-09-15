@@ -2,6 +2,7 @@
 
 import subprocess
 import os
+import logging
 
 import errors
 import term_setup
