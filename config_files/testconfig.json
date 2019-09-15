@@ -2,7 +2,7 @@
     "programs": {
         "sleep": {
             "cmd": "sleep 1000",
-            "cmdammount": 10,
+            "cmdammount": 397,
             "autostart": true,
             "autorestart": "never",
             "starttime": 5,
