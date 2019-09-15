@@ -17,7 +17,11 @@ def error_ammount_cmds(mode, str):
 	print("command -> " + str + " has less than one desired instance"
 	+ "in the config file")
 	if mode == 0:
+		logging.error(f'Command {str} has less than one desired instance'
+		+ f' in the config file, exit TaskMaster')
 		exit(1)
+	logging.error(f'Command {str} has less than one desired instance'
+	+ f' in the config file')
 	return 1
 
 def error_config(mode, command, param):
@@ -29,7 +33,11 @@ def error_config(mode, command, param):
 	print(param, end=' ')
 	print("not set correctly in the config file")
 	if mode == 0:
+		logging.error(f'Command {command} has {param} not seted'
+		+ f' correctly in the config file, exit TaskMaster.')
 		exit(1)
+	logging.error(f'Command {command} has {param} not seted'
+	+ f' correctly in the config file')
 	return (1)
 
 def error_json(exc, e):
@@ -48,20 +56,24 @@ def error_repeated_names(mode):
 		exit(1)
 	return (1)
 
-def error_instances(mode):
+def error_instances(mode, totalinstances):
 	"""error function for when the yaml file contains too many instances"""
 	print('\n' + "taskmaster : ", end='')
 	print("Too many instances of some program in config file (fork bomb)")
 	if mode == 0:
+		logging.error(f'{totalinstances} instances have been found, the limit is 400, exit TaskMaster.')
 		exit(1)
+	logging.error(f'{totalinstances} instances have been found, the limit is 400')
 	return (1)
 
-def error_config_len(mode):
-	"""error function for when the yaml file doesn't contain all the fields"""
+def error_config_len(mode, len_param):
+	"""error function for when the json file doesn't contain all the fields"""
 	print('\n' + "taskmaster : ", end='')
 	print("Not all parameters are present in the config file!")
 	if mode == 0:
+		logging.error(f'Parameters found {len_param}, expected 15, exit TaskMaster.')
 		exit(1)
+	logging.error(f'Parameters found {len_param}, expected 15.')
 	return (1)
 
 def error_check_params():
@@ -71,7 +83,7 @@ def error_check_params():
 		print("taskmaster : ", end='')
 		print("usage: main.py config_file")
 		logging.error(f'Invalid params found: arguments found {len(sys.argv)}, expected 2.')
-		logging.info(f'Exit Taskmaster')
+		logging.info(f'Exit TaskMaster')
 		exit(1)
 	logging.info('Params checked: VALID')
 
