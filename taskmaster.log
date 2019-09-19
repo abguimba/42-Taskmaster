@@ -1,30 +1,11 @@
-<<<<<<< Updated upstream
-2019-09-15 19:50:02,614 INFO	Checking valid params...
-2019-09-15 19:50:02,614 INFO	Params checked: VALID
-2019-09-15 19:50:02,614 INFO	Setting signal handlers...
-2019-09-15 19:50:02,615 INFO	Signal handlers setted.
-2019-09-15 19:50:02,615 INFO	Opening config file... config_files/testconfig.json
-2019-09-15 19:50:02,615 INFO	Config file config_files/testconfig.json open.
-2019-09-15 19:50:02,615 INFO	Loading config file... config_files/testconfig.json
-2019-09-15 19:50:02,615 INFO	Config file config_files/testconfig.json loaded.
-2019-09-15 19:50:02,615 INFO	Checking configuration...
-2019-09-15 19:50:02,616 INFO	16 instances have been found
-2019-09-15 19:50:02,616 INFO	Config verified succesfully: sleep
-2019-09-15 19:50:02,616 INFO	Config verified succesfully: ls
-2019-09-15 19:50:02,616 INFO	Config verified succesfully: env
-2019-09-15 19:50:02,616 INFO	Initializing programs list
-2019-09-15 19:50:02,616 INFO	Programs list initilized
-2019-09-15 19:50:02,616 INFO	Asking the user if he wants to continue
-2019-09-15 19:50:05,240 INFO	User input n, exit Taskmaster with RC=0.
-=======
-2019-09-15 20:48:13,561 INFO	Checking valid params...
-2019-09-15 20:48:13,561 INFO	Params checked: VALID
-2019-09-15 20:48:13,561 INFO	Setting signal handlers...
-2019-09-15 20:48:13,561 INFO	Signal handlers setted.
-2019-09-15 20:48:13,561 INFO	Opening config file... config_files/testconfig.json
-2019-09-15 20:48:13,561 INFO	Config file config_files/testconfig.json open.
-2019-09-15 20:48:13,561 INFO	Loading config file... config_files/testconfig.json
-2019-09-15 20:48:13,562 INFO	Config file config_files/testconfig.json loaded.
-2019-09-15 20:48:13,562 INFO	Checking configuration...
-2019-09-15 20:48:13,562 INFO	3 instances have been found
->>>>>>> Stashed changes
+2019-09-19 17:03:44,888 INFO	Checking valid params...
+2019-09-19 17:03:44,889 INFO	Params checked: VALID
+2019-09-19 17:03:44,889 INFO	Setting signal handlers...
+2019-09-19 17:03:44,889 INFO	Signal handlers setted.
+2019-09-19 17:03:44,889 INFO	Opening config file... config_files/testconfig.json
+2019-09-19 17:03:44,889 INFO	Config file config_files/testconfig.json open.
+2019-09-19 17:03:44,889 INFO	Loading config file... config_files/testconfig.json
+2019-09-19 17:03:44,889 INFO	Config file config_files/testconfig.json loaded.
+2019-09-19 17:03:44,889 INFO	Checking configuration...
+2019-09-19 17:03:44,889 INFO	16 instances have been found
+2019-09-19 17:03:44,889 ERROR	Command sleep has starttime/stoptime/restartretries not seted correctly in the config file, exit TaskMaster. RC=1

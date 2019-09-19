@@ -31,7 +31,7 @@ def check_revive_process(programList):
 				codes = program.exitcodes
 				for pid in program.pidList:
 					if pid[1] == "Finished" or pid[1] == "Stopped" or pid[1] == "Stopping":
-						if int(pid[2]) in codes:
+						if int(pid[2]) not in codes:
 							checker = 1
 							# program.pidList = []
 							envcopy = os.environ.copy()

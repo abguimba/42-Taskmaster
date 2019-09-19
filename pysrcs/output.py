@@ -106,7 +106,7 @@ def display_status(programList, args):
 				if pid[2] != None:
 					if pid[1] == "Finished" or pid[1] == "Stopped" or pid[1] == "Stopping":
 						print(" with exitcode ->", pid[2], end='')
-						if int(pid[2]) == 0 or int(pid[2]) == 1:
+						if int(pid[2]) != 0 or int(pid[2]) != 1:
 							print(" (Probably Killed)")
 						else:
 							print()
@@ -120,7 +120,7 @@ def display_status(programList, args):
 		elif program.autorestart == "never":
 			print("      ", "Restart ->", "never")
 		if program.autorestart == "unexpected":
-			print("      ", "Restart ->", "on exitcodes -> ", end='')
+			print("      ", "Restart ->", "on exitcodes different from -> ", end='')
 			if isinstance(program.exitcodes, str):
 				print(program.exitcodes, end=' ')
 			else:
