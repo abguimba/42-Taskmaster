@@ -10,34 +10,24 @@ import threading
 import output
 import menuloop
 
-startingList = []
-stoppingList = []
-
-def stop_time():
-	global stoppingList
-	name = stoppingList[0]
+def stop_time(saved_pid):
 	for program in menuloop.globProgramList:
-		if name == program.name and program.state == "Stopping":
-			for pid in program.pidList:
+		for pid in program.pidList:
+			if saved_pid == pid:
 				if pid[1] == "Stopping":
-					pid[1] = "Stopped"
-			program.state = "Stopped"
-	stoppingList.pop(0)
+						pid[1] = "Stopped"
+						# break
 
-def start_time():
-	global startingList
-	name = startingList[0]
+def start_time(saved_pid):
 	for program in menuloop.globProgramList:
-		if name == program.name and program.state == "Starting":
-			for pid in program.pidList:
+		for pid in program.pidList:
+			if saved_pid == pid:
 				if pid[1] == "Starting":
-					pid[1] = "Running"
-			program.state = "Running"
-	startingList.pop(0)
+						pid[1] = "Running"
+						# break
 
 def stop_program(programList):
 	"""this function stops a program with the desired signal"""
-	global stoppingList
 	for program in programList:
 		if program.selected == 1:
 			if (program.state == "Running" or program.state == "Starting"):
@@ -57,17 +47,15 @@ def stop_program(programList):
 					if pid[1] != "Stopped" and pid[1] != "Finished" and pid[1] != "Stopping":
 							os.kill(pid[0].pid, s)
 							pid[1] = "Stopping"
+							timer = threading.Timer(program.stoptime, stop_time, [pid[0]])
+							timer.start()
 				program.state = "Stopping"
-				timer = threading.Timer(program.stoptime, stop_time)
-				stoppingList.append(program.name)
-				timer.start()
 			else:
 				print(output.bcolors.FAIL + "Program " + program.name + " was already stopped/finished/killed or hadn't started!" + output.bcolors.ENDC)
 	return 0
 
 def restart_program(programList):
 	"""this function restarts a program"""
-	global startingList
 	for program in programList:
 		if program.selected == 1:
 			for pid in program.pidList:
@@ -107,6 +95,8 @@ def restart_program(programList):
 						try:
 							with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
 								proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=initchildproc(program))
+								timer = threading.Timer(program.starttime, start_time, [proc])
+								timer.start()
 						except:
 							print("Could not run the subprocess for", program.name,
 							"skipping this execution")
@@ -114,14 +104,10 @@ def restart_program(programList):
 						program.pidList.append([proc, "Starting", None])
 						instances -= 1
 					program.state = "Starting"
-					timer = threading.Timer(program.starttime, start_time)
-					startingList.append(program.name)
-					timer.start()
 	return programList
 
 def start_program(programList):
 	"""this function starts programs that hadn't been started previously"""
-	global startingList
 	for program in programList:
 		if program.selected == 1:
 			if program.state == "Not started":
@@ -155,7 +141,9 @@ def start_program(programList):
 							proc = subprocess.Popen(cmdList, stdout=out, 
 													stderr=err, 
 													env=envcopy,
-													preexec_fn=execution.initchildproc(program))	
+													preexec_fn=execution.initchildproc(program))
+							timer = threading.Timer(program.starttime, start_time, [proc])
+							timer.start()
 					except:
 						print("Could not run the subprocess for", program.name,
 						"skipping this execution")
@@ -163,9 +151,6 @@ def start_program(programList):
 					program.pidList.append([proc, "Starting", None])
 					instances -= 1
 				program.state = "Starting"
-				timer = threading.Timer(program.starttime, start_time)
-				startingList.append(program.name)
-				timer.start()
 			else:
 				print(output.bcolors.FAIL + "Program " + program.name + " was already started/stopped!" + output.bcolors.ENDC)
 	return 0

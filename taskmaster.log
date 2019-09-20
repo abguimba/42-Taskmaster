@@ -1,11 +1,17 @@
-2019-09-19 17:03:44,888 INFO	Checking valid params...
-2019-09-19 17:03:44,889 INFO	Params checked: VALID
-2019-09-19 17:03:44,889 INFO	Setting signal handlers...
-2019-09-19 17:03:44,889 INFO	Signal handlers setted.
-2019-09-19 17:03:44,889 INFO	Opening config file... config_files/testconfig.json
-2019-09-19 17:03:44,889 INFO	Config file config_files/testconfig.json open.
-2019-09-19 17:03:44,889 INFO	Loading config file... config_files/testconfig.json
-2019-09-19 17:03:44,889 INFO	Config file config_files/testconfig.json loaded.
-2019-09-19 17:03:44,889 INFO	Checking configuration...
-2019-09-19 17:03:44,889 INFO	16 instances have been found
-2019-09-19 17:03:44,889 ERROR	Command sleep has starttime/stoptime/restartretries not seted correctly in the config file, exit TaskMaster. RC=1
+2019-09-20 17:03:35,888 INFO	Checking valid params...
+2019-09-20 17:03:35,888 INFO	Params checked: VALID
+2019-09-20 17:03:35,888 INFO	Setting signal handlers...
+2019-09-20 17:03:35,888 INFO	Signal handlers setted.
+2019-09-20 17:03:35,888 INFO	Opening config file... config_files/testconfig.json
+2019-09-20 17:03:35,888 INFO	Config file config_files/testconfig.json open.
+2019-09-20 17:03:35,888 INFO	Loading config file... config_files/testconfig.json
+2019-09-20 17:03:35,889 INFO	Config file config_files/testconfig.json loaded.
+2019-09-20 17:03:35,889 INFO	Checking configuration...
+2019-09-20 17:03:35,889 INFO	16 instances have been found
+2019-09-20 17:03:35,889 INFO	Config verified succesfully: sleep
+2019-09-20 17:03:35,889 INFO	Config verified succesfully: ls
+2019-09-20 17:03:35,889 INFO	Config verified succesfully: env
+2019-09-20 17:03:35,889 INFO	Initializing programs list
+2019-09-20 17:03:35,889 INFO	Programs list initilized
+2019-09-20 17:03:35,889 INFO	Asking the user if he wants to continue
+2019-09-20 17:03:36,913 INFO	User input "y".

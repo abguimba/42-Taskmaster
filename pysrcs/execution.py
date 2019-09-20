@@ -25,14 +25,12 @@ def check_revive_process(programList):
 	"""function to revive process on unexpected exit"""
 	for program in programList:
 		l = program.autorestart
-		checker = 0
 		if l != "never":
 			if l == "unexpected" and isinstance(program.exitcodes, list) == True:
 				codes = program.exitcodes
 				for pid in program.pidList:
 					if pid[1] == "Finished" or pid[1] == "Stopped" or pid[1] == "Stopping":
 						if int(pid[2]) not in codes:
-							checker = 1
 							# program.pidList = []
 							envcopy = os.environ.copy()
 							if program.env != "None" and isinstance(program.env, list):
@@ -63,16 +61,14 @@ def check_revive_process(programList):
 							try:
 								with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
 									proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=execution.initchildproc(program))
+									timer = threading.Timer(program.starttime, processes.start_time, [proc])
+									timer.start()
 							except:
 								print("Could not run the subprocess for", program.name,
 								"skipping this execution")
 								break
 							pid = ([proc, "Starting", None])
 							# instances -= 1
-				if checker == 1:
-					timer = threading.Timer(program.starttime, processes.start_time)
-					processes.startingList.append(program.name)
-					timer.start()
 			elif l == "always":
 				for pid in program.pidList:
 					if pid[1] == "Finished" or pid[1] == "Stopped" or pid[1] == "Stopping":
@@ -106,6 +102,8 @@ def check_revive_process(programList):
 						try:
 							with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
 								proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=execution.initchildproc(program))
+								timer = threading.Timer(program.starttime, processes.start_time, [proc])
+								timer.start()
 						except:
 							print("Could not run the subprocess for", program.name,
 							"skipping this execution")
@@ -113,10 +111,6 @@ def check_revive_process(programList):
 						pid = ([proc, "Starting", None])
 						# instances -= 1
 						# break
-				timer = threading.Timer(program.starttime, processes.start_time)
-				processes.startingList.append(program.name)
-				timer.start()
-				
 
 def update_program_status(programList):
 	"""updates every instance's status"""
@@ -202,6 +196,8 @@ def load_or_reload(programList, prevprogramList):
 					try:
 						with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
 							proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=initchildproc(program))
+							timer = threading.Timer(program.starttime, processes.start_time, [proc])
+							timer.start()
 					except:
 						print("Could not run the subprocess for", program.name,
 						"skipping this execution")
@@ -209,7 +205,4 @@ def load_or_reload(programList, prevprogramList):
 					program.pidList.append([proc, "Starting", None])
 					instances -= 1
 				program.state = "Starting"
-				timer = threading.Timer(program.starttime, processes.start_time)
-				processes.startingList.append(program.name)
-				timer.start()
 	# ACABAR LA FUNCION CUANDO PREVPROGRAMLIST EXISTE
