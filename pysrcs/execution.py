@@ -4,6 +4,7 @@ import subprocess
 import os
 import logging
 import threading
+import sys
 
 import processes
 import errors
@@ -166,12 +167,18 @@ def load_or_reload(programList, prevprogramList):
 	"""this function loads the first batch of programs, or reloads new ones"""
 
 	if prevprogramList == None:
+		logging.info(f'There is no previous program list.')
 		for program in programList:
 			envcopy = os.environ.copy()
+			logging.info(f'Configuring instance for \"{program.name}\"')
 			if program.env != "None" and isinstance(program.env, list):
+				logging.info(f'Creating environment.')
 				for envitem in program.env:
 					l = envitem.split('=', 2)
 					envcopy[l[0]] = l[1]
+					logging.info(f'\t{l[0]} = {envcopy[l[0]]}')
+				logging.info(f'Environment created succesfully.')
+			logging.info('Selecting standard outputs.')	
 			if (isinstance(program.stdout, str)
 				and program.stdout != "None" and program.stdout != "discard"):
 					if program.workingdir != "None":
@@ -188,19 +195,23 @@ def load_or_reload(programList, prevprogramList):
 						errpath = program.stderr
 			else:
 				errpath = "/dev/null"
+			logging.info(f'Selected standard outputs in:\n\t\t\t\t\tSTDOUT: {outpath}\n\t\t\t\t\tSTDERR: {errpath}')	
 			if program.autostart == True:
 				program.started = True
 				cmdList = program.cmd.split()
 				instances = program.cmdammount
+				logging.info(f'Starting {instances} instances')	
 				while instances > 0:
 					try:
 						with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
 							proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=initchildproc(program))
 							timer = threading.Timer(program.starttime, processes.start_time, [proc])
 							timer.start()
-					except:
+						logging.info(f'Instance {-instances + program.cmdammount + 1} started with pid {proc.pid}')	
+					except Exception as error:
 						print("Could not run the subprocess for", program.name,
-						"skipping this execution")
+						"skipping this execution", file=sys.stderr)
+						logging.error(f'Instance {-instances + program.cmdammount + 1} could not be started ERRMSG = {error}')	
 						break
 					program.pidList.append([proc, "Starting", None])
 					instances -= 1
