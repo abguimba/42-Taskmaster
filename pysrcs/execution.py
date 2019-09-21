@@ -4,6 +4,7 @@ import subprocess
 import os
 import logging
 import threading
+import time
 
 import processes
 import errors
@@ -23,94 +24,138 @@ def initchildproc(program):
 
 def check_revive_process(programList):
 	"""function to revive process on unexpected exit"""
-	for program in programList:
-		l = program.autorestart
+	i = 0
+	while i < len(programList):
+		l = programList[i].autorestart
 		if l != "never":
-			if l == "unexpected" and isinstance(program.exitcodes, list) == True:
-				codes = program.exitcodes
-				for pid in program.pidList:
-					if pid[1] == "Finished" or pid[1] == "Stopped" or pid[1] == "Stopping":
-						if int(pid[2]) not in codes:
+			if l == "unexpected" and isinstance(programList[i].exitcodes, list) == True:
+				codes = programList[i].exitcodes
+				j = 0
+				while j < len(programList[i].pidList):
+					if programList[i].pidList[j][1] == "Finished" or programList[i].pidList[j][1] == "Stopped" or programList[i].pidList[j][1] == "Stopping":
+						if int(programList[i].pidList[j][2]) not in codes:
 							# program.pidList = []
 							envcopy = os.environ.copy()
-							if program.env != "None" and isinstance(program.env, list):
-								for envitem in program.env:
+							if programList[i].env != "None" and isinstance(programList[i].env, list):
+								for envitem in programList[i].env:
 									l = envitem.split('=', 2)
 									envcopy[l[0]] = l[1]
-							if (isinstance(program.stdout, str)
-								and program.stdout != "None" and program.stdout != "discard"):
-									if program.workingdir != "None":
-										outpath = program.workingdir + program.stdout
+							if (isinstance(programList[i].stdout, str)
+								and programList[i].stdout != "None" and programList[i].stdout != "discard"):
+									if programList[i].workingdir != "None":
+										outpath = programList[i].workingdir + programList[i].stdout
 									else:
-										outpath = program.stdout
+										outpath = programList[i].stdout
 							else:
 								outpath = "/dev/null"
-							if (isinstance(program.stderr, str)
-								and program.stderr != "None" and program.stderr != "discard"):
-									if program.workingdir != "None":
-										errpath = program.workingdir + program.stderr
+							if (isinstance(programList[i].stderr, str)
+								and programList[i].stderr != "None" and programList[i].stderr != "discard"):
+									if programList[i].workingdir != "None":
+										errpath = programList[i].workingdir + programList[i].stderr
 									else:
-										errpath = program.stderr
+										errpath = programList[i].stderr
 							else:
 								errpath = "/dev/null"
-							cmdList = program.cmd.split()
-							program.started = True
-							program.state = "Starting"
+							cmdList = programList[i].cmd.split()
+							programList[i].started = True
+							if programList[i].starttime > 0:
+								programList[i].state = "Starting"
+							else:
+								programList[i].state = "Running"
 							# instances = program.cmdammount
 							# while instances > 0:
-							try:
-								with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
-									proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=execution.initchildproc(program))
-									timer = threading.Timer(program.starttime, processes.start_time, [proc])
-									timer.start()
-							except:
-								print("Could not run the subprocess for", program.name,
-								"skipping this execution")
-								break
-							pid = ([proc, "Starting", None])
-							# instances -= 1
+							alarm = 0
+							retries = programList[i].restartretries
+							while retries > 0:
+								try:
+									with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
+										proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=execution.initchildproc(programList[i]))
+										break
+								except:
+									if retries > 0:
+										print("Could not run the subprocess for", programList[i].name, end='')
+										print(f". retries left: {retries}")
+										retries -= 1
+										if retries == 0:
+											alarm = 1
+											print("Could not run the subprocess for", programList[i].name,
+											"skipping this execution")
+										continue
+							if alarm == 1:
+								continue
+							if programList[i].starttime > 0:
+								programList[i].pidList[j] = ([proc, "Starting", None])
+								timer = threading.Timer(programList[i].starttime, processes.start_time, [proc])
+								timer.daemon = True
+								timer.start()
+							else:
+								programList[i].pidList[j] = ([proc, "Running", None])
+					j += 1		# instances -= 1
 			elif l == "always":
-				for pid in program.pidList:
-					if pid[1] == "Finished" or pid[1] == "Stopped" or pid[1] == "Stopping":
+				j = 0
+				while j < len(programList[i].pidList):
+					if programList[i].pidList[j][1] == "Finished" or programList[i].pidList[j][1] == "Stopped" or programList[i].pidList[j][1] == "Stopping":
 						# program.pidList = []
 						envcopy = os.environ.copy()
-						if program.env != "None" and isinstance(program.env, list):
-							for envitem in program.env:
+						if programList[i].env != "None" and isinstance(programList[i].env, list):
+							for envitem in programList[i].env:
 								l = envitem.split('=', 2)
 								envcopy[l[0]] = l[1]
-						if (isinstance(program.stdout, str)
-							and program.stdout != "None" and program.stdout != "discard"):
-								if program.workingdir != "None":
-									outpath = program.workingdir + program.stdout
+						if (isinstance(programList[i].stdout, str)
+							and programList[i].stdout != "None" and programList[i].stdout != "discard"):
+								if programList[i].workingdir != "None":
+									outpath = programList[i].workingdir + programList[i].stdout
 								else:
-									outpath = program.stdout
+									outpath = programList[i].stdout
 						else:
 							outpath = "/dev/null"
-						if (isinstance(program.stderr, str)
-							and program.stderr != "None" and program.stderr != "discard"):
-								if program.workingdir != "None":
-									errpath = program.workingdir + program.stderr
+						if (isinstance(programList[i].stderr, str)
+							and programList[i].stderr != "None" and programList[i].stderr != "discard"):
+								if programList[i].workingdir != "None":
+									errpath = programList[i].workingdir + programList[i].stderr
 								else:
-									errpath = program.stderr
+									errpath = programList[i].stderr
 						else:
 							errpath = "/dev/null"
-						program.started = True
-						program.state = "Starting"
-						cmdList = program.cmd.split()
+						programList[i].started = True
+						if programList[i].starttime > 0:
+							programList[i].state = "Starting"
+						else:
+							programList[i].state = "Running"
+						cmdList = programList[i].cmd.split()
 						# instances = program.cmdammount
 						# while instances > 0:
-						try:
-							with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
-								proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=execution.initchildproc(program))
-								timer = threading.Timer(program.starttime, processes.start_time, [proc])
-								timer.start()
-						except:
-							print("Could not run the subprocess for", program.name,
-							"skipping this execution")
-							break
-						pid = ([proc, "Starting", None])
+						alarm = 0
+						retries = programList[i].restartretries
+						while retries > 0:
+							try:
+								with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
+									proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=execution.initchildproc(programList[i]))
+									break
+							except:
+								if retries > 0:
+									print("Could not run the subprocess for", programList[i].name, end='')
+									print(f". retries left: {retries}")
+									retries -= 1
+									if retries == 0:
+										alarm = 1
+										print("Could not run the subprocess for", programList[i].name,
+										"skipping this execution")
+									continue
+						if alarm == 1:
+							continue
+						if programList[i].starttime > 0:
+							programList[i].pidList[j] = ([proc, "Starting", None])
+							timer = threading.Timer(programList[i].starttime, processes.start_time, [proc])
+							timer.daemon = True
+							timer.start()
+						else:
+							programList[i].pidList[j] = ([proc, "Running", None])
+
 						# instances -= 1
 						# break
+					j += 1
+		i += 1
 
 def update_program_status(programList):
 	"""updates every instance's status"""
@@ -151,14 +196,19 @@ def update_program_status(programList):
 				elif pid[1] == "Stopping":
 					stoppingCount += 1
 			if stoppedCount == len(program.pidList):
+				# print("1")
 				program.state = "Stopped"
 			if stoppingCount == len(program.pidList):
+				# print("2")
 				program.state = "Stopping"
 			if finishedCount == len(program.pidList):
+				# print("3")
 				program.state = "Finished"
 			if startingCount == len(program.pidList):
+				# print("4")
 				program.state == "Starting"
 			if runningCount > 0:
+				# print("5")
 				program.state = "Running"
 	check_revive_process(programList)
 
@@ -193,16 +243,34 @@ def load_or_reload(programList, prevprogramList):
 				cmdList = program.cmd.split()
 				instances = program.cmdammount
 				while instances > 0:
-					try:
-						with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
-							proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=initchildproc(program))
-							timer = threading.Timer(program.starttime, processes.start_time, [proc])
-							timer.start()
-					except:
-						print("Could not run the subprocess for", program.name,
-						"skipping this execution")
+					alarm = 0
+					retries = program.restartretries
+					while retries > 0:
+						try:
+							with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
+								proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=initchildproc(program))
+								break
+						except:
+							if retries > 0:
+								print("Could not run the subprocess for", program.name, end='')
+								print(f". retries left: {retries}")
+								retries -= 1
+								if retries == 0:
+									alarm = 1
+									print("Could not run the subprocess for", program.name,
+									"skipping this execution")
+								continue
+					if alarm == 1:
 						break
-					program.pidList.append([proc, "Starting", None])
+					if program.starttime > 0:
+						program.pidList.append([proc, "Starting", None])
+						timer = threading.Timer(program.starttime, processes.start_time, [proc])
+						timer.daemon = True
+						timer.start()
+					else:
+						program.pidList.append([proc, "Running", None])
 					instances -= 1
-				program.state = "Starting"
-	# ACABAR LA FUNCION CUANDO PREVPROGRAMLIST EXISTE
+				if program.starttime > 0:
+					program.state = "Starting"
+				else:
+					program.state = "Running"

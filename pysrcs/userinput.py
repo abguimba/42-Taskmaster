@@ -8,7 +8,7 @@ import logging
 import curses
 import errors
 
-def ask_for_confirmation(programList, time, error):
+def ask_for_confirmation(programList, time, error, mode):
 	"""Asks for confirmation of current setup"""
 	logging.info(f'Asking the user if he wants to continue')
 	if time != None:
@@ -18,11 +18,30 @@ def ask_for_confirmation(programList, time, error):
 	confirmation = input().lower()
 	while confirmation != 'y' and confirmation != "yes":
 		if confirmation == 'n' or confirmation == "no":
-			print(output.bcolors.FAIL, "\n/!\\Aborting execution /!\\",
+			print(output.bcolors.FAIL, "\n/!\\ Aborting execution /!\\",
 			output.bcolors.ENDC)
 			logging.info(f'User input {confirmation}, exit Taskmaster with RC=0.')
-			sys.exit(0)
-		logging.info(f'User input invlid:"{confirmation}". Re-asking')
+			if mode == 0:
+				sys.exit(0)
+			else:
+				return 1
+		logging.info(f'User input invalid:"{confirmation}". Re-asking')
 		print("Please answer with yes/y or no/n")
 		confirmation = input().lower()
 	logging.info(f'User input "{confirmation}".')
+
+def ask_for_reload_confirmation():
+	"""Asks for confirmation of reload action"""
+	logging.info(f'Asking the user if he wants to continue the reload process')
+	confirmation = input("\nWould you really like to reload the config file (y/n)? Some processes could be killed...\n").lower()
+	while confirmation != 'y' and confirmation != "yes":
+		if confirmation == 'n' or confirmation == "no":
+			print(output.bcolors.FAIL, "\n/!\\ Reload didn't take effect /!\\",
+			output.bcolors.ENDC)
+			logging.info(f'User input {confirmation}, reload not processed.')
+			return 0
+		logging.info(f'User input invalid:"{confirmation}". Re-asking')
+		print("Please answer with yes/y or no/n")
+		confirmation = input().lower()
+	logging.info(f'User input "{confirmation}".')
+	return 1

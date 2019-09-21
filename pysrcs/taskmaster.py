@@ -22,7 +22,7 @@ def main():
 							filemode='w',
 							format='%(asctime)s %(levelname)s\t%(message)s')
 	except Exception as error_log:
-		userinput.ask_for_confirmation(None, None, error_log)
+		userinput.ask_for_confirmation(None, None, error_log, 0)
 	errors.error_check_params()
 	signals.set_signal_handlers_taskmaster()
 	output.display_progress()
@@ -33,7 +33,7 @@ def main():
 	end = time.time()
 	userinput.ask_for_confirmation(programList,
 									str(end - start),
-									None)
+									None, 0)
 	execution.load_or_reload(programList, None)
 	menuloop.setuploop(programList, configList)
 

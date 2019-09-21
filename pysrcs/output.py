@@ -64,19 +64,19 @@ def display_status(programList, args):
 	if len(args) > 0:
 		newProgramList = []
 		for name in args:
-			counter = 0
 			for program in programList:
+				counter = 0
 				if name == program.name:
 					counter += 1
 					newProgramList.append(program)
+					break
 			if counter == 0:
 				print(bcolors.FAIL + "Program: " + name + " not found!" + bcolors.ENDC)
 				print(bcolors.FAIL + "Possible programs: " + bcolors.ENDC)
 				for program in programList:
 					print(bcolors.FAIL + program.name + bcolors.ENDC)
 				return
-			else:
-				programList = newProgramList
+		programList = newProgramList
 	for program in programList:
 		print(bcolors.UNDERLINED, program.name, bcolors.ENDC)
 		print("      ", "Command ->", program.cmd)
