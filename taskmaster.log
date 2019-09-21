@@ -1,47 +1,178 @@
-2019-09-21 17:27:03,487 INFO	Checking valid params...
-2019-09-21 17:27:03,487 INFO	Params checked: VALID
-2019-09-21 17:27:03,487 INFO	Setting signal handlers...
-2019-09-21 17:27:03,487 INFO	Signal handlers setted.
-2019-09-21 17:27:03,487 INFO	Opening config file... config_files/testconfig.json
-2019-09-21 17:27:03,487 INFO	Config file config_files/testconfig.json open.
-2019-09-21 17:27:03,487 INFO	Loading config file... config_files/testconfig.json
-2019-09-21 17:27:03,488 INFO	Config file config_files/testconfig.json loaded.
-2019-09-21 17:27:03,488 INFO	Checking configuration...
-2019-09-21 17:27:03,488 INFO	16 instances have been found
-2019-09-21 17:27:03,488 INFO	Config verified succesfully: sleep
-2019-09-21 17:27:03,488 INFO	Config verified succesfully: ls
-2019-09-21 17:27:03,488 INFO	Config verified succesfully: env
-2019-09-21 17:27:03,488 INFO	Initializing programs list
-2019-09-21 17:27:03,488 INFO	Programs list initilized
-2019-09-21 17:27:03,488 INFO	Asking the user if he wants to continue
-2019-09-21 17:27:06,951 INFO	User input "y".
-2019-09-21 17:27:06,951 INFO	There is no previous program list.
-2019-09-21 17:27:06,952 INFO	Configuring instance for "sleep"
-2019-09-21 17:27:06,952 INFO	Selecting standard outputs.
-2019-09-21 17:27:06,953 INFO	Selected standard outputs in:
+2019-09-21 20:16:47,727 INFO	Checking valid params...
+2019-09-21 20:16:47,727 INFO	Params checked: VALID
+2019-09-21 20:16:47,727 INFO	Setting signal handlers...
+2019-09-21 20:16:47,727 INFO	Signal handlers setted.
+2019-09-21 20:16:47,727 INFO	Opening config file... config_files/testconfig.json
+2019-09-21 20:16:47,727 INFO	Config file config_files/testconfig.json open.
+2019-09-21 20:16:47,727 INFO	Loading config file... config_files/testconfig.json
+2019-09-21 20:16:47,728 INFO	Config file config_files/testconfig.json loaded.
+2019-09-21 20:16:47,728 INFO	Checking configuration...
+2019-09-21 20:16:47,728 INFO	16 instances have been found
+2019-09-21 20:16:47,728 INFO	Config verified succesfully: sleep
+2019-09-21 20:16:47,728 INFO	Config verified succesfully: ls
+2019-09-21 20:16:47,728 INFO	Config verified succesfully: env
+2019-09-21 20:16:47,729 INFO	Initializing programs list
+2019-09-21 20:16:47,729 INFO	Programs list initilized
+2019-09-21 20:16:47,729 INFO	Asking the user if he wants to continue
+2019-09-21 20:16:50,135 INFO	User input "y".
+2019-09-21 20:16:50,135 INFO	There is no previous program list.
+2019-09-21 20:16:50,135 INFO	Configuring instance for "sleep"
+2019-09-21 20:16:50,135 INFO	Selecting standard outputs.
+2019-09-21 20:16:50,135 INFO	Selected standard outputs in:
 					STDOUT: /tmp/outfile.log
 					STDERR: /tmp/outfile.log
-2019-09-21 17:27:06,954 INFO	Configuring instance for "ls"
-2019-09-21 17:27:06,954 INFO	Creating environment.
-2019-09-21 17:27:06,954 INFO		STARTED_BY = TASKMASTER
-2019-09-21 17:27:06,955 INFO		ANSWER = 42
-2019-09-21 17:27:06,955 INFO	Environment created succesfully.
-2019-09-21 17:27:06,955 INFO	Selecting standard outputs.
-2019-09-21 17:27:06,956 INFO	Selected standard outputs in:
+2019-09-21 20:16:50,135 INFO	Configuring instance for "ls"
+2019-09-21 20:16:50,135 INFO	Creating environment.
+2019-09-21 20:16:50,136 INFO		STARTED_BY = TASKMASTER
+2019-09-21 20:16:50,136 INFO		ANSWER = 42
+2019-09-21 20:16:50,136 INFO	Environment created succesfully.
+2019-09-21 20:16:50,136 INFO	Selecting standard outputs.
+2019-09-21 20:16:50,136 INFO	Selected standard outputs in:
 					STDOUT: /tmp/outfile.log
 					STDERR: /tmp/outfile.log
-2019-09-21 17:27:06,957 INFO	Configuring instance for "env"
-2019-09-21 17:27:06,957 INFO	Creating environment.
-2019-09-21 17:27:06,958 INFO		STARTED_BY = TASKMASTER
-2019-09-21 17:27:06,958 INFO		ANSWER = 42
-2019-09-21 17:27:06,958 INFO	Environment created succesfully.
-2019-09-21 17:27:06,958 INFO	Selecting standard outputs.
-2019-09-21 17:27:06,958 INFO	Selected standard outputs in:
+2019-09-21 20:16:50,136 INFO	Configuring instance for "env"
+2019-09-21 20:16:50,136 INFO	Creating environment.
+2019-09-21 20:16:50,136 INFO		STARTED_BY = TASKMASTER
+2019-09-21 20:16:50,136 INFO		ANSWER = 42
+2019-09-21 20:16:50,136 INFO	Environment created succesfully.
+2019-09-21 20:16:50,137 INFO	Selecting standard outputs.
+2019-09-21 20:16:50,137 INFO	Selected standard outputs in:
 					STDOUT: /tmp/cacafile.log
 					STDERR: /dev/null
-2019-09-21 17:27:06,958 INFO	Starting 5 instances
-2019-09-21 17:27:06,961 INFO	Instance 1 started with pid 59138
-2019-09-21 17:27:06,964 INFO	Instance 2 started with pid 59139
-2019-09-21 17:27:06,966 INFO	Instance 3 started with pid 59140
-2019-09-21 17:27:06,968 INFO	Instance 4 started with pid 59141
-2019-09-21 17:27:06,970 INFO	Instance 5 started with pid 59142
+2019-09-21 20:16:50,137 INFO	Correctly configured instance
+2019-09-21 20:16:50,137 INFO	Starting 5 instances
+2019-09-21 20:16:50,139 INFO	Instance 1 started with pid 67211
+2019-09-21 20:16:50,141 INFO	Instance 2 started with pid 67212
+2019-09-21 20:16:50,143 INFO	Instance 3 started with pid 67213
+2019-09-21 20:16:50,146 INFO	Instance 4 started with pid 67214
+2019-09-21 20:16:50,148 INFO	Instance 5 started with pid 67215
+2019-09-21 20:16:55,270 INFO	Executing command: "status ls"
+2019-09-21 20:16:55,271 INFO	STATUS CMD:	Updating status
+2019-09-21 20:16:55,271 INFO	STATUS CMD:	sleep STATUS = Not started
+2019-09-21 20:16:55,271 INFO	STATUS CMD:	ls STATUS = Not started
+2019-09-21 20:16:55,271 INFO	STATUS CMD:	env PID = 67211 STATUS = Finished
+2019-09-21 20:16:55,271 INFO	STATUS CMD:	env PID = 67212 STATUS = Finished
+2019-09-21 20:16:55,271 INFO	STATUS CMD:	env PID = 67213 STATUS = Finished
+2019-09-21 20:16:55,271 INFO	STATUS CMD:	env PID = 67214 STATUS = Finished
+2019-09-21 20:16:55,271 INFO	STATUS CMD:	env PID = 67215 STATUS = Finished
+2019-09-21 20:16:55,271 INFO	STATUS CMD:	env PID = 67211 STATUS = Finished
+2019-09-21 20:16:55,271 INFO	STATUS CMD:	env PID = 67212 STATUS = Finished
+2019-09-21 20:16:55,272 INFO	STATUS CMD:	env PID = 67213 STATUS = Finished
+2019-09-21 20:16:55,272 INFO	STATUS CMD:	env PID = 67214 STATUS = Finished
+2019-09-21 20:16:55,272 INFO	STATUS CMD:	env PID = 67215 STATUS = Finished
+2019-09-21 20:16:55,272 INFO	STATUS CMD:	env STATUS = Finished
+2019-09-21 20:16:55,272 INFO	Re-configuring instance for "env"
+2019-09-21 20:16:55,272 INFO	Creating environment.
+2019-09-21 20:16:55,272 INFO		ANSWER = 42
+2019-09-21 20:16:55,272 INFO	Environment created succesfully.
+2019-09-21 20:16:55,272 INFO	Selecting standard outputs.
+2019-09-21 20:16:55,272 INFO	Selected standard outputs in:
+					STDOUT: /tmp/cacafile.log
+					STDERR: /dev/null
+2019-09-21 20:16:55,273 INFO	Correctly configured instance
+2019-09-21 20:16:55,276 INFO	Instance started with pid 67216
+2019-09-21 20:16:55,277 INFO	Re-configuring instance for "env"
+2019-09-21 20:16:55,277 INFO	Creating environment.
+2019-09-21 20:16:55,277 INFO		ANSWER = 42
+2019-09-21 20:16:55,277 INFO	Environment created succesfully.
+2019-09-21 20:16:55,277 INFO	Selecting standard outputs.
+2019-09-21 20:16:55,278 INFO	Selected standard outputs in:
+					STDOUT: /tmp/cacafile.log
+					STDERR: /dev/null
+2019-09-21 20:16:55,278 INFO	Correctly configured instance
+2019-09-21 20:16:55,281 INFO	Instance started with pid 67217
+2019-09-21 20:16:55,281 INFO	Re-configuring instance for "env"
+2019-09-21 20:16:55,281 INFO	Creating environment.
+2019-09-21 20:16:55,282 INFO		ANSWER = 42
+2019-09-21 20:16:55,282 INFO	Environment created succesfully.
+2019-09-21 20:16:55,282 INFO	Selecting standard outputs.
+2019-09-21 20:16:55,282 INFO	Selected standard outputs in:
+					STDOUT: /tmp/cacafile.log
+					STDERR: /dev/null
+2019-09-21 20:16:55,282 INFO	Correctly configured instance
+2019-09-21 20:16:55,284 INFO	Instance started with pid 67218
+2019-09-21 20:16:55,284 INFO	Re-configuring instance for "env"
+2019-09-21 20:16:55,284 INFO	Creating environment.
+2019-09-21 20:16:55,284 INFO		ANSWER = 42
+2019-09-21 20:16:55,284 INFO	Environment created succesfully.
+2019-09-21 20:16:55,285 INFO	Selecting standard outputs.
+2019-09-21 20:16:55,285 INFO	Selected standard outputs in:
+					STDOUT: /tmp/cacafile.log
+					STDERR: /dev/null
+2019-09-21 20:16:55,285 INFO	Correctly configured instance
+2019-09-21 20:16:55,287 INFO	Instance started with pid 67219
+2019-09-21 20:16:55,287 INFO	Re-configuring instance for "env"
+2019-09-21 20:16:55,287 INFO	Creating environment.
+2019-09-21 20:16:55,287 INFO		ANSWER = 42
+2019-09-21 20:16:55,287 INFO	Environment created succesfully.
+2019-09-21 20:16:55,287 INFO	Selecting standard outputs.
+2019-09-21 20:16:55,288 INFO	Selected standard outputs in:
+					STDOUT: /tmp/cacafile.log
+					STDERR: /dev/null
+2019-09-21 20:16:55,288 INFO	Correctly configured instance
+2019-09-21 20:16:55,290 INFO	Instance started with pid 67220
+2019-09-21 20:16:55,290 INFO	STATUS CMD:	Displaying status
+2019-09-21 20:16:55,290 INFO	STATUS CMD:	Updating status
+2019-09-21 20:16:55,290 INFO	STATUS CMD:	sleep STATUS = Not started
+2019-09-21 20:16:55,290 INFO	STATUS CMD:	ls STATUS = Not started
+2019-09-21 20:16:55,290 INFO	STATUS CMD:	env PID = 67211 STATUS = Finished
+2019-09-21 20:16:55,290 INFO	STATUS CMD:	env PID = 67212 STATUS = Finished
+2019-09-21 20:16:55,291 INFO	STATUS CMD:	env PID = 67213 STATUS = Finished
+2019-09-21 20:16:55,291 INFO	STATUS CMD:	env PID = 67214 STATUS = Finished
+2019-09-21 20:16:55,291 INFO	STATUS CMD:	env PID = 67215 STATUS = Finished
+2019-09-21 20:16:55,291 INFO	STATUS CMD:	env PID = 67211 STATUS = Finished
+2019-09-21 20:16:55,291 INFO	STATUS CMD:	env PID = 67212 STATUS = Finished
+2019-09-21 20:16:55,291 INFO	STATUS CMD:	env PID = 67213 STATUS = Finished
+2019-09-21 20:16:55,291 INFO	STATUS CMD:	env PID = 67214 STATUS = Finished
+2019-09-21 20:16:55,291 INFO	STATUS CMD:	env PID = 67215 STATUS = Finished
+2019-09-21 20:16:55,291 INFO	STATUS CMD:	env STATUS = Finished
+2019-09-21 20:16:55,291 INFO	Re-configuring instance for "env"
+2019-09-21 20:16:55,291 INFO	Creating environment.
+2019-09-21 20:16:55,291 INFO		ANSWER = 42
+2019-09-21 20:16:55,291 INFO	Environment created succesfully.
+2019-09-21 20:16:55,291 INFO	Selecting standard outputs.
+2019-09-21 20:16:55,292 INFO	Selected standard outputs in:
+					STDOUT: /tmp/cacafile.log
+					STDERR: /dev/null
+2019-09-21 20:16:55,292 INFO	Correctly configured instance
+2019-09-21 20:16:55,294 INFO	Instance started with pid 67221
+2019-09-21 20:16:55,295 INFO	Re-configuring instance for "env"
+2019-09-21 20:16:55,295 INFO	Creating environment.
+2019-09-21 20:16:55,295 INFO		ANSWER = 42
+2019-09-21 20:16:55,295 INFO	Environment created succesfully.
+2019-09-21 20:16:55,295 INFO	Selecting standard outputs.
+2019-09-21 20:16:55,295 INFO	Selected standard outputs in:
+					STDOUT: /tmp/cacafile.log
+					STDERR: /dev/null
+2019-09-21 20:16:55,295 INFO	Correctly configured instance
+2019-09-21 20:16:55,297 INFO	Instance started with pid 67222
+2019-09-21 20:16:55,298 INFO	Re-configuring instance for "env"
+2019-09-21 20:16:55,298 INFO	Creating environment.
+2019-09-21 20:16:55,298 INFO		ANSWER = 42
+2019-09-21 20:16:55,298 INFO	Environment created succesfully.
+2019-09-21 20:16:55,298 INFO	Selecting standard outputs.
+2019-09-21 20:16:55,298 INFO	Selected standard outputs in:
+					STDOUT: /tmp/cacafile.log
+					STDERR: /dev/null
+2019-09-21 20:16:55,298 INFO	Correctly configured instance
+2019-09-21 20:16:55,301 INFO	Instance started with pid 67223
+2019-09-21 20:16:55,301 INFO	Re-configuring instance for "env"
+2019-09-21 20:16:55,301 INFO	Creating environment.
+2019-09-21 20:16:55,301 INFO		ANSWER = 42
+2019-09-21 20:16:55,301 INFO	Environment created succesfully.
+2019-09-21 20:16:55,301 INFO	Selecting standard outputs.
+2019-09-21 20:16:55,302 INFO	Selected standard outputs in:
+					STDOUT: /tmp/cacafile.log
+					STDERR: /dev/null
+2019-09-21 20:16:55,302 INFO	Correctly configured instance
+2019-09-21 20:16:55,304 INFO	Instance started with pid 67224
+2019-09-21 20:16:55,304 INFO	Re-configuring instance for "env"
+2019-09-21 20:16:55,304 INFO	Creating environment.
+2019-09-21 20:16:55,304 INFO		ANSWER = 42
+2019-09-21 20:16:55,304 INFO	Environment created succesfully.
+2019-09-21 20:16:55,305 INFO	Selecting standard outputs.
+2019-09-21 20:16:55,305 INFO	Selected standard outputs in:
+					STDOUT: /tmp/cacafile.log
+					STDERR: /dev/null
+2019-09-21 20:16:55,305 INFO	Correctly configured instance
+2019-09-21 20:16:55,307 INFO	Instance started with pid 67225

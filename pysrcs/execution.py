@@ -34,10 +34,15 @@ def check_revive_process(programList):
 						if int(pid[2]) not in codes:
 							# program.pidList = []
 							envcopy = os.environ.copy()
+							logging.info(f'Re-configuring instance for \"{program.name}\"')
 							if program.env != "None" and isinstance(program.env, list):
+								logging.info(f'Creating environment.')
 								for envitem in program.env:
 									l = envitem.split('=', 2)
 									envcopy[l[0]] = l[1]
+								logging.info(f'\t{l[0]} = {envcopy[l[0]]}')
+							logging.info(f'Environment created succesfully.')
+							logging.info('Selecting standard outputs.')	
 							if (isinstance(program.stdout, str)
 								and program.stdout != "None" and program.stdout != "discard"):
 									if program.workingdir != "None":
@@ -54,19 +59,23 @@ def check_revive_process(programList):
 										errpath = program.stderr
 							else:
 								errpath = "/dev/null"
+							logging.info(f'Selected standard outputs in:\n\t\t\t\t\tSTDOUT: {outpath}\n\t\t\t\t\tSTDERR: {errpath}')	
 							cmdList = program.cmd.split()
 							program.started = True
 							program.state = "Starting"
 							# instances = program.cmdammount
 							# while instances > 0:
+							logging.info(f'Correctly configured instance')
 							try:
 								with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
 									proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=execution.initchildproc(program))
 									timer = threading.Timer(program.starttime, processes.start_time, [proc])
 									timer.start()
-							except:
+								logging.info(f'Instance started with pid {proc.pid}')	
+							except Exception as error:
 								print("Could not run the subprocess for", program.name,
-								"skipping this execution")
+								"skipping this execution", file=sys.stderr)
+								logging.error(f'Instance could not be started ERRMSG = {error}')	
 								break
 							pid = ([proc, "Starting", None])
 							# instances -= 1
@@ -74,11 +83,16 @@ def check_revive_process(programList):
 				for pid in program.pidList:
 					if pid[1] == "Finished" or pid[1] == "Stopped" or pid[1] == "Stopping":
 						# program.pidList = []
+						logging.info(f'Re-configuring instance for \"{program.name}\"')
 						envcopy = os.environ.copy()
 						if program.env != "None" and isinstance(program.env, list):
+							logging.info(f'Creating environment.')
 							for envitem in program.env:
 								l = envitem.split('=', 2)
 								envcopy[l[0]] = l[1]
+								logging.info(f'\t{l[0]} = {envcopy[l[0]]}')
+							logging.info(f'Environment created succesfully.')
+							logging.info('Selecting standard outputs.')	
 						if (isinstance(program.stdout, str)
 							and program.stdout != "None" and program.stdout != "discard"):
 								if program.workingdir != "None":
@@ -95,19 +109,23 @@ def check_revive_process(programList):
 									errpath = program.stderr
 						else:
 							errpath = "/dev/null"
+						logging.info(f'Selected standard outputs in:\n\t\t\t\t\tSTDOUT: {outpath}\n\t\t\t\t\tSTDERR: {errpath}')	
 						program.started = True
 						program.state = "Starting"
 						cmdList = program.cmd.split()
 						# instances = program.cmdammount
 						# while instances > 0:
+						logging.info(f'Correctly configured instance')
 						try:
 							with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
 								proc = subprocess.Popen(cmdList, stdout=out, stderr=err, env=envcopy, preexec_fn=execution.initchildproc(program))
 								timer = threading.Timer(program.starttime, processes.start_time, [proc])
 								timer.start()
-						except:
+								logging.info(f'Instance started with pid {proc.pid}')	
+						except Exception as error:
 							print("Could not run the subprocess for", program.name,
-							"skipping this execution")
+							"skipping this execution", file=sys.stderr)
+							logging.error(f'Instance could not be started ERRMSG = {error}')	
 							break
 						pid = ([proc, "Starting", None])
 						# instances -= 1
@@ -133,6 +151,7 @@ def update_program_status(programList):
 							# pid[1] = "Killed"
 							status = status[1:]
 						pid[2] = status
+				logging.info(f'STATUS CMD:\t{program.name} PID = {pid[0].pid} STATUS = {pid[1]}')
 		if program.state == "Running" or program.state == "Starting":
 			runningCount = 0
 			# finishedCount = 0
@@ -151,6 +170,7 @@ def update_program_status(programList):
 					startingCount += 1
 				elif pid[1] == "Stopping":
 					stoppingCount += 1
+				logging.info(f'STATUS CMD:\t{program.name} PID = {pid[0].pid} STATUS = {pid[1]}')
 			if stoppedCount == len(program.pidList):
 				program.state = "Stopped"
 			if stoppingCount == len(program.pidList):
@@ -161,6 +181,7 @@ def update_program_status(programList):
 				program.state == "Starting"
 			if runningCount > 0:
 				program.state = "Running"
+		logging.info(f'STATUS CMD:\t{program.name} STATUS = {program.state}')
 	check_revive_process(programList)
 
 def load_or_reload(programList, prevprogramList):
@@ -200,7 +221,9 @@ def load_or_reload(programList, prevprogramList):
 				program.started = True
 				cmdList = program.cmd.split()
 				instances = program.cmdammount
-				logging.info(f'Starting {instances} instances')	
+				logging.info(f'Correctly configured instance')
+				if instances > 0:
+					logging.info(f'Starting {instances} instances')
 				while instances > 0:
 					try:
 						with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:

@@ -6,6 +6,7 @@ import termios
 import signal
 import curses
 import cmd
+import logging
 
 import term_setup
 import output
@@ -29,8 +30,15 @@ class TaskmasterShell(cmd.Cmd):
     # ----- basic taskmaster commands -----
     def do_status(self, arg):
         'Displays status for all supervised programs, or invididual programs. Usage -> status or status <program name>'
+        if arg:
+            logging.info(f'Executing command: "status {arg}"')
+        else:
+            logging.info(f'Executing command: "status"')
+        logging.info(f'STATUS CMD:\tUpdating status')
         execution.update_program_status(globProgramList)
+        logging.info(f'STATUS CMD:\tDisplaying status')
         output.display_status(globProgramList, arg)
+        logging.info(f'STATUS CMD:\tUpdating status')
         execution.update_program_status(globProgramList)
     def do_start(self, arg):
         'Starts desired program(s). Usage -> start <program name(s)>'
