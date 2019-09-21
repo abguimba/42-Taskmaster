@@ -5,6 +5,7 @@ import os
 import logging
 import threading
 import time
+import sys
 
 import processes
 import errors
@@ -216,12 +217,18 @@ def load_or_reload(programList, prevprogramList):
 	"""this function loads the first batch of programs, or reloads new ones"""
 
 	if prevprogramList == None:
+		logging.info(f'There is no previous program list.')
 		for program in programList:
 			envcopy = os.environ.copy()
+			logging.info(f'Configuring instance for \"{program.name}\"')
 			if program.env != "None" and isinstance(program.env, list):
+				logging.info(f'Creating environment.')
 				for envitem in program.env:
 					l = envitem.split('=', 2)
 					envcopy[l[0]] = l[1]
+					logging.info(f'\t{l[0]} = {envcopy[l[0]]}')
+				logging.info(f'Environment created succesfully.')
+			logging.info('Selecting standard outputs.')	
 			if (isinstance(program.stdout, str)
 				and program.stdout != "None" and program.stdout != "discard"):
 					if program.workingdir != "None":
@@ -238,10 +245,12 @@ def load_or_reload(programList, prevprogramList):
 						errpath = program.stderr
 			else:
 				errpath = "/dev/null"
+			logging.info(f'Selected standard outputs in:\n\t\t\t\t\tSTDOUT: {outpath}\n\t\t\t\t\tSTDERR: {errpath}')	
 			if program.autostart == True:
 				program.started = True
 				cmdList = program.cmd.split()
 				instances = program.cmdammount
+				logging.info(f'Starting {instances} instances')	
 				while instances > 0:
 					alarm = 0
 					retries = program.restartretries
