@@ -1,12 +1,12 @@
 {
     "programs": {
         "sleep": {
-            "cmd": "sleep 10",
+            "cmd": "sleep 1000",
             "cmdammount": 10,
-            "autostart": true,
+            "autostart": false,
             "autorestart": "never",
             "starttime": 5,
-            "stoptime": 10,
+            "stoptime": 0,
             "restartretries": 3,
             "quitsig": "TERM",
             "exitcodes": "None",
@@ -19,10 +19,10 @@
         "ls": {
             "cmd": "ls",
             "cmdammount": 1,
-            "autostart": true,
+            "autostart": false,
             "autorestart": "always",
-            "starttime": 5,
-            "stoptime": 10,
+            "starttime": 0,
+            "stoptime": 0,
             "restartretries": 3,
             "quitsig": "TERM",
             "exitcodes": "None",
@@ -38,10 +38,10 @@
         "env": {
             "cmd": "env",
             "cmdammount": 5,
-            "autostart": false,
+            "autostart": true,
             "autorestart": "unexpected",
-            "starttime": 5,
-            "stoptime": 10,
+            "starttime": 0,
+            "stoptime": 0,
             "restartretries": 3,
             "quitsig": "TERM",
             "exitcodes": [

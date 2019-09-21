@@ -14,7 +14,6 @@ import logging
 
 import subprocess
 
-
 def main():
 	"""main function"""
 	try:
@@ -37,7 +36,6 @@ def main():
 									None)
 	execution.load_or_reload(programList, None)
 	menuloop.setuploop(programList, configList)
-
 
 if __name__ == '__main__':
 	main()

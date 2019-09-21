@@ -11,9 +11,9 @@ import errors
 def kill_jobs(programList):
     """kills remaining processes on exit"""
     for program in programList:
-        if program.state != "Finished" and program.state != "Not started":
+        if program.state != "Finished" and program.state != "Stopped" and program.state != "Not started":
             for pid in program.pidList:
-                if pid[1] != "Finished" and pid[1] != "Killed":
+                if pid[1] != "Finished" and pid[1] != "Stopped":
                     os.kill(pid[0].pid, signal.SIGKILL)
 
 def verify_config(mode, configList):

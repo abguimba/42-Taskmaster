@@ -81,12 +81,22 @@ def display_status(programList, args):
 		print(bcolors.UNDERLINED, program.name, bcolors.ENDC)
 		print("      ", "Command ->", program.cmd)
 		print("      ", "State ->", end='')
-		if program.state == "Started":
-			print(bcolors.OKGREEN, program.state, bcolors.ENDC)
-		elif program.state == "Not started" or program.state == "Finished":
-			print(bcolors.FAIL, program.state, bcolors.ENDC)
-		elif program.state == "Stopped":
-			print(bcolors.WARNING, program.state, bcolors.ENDC)
+		if program.state == "Running" or program.state == "Starting":
+			print(bcolors.OKGREEN, program.state, bcolors.ENDC, end='')
+			if program.state == "Starting":
+				print(bcolors.OKGREEN, '(' + str(program.starttime) + ' seconds)', bcolors.ENDC)
+			elif program.state == "Stopped":
+				print(bcolors.OKGREEN, '(' + 'SIGKILL (9)' + ')', bcolors.ENDC)
+			else:
+				print()
+		elif program.state == "Not started" or program.state == "Stopped" or program.state == "Finished" or program.state == "Stopping" :
+			print(bcolors.FAIL, program.state, bcolors.ENDC, end='')
+			if program.state == "Stopping":
+				print(bcolors.FAIL, '(' + str(program.stoptime) + ' seconds)', bcolors.ENDC)
+			elif program.state == "Stopped":
+				print(bcolors.FAIL, '(' + 'SIGKILL (9)' + ')', bcolors.ENDC)
+			else:
+				print()
 		else:
 			print(bcolors.CYA, program.state, bcolors.ENDC)
 		if len(program.pidList) > 0:
@@ -94,10 +104,13 @@ def display_status(programList, args):
 			for pid in program.pidList:
 				print("             ", pid[0].pid, "->", pid[1], end='')
 				if pid[2] != None:
-					if pid[1] == "Killed":
-						print(" by ->", pid[2])
-					else:
-						print(" with exitcode ->", pid[2])
+					if pid[1] == "Finished" or pid[1] == "Stopped" or pid[1] == "Stopping":
+						print(" with exitcode ->", pid[2], end='')
+						if int(pid[2]) != 0 or int(pid[2]) != 1:
+							print(" (Probably Killed)")
+						else:
+							print()
+
 				else:
 					print('')
 		print("      ", "stdout ->", "n/a")
@@ -107,7 +120,7 @@ def display_status(programList, args):
 		elif program.autorestart == "never":
 			print("      ", "Restart ->", "never")
 		if program.autorestart == "unexpected":
-			print("      ", "Restart ->", "on exitcodes -> ", end='')
+			print("      ", "Restart ->", "on exitcodes different from -> ", end='')
 			if isinstance(program.exitcodes, str):
 				print(program.exitcodes, end=' ')
 			else:
