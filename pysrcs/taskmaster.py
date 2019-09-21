@@ -11,13 +11,14 @@ import signals
 import menuloop
 import execution
 import logging
+import os
 
 import subprocess
 
 def main():
 	"""main function"""
 	try:
-		logging.basicConfig(filename='taskmaster.log',
+		logging.basicConfig(filename=f'{os.getcwd()}/taskmaster.log',
 							level=logging.DEBUG,
 							filemode='w',
 							format='%(asctime)s %(levelname)s\t%(message)s')
