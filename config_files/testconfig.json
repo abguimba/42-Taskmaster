@@ -45,6 +45,7 @@
             "restartretries": 3,
             "quitsig": "TERM",
             "exitcodes": [
+				0,
                 1,
                 2,
                 15
@@ -53,10 +54,7 @@
             "umask": "None",
             "stdout": "cacafile.log",
             "stderr": "None",
-            "env": [
-                "STARTED_BY=TASKMASTER",
-                "ANSWER=42"
-            ]
+            "env": "None"
         }
     }
 }

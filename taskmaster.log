@@ -1,67 +1,11 @@
-<<<<<<< HEAD
-2019-09-21 20:43:21,268 INFO	Checking valid params...
-2019-09-21 20:43:21,268 INFO	Params checked: VALID
-2019-09-21 20:43:21,268 INFO	Setting signal handlers...
-2019-09-21 20:43:21,268 INFO	Signal handlers setted.
-2019-09-21 20:43:21,268 INFO	Opening config file... config_files/testconfig.json
-2019-09-21 20:43:21,268 INFO	Config file config_files/testconfig.json open.
-2019-09-21 20:43:21,268 INFO	Loading config file... config_files/testconfig.json
-2019-09-21 20:43:21,269 INFO	Config file config_files/testconfig.json loaded.
-2019-09-21 20:43:21,269 INFO	Checking configuration...
-2019-09-21 20:43:21,269 INFO	16 instances have been found
-2019-09-21 20:43:21,269 INFO	Config verified succesfully: sleep
-2019-09-21 20:43:21,269 INFO	Config verified succesfully: ls
-2019-09-21 20:43:21,269 INFO	Config verified succesfully: env
-2019-09-21 20:43:21,269 INFO	Initializing programs list
-2019-09-21 20:43:21,270 INFO	Programs list initilized
-2019-09-21 20:43:21,270 INFO	Asking the user if he wants to continue
-2019-09-21 20:43:22,559 INFO	User input "y".
-=======
-2019-09-21 17:27:03,487 INFO	Checking valid params...
-2019-09-21 17:27:03,487 INFO	Params checked: VALID
-2019-09-21 17:27:03,487 INFO	Setting signal handlers...
-2019-09-21 17:27:03,487 INFO	Signal handlers setted.
-2019-09-21 17:27:03,487 INFO	Opening config file... config_files/testconfig.json
-2019-09-21 17:27:03,487 INFO	Config file config_files/testconfig.json open.
-2019-09-21 17:27:03,487 INFO	Loading config file... config_files/testconfig.json
-2019-09-21 17:27:03,488 INFO	Config file config_files/testconfig.json loaded.
-2019-09-21 17:27:03,488 INFO	Checking configuration...
-2019-09-21 17:27:03,488 INFO	16 instances have been found
-2019-09-21 17:27:03,488 INFO	Config verified succesfully: sleep
-2019-09-21 17:27:03,488 INFO	Config verified succesfully: ls
-2019-09-21 17:27:03,488 INFO	Config verified succesfully: env
-2019-09-21 17:27:03,488 INFO	Initializing programs list
-2019-09-21 17:27:03,488 INFO	Programs list initilized
-2019-09-21 17:27:03,488 INFO	Asking the user if he wants to continue
-2019-09-21 17:27:06,951 INFO	User input "y".
-2019-09-21 17:27:06,951 INFO	There is no previous program list.
-2019-09-21 17:27:06,952 INFO	Configuring instance for "sleep"
-2019-09-21 17:27:06,952 INFO	Selecting standard outputs.
-2019-09-21 17:27:06,953 INFO	Selected standard outputs in:
-					STDOUT: /tmp/outfile.log
-					STDERR: /tmp/outfile.log
-2019-09-21 17:27:06,954 INFO	Configuring instance for "ls"
-2019-09-21 17:27:06,954 INFO	Creating environment.
-2019-09-21 17:27:06,954 INFO		STARTED_BY = TASKMASTER
-2019-09-21 17:27:06,955 INFO		ANSWER = 42
-2019-09-21 17:27:06,955 INFO	Environment created succesfully.
-2019-09-21 17:27:06,955 INFO	Selecting standard outputs.
-2019-09-21 17:27:06,956 INFO	Selected standard outputs in:
-					STDOUT: /tmp/outfile.log
-					STDERR: /tmp/outfile.log
-2019-09-21 17:27:06,957 INFO	Configuring instance for "env"
-2019-09-21 17:27:06,957 INFO	Creating environment.
-2019-09-21 17:27:06,958 INFO		STARTED_BY = TASKMASTER
-2019-09-21 17:27:06,958 INFO		ANSWER = 42
-2019-09-21 17:27:06,958 INFO	Environment created succesfully.
-2019-09-21 17:27:06,958 INFO	Selecting standard outputs.
-2019-09-21 17:27:06,958 INFO	Selected standard outputs in:
-					STDOUT: /tmp/cacafile.log
-					STDERR: /dev/null
-2019-09-21 17:27:06,958 INFO	Starting 5 instances
-2019-09-21 17:27:06,961 INFO	Instance 1 started with pid 59138
-2019-09-21 17:27:06,964 INFO	Instance 2 started with pid 59139
-2019-09-21 17:27:06,966 INFO	Instance 3 started with pid 59140
-2019-09-21 17:27:06,968 INFO	Instance 4 started with pid 59141
-2019-09-21 17:27:06,970 INFO	Instance 5 started with pid 59142
->>>>>>> master
+2019-09-24 16:06:50,916 INFO	Checking valid params...
+2019-09-24 16:06:50,916 INFO	Params checked: VALID
+2019-09-24 16:06:50,916 INFO	Setting signal handlers...
+2019-09-24 16:06:50,916 INFO	Signal handlers setted.
+2019-09-24 16:06:50,916 INFO	Opening config file... config_files/testconfig.json
+2019-09-24 16:06:50,916 INFO	Config file config_files/testconfig.json open.
+2019-09-24 16:06:50,916 INFO	Loading config file... config_files/testconfig.json
+2019-09-24 16:06:50,916 INFO	Config file config_files/testconfig.json loaded.
+2019-09-24 16:06:50,916 INFO	Checking configuration...
+2019-09-24 16:06:50,916 INFO	16 instances have been found
+2019-09-24 16:06:50,916 ERROR	Parameters found 11, expected 15, exit TaskMaster. RC=1

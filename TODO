@@ -3,4 +3,3 @@
 
 Abraham:
 -acabar reload con verificacion nueva config y matar lo necesario
--hacer que chdir, umask y stpgrp solo se haga en los childs

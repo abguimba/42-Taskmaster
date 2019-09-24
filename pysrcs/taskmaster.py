@@ -12,6 +12,7 @@ import menuloop
 import execution
 import logging
 
+import sys
 import subprocess
 
 def main():
@@ -28,6 +29,8 @@ def main():
 	output.display_progress()
 	start = time.time()
 	configList = tools.parse_json_file()
+	if configList == None:
+		errors.parse_error()
 	tools.verify_config(0, configList)
 	programList = classes.init_classes(configList)
 	end = time.time()

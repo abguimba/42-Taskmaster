@@ -3,6 +3,10 @@ import sys
 import output
 import logging
 
+def parse_error():
+	print(output.bcolors.FAIL + "There was a fatal error while parsing the config file, exiting gracefully...", output.bcolors.ENDC, file=sys.stderr)
+	sys.exit(1)
+
 def error_execution(str):
 	print(output.bcolors.FAIL + "There was an error starting command:", str,
 	", not executing any instance of this command", output.bcolors.ENDC, file=sys.stderr)

@@ -14,7 +14,7 @@
             "umask": 0,             #umask to be set for the program or None (in decimal (integer)!)
             "stdout": "None",       #option to redirect stdout to file or to simple discard it with "discard" or None
             "stderr": "None",       #option to redirect stderr to file or to simple discard it with "discard" or None
-            "env": "None"           #extra env parameters to provide to the new process or None
+            "env": "None"           #extra env parameters to provide to the new process, "None" for no environment at all, or "default" for the same env as taskmaster
         }
     }
 }

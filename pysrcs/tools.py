@@ -80,7 +80,7 @@ def verify_config(mode, configList):
 def parse_json_file():
     """parses the json config file and returns it to the main function"""
     logging.info(f'Opening config file... {sys.argv[1]}')
-    print(os.getcwd())
+    configList = None
     global configFile
     if configFile == None:
         file = sys.argv[1]
