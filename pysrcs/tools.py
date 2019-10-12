@@ -8,12 +8,14 @@ import logging
 
 import errors
 
+configFile = None
+
 def kill_jobs(programList):
     """kills remaining processes on exit"""
     for program in programList:
-        if program.state != "Finished" and program.state != "Not started":
+        if program.state != "Finished" and program.state != "Stopped" and program.state != "Not started":
             for pid in program.pidList:
-                if pid[1] != "Finished" and pid[1] != "Killed":
+                if pid[1] != "Finished" and pid[1] != "Stopped":
                     os.kill(pid[0].pid, signal.SIGKILL)
 
 def verify_config(mode, configList):
@@ -32,7 +34,7 @@ def verify_config(mode, configList):
             j += 1
         i += 1
     if totalinstances >= 400:
-        errors.error_instances(mode, totalinstances)
+       return errors.error_instances(mode, totalinstances)
     logging.info(f'{totalinstances} instances have been found')
     for config in configList:
         if len(config) != 15:
@@ -78,7 +80,14 @@ def verify_config(mode, configList):
 def parse_json_file():
     """parses the json config file and returns it to the main function"""
     logging.info(f'Opening config file... {sys.argv[1]}')
-    with open(sys.argv[1], 'r') as stream:
+    configList = None
+    global configFile
+    if configFile == None:
+        file = sys.argv[1]
+        configFile = os.getcwd() + "/" + sys.argv[1]
+    else:
+        file = configFile
+    with open(file, 'r') as stream:
         logging.info(f'Config file {sys.argv[1]} open.')
         try:
             logging.info(f'Loading config file... {sys.argv[1]}')
@@ -92,6 +101,6 @@ def parse_json_file():
                         config.append(configload[data][program][param])
                     configList.append(config)
         except Exception as e:
-            errors.error_json(f"Json file: {e}", e)
+            return errors.error_json(f"Json file: {e}", 1, e)
         logging.info(f'Config file {sys.argv[1]} loaded.')
     return configList

@@ -12,27 +12,33 @@ import menuloop
 import execution
 import logging
 
+import sys
 import subprocess
-
 
 def main():
 	"""main function"""
-	logging.basicConfig(filename='taskmaster.log',
-						level=logging.DEBUG,
-						filemode='w',
-						format='%(asctime)s %(levelname)s\t%(message)s')
+	try:
+		logging.basicConfig(filename='taskmaster.log',
+							level=logging.DEBUG,
+							filemode='w',
+							format='%(asctime)s %(levelname)s\t%(message)s')
+	except Exception as error_log:
+		userinput.ask_for_confirmation(None, None, error_log, 0)
 	errors.error_check_params()
 	signals.set_signal_handlers_taskmaster()
 	output.display_progress()
 	start = time.time()
 	configList = tools.parse_json_file()
+	if configList == None:
+		errors.parse_error()
 	tools.verify_config(0, configList)
 	programList = classes.init_classes(configList)
 	end = time.time()
-	userinput.ask_for_confirmation(programList, str(end - start))
+	userinput.ask_for_confirmation(programList,
+									str(end - start),
+									None, 0)
 	execution.load_or_reload(programList, None)
 	menuloop.setuploop(programList, configList)
-
 
 if __name__ == '__main__':
 	main()
