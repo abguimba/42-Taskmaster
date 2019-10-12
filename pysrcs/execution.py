@@ -67,14 +67,17 @@ def check_revive_process(programList):
 							if isinstance(programList[i].umask, int):
 								umaskSave = os.umask(programList[i].umask)
 							while retries > 0:
+								logging.warning{f'Process {program.name} is dead. Relaunching.'}
 								try:
 									with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
 										proc = subprocess.Popen(cmdList, stdout=out, stderr=err, cwd=workingdir, env=envcopy, start_new_session=True)
+										logging.info(f'Process successfully relaunched')
 										break
 								except:
 									if retries > 0:
 										print("Could not run the subprocess for", programList[i].name, end='')
 										print(f". retries left: {retries}")
+										logging.info(f'Attempting to re-launch subprocess for {program.name}, remaining retries: {retries}')
 										retries -= 1
 										if retries == 0:
 											if isinstance(programList[i].umask, int):
@@ -82,6 +85,7 @@ def check_revive_process(programList):
 											alarm = 1
 											print("Could not run the subprocess for", programList[i].name,
 											"skipping this execution")
+											logging.warning(f'Could not run the subprocess for {program.name}, skipping this execution')
 										continue
 							if alarm == 1:
 								continue
@@ -141,14 +145,17 @@ def check_revive_process(programList):
 						if isinstance(programList[i].umask, int):
 							umaskSave = os.umask(programList[i].umask)
 						while retries > 0:
+									logging.warning{f'Process {program.name} is dead. Relaunching.'}
 							try:
 								with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
 									proc = subprocess.Popen(cmdList, stdout=out, stderr=err, cwd=workingdir, env=envcopy, start_new_session=True)
+									logging.info(f'Process successfully relaunched')
 									break
 							except:
 								if retries > 0:
 									print("Could not run the subprocess for", programList[i].name, end='')
 									print(f". retries left: {retries}")
+									logging.info(f'Attempting to re-launch subprocess for {program.name}, remaining retries: {retries}')
 									retries -= 1
 									if retries == 0:
 										if isinstance(programList[i].umask, int):
@@ -156,6 +163,7 @@ def check_revive_process(programList):
 										alarm = 1
 										print("Could not run the subprocess for", programList[i].name,
 										"skipping this execution")
+										logging.warning(f'Could not run the subprocess for {program.name}, skipping this execution')
 									continue
 						if alarm == 1:
 							continue
@@ -300,7 +308,7 @@ def load_or_reload(programList, prevprogramList):
 										os.umask(umaskSave)
 									alarm = 1
 									print(f"Could not run the subprocess for {program.name} skipping this execution")
-									logging.info(f'Could not run the subprocess for {program.name}, skipping this execution')
+									logging.warning(f'Could not run the subprocess for {program.name}, skipping this execution')
 								continue
 					if alarm == 1:
 						break
