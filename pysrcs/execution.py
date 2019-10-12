@@ -284,20 +284,23 @@ def load_or_reload(programList, prevprogramList):
 					retries = program.restartretries
 					while retries > 0:
 						try:
+							logging.info(f'Trying to relaunch subprocess for {program.name}')
 							with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
 								proc = subprocess.Popen(cmdList, stdout=out, stderr=err, cwd=workingdir, env=envcopy, start_new_session=True)
+								logging.info(f'Process successfully relaunched')
 								break
 						except:
 							if retries > 0:
 								print("Could not run the subprocess for", program.name, end='')
 								print(f". retries left: {retries}")
+								logging.info(f'Attempting to re-launch subprocess for {program.name}, remaining retries: {retries}')
 								retries -= 1
 								if retries == 0:
 									if isinstance(program.umask, int):
 										os.umask(umaskSave)
 									alarm = 1
-									print("Could not run the subprocess for", program.name,
-									"skipping this execution")
+									print(f"Could not run the subprocess for {program.name} skipping this execution")
+									logging.info(f'Could not run the subprocess for {program.name}, skipping this execution')
 								continue
 					if alarm == 1:
 						break
