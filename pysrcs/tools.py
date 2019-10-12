@@ -10,7 +10,24 @@ import errors
 
 configFile = None
 
-def kill_jobs(programList):
+def kill_instances(program, amount):
+	"""kills amount instances of selected program"""
+	if program.state != "Finished" and program.state != "Stopped" and program.state != "Not started":
+		for pid in program.pidList:
+			if amount == 0:
+				return
+			if pid[1] != "Finished" and pid[1] != "Stopped":
+				os.kill(pid[0].pid, signal.SIGKILL)
+				amount -= 1
+
+def kill_job(program):
+	"""kills all instances of a job"""
+	if program.state != "Finished" and program.state != "Stopped" and program.state != "Not started":
+		for pid in program.pidList:
+			if pid[1] != "Finished" and pid[1] != "Stopped":
+				os.kill(pid[0].pid, signal.SIGKILL)
+
+def kill_all_jobs(programList):
     """kills remaining processes on exit"""
     for program in programList:
         if program.state != "Finished" and program.state != "Stopped" and program.state != "Not started":
@@ -104,3 +121,7 @@ def parse_json_file():
             return errors.error_json(f"Json file: {e}", 1, e)
         logging.info(f'Config file {sys.argv[1]} loaded.')
     return configList
+
+def check_differences(program, prevProgram):
+	"""checks differences between the last config and the new one"""
+	pass

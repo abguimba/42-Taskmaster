@@ -7,6 +7,7 @@ import threading
 import time
 import sys
 
+import tools
 import processes
 import errors
 import term_setup
@@ -312,3 +313,98 @@ def load_or_reload(programList, prevprogramList):
 					program.state = "Starting"
 				else:
 					program.state = "Running"
+	else:
+		for prevProgram in prevprogramList:
+			if prevProgram.name in [program.name for program in programList]:
+				print(prevProgram.cmd)
+				for program in programList:
+					if program.name == prevProgram.name:
+						if program.cmd != prevProgram:
+							tools.kill_job(prevProgram)
+							logging.info(f'Configuring instance for \"{program.name}\"')
+							logging.info(f'Creating environment.')
+							if program.env == "None" or program.env == "default":
+								envcopy = None
+							else:
+								envcopy = os.environ.copy()
+								if program.env != "default" and isinstance(program.env, list):
+									for envitem in program.env:
+										l = envitem.split('=', 2)
+										envcopy[l[0]] = l[1]
+									logging.info(f'\t{l[0]} = {envcopy[l[0]]}')
+								logging.info(f'Environment created succesfully.')
+							logging.info('Selecting standard outputs.')	
+							if (isinstance(program.stdout, str)
+								and program.stdout != "None" and program.stdout != "discard"):
+									if program.workingdir != "None":
+										outpath = program.workingdir + program.stdout
+									else:
+										outpath = program.stdout
+							else:
+								outpath = os.devnull
+							if (isinstance(program.stderr, str)
+								and program.stderr != "None" and program.stderr != "discard"):
+									if program.workingdir != "None":
+										errpath = program.workingdir + program.stderr
+									else:
+										errpath = program.stderr
+							else:
+								errpath = os.devnull
+							logging.info(f'Selected standard outputs in:\n\t\t\t\t\tSTDOUT: {outpath}\n\t\t\t\t\tSTDERR: {errpath}')	
+							if program.autostart == True:
+								program.started = True
+								cmdList = program.cmd.split()
+								instances = program.cmdammount
+								logging.info(f'Starting {instances} instances')
+								if program.workingdir != "None" and isinstance(program.workingdir, str):
+									workingdir = os.chdir(program.workingdir)
+								else:
+									workingdir = os.chdir(os.getcwd())
+								if isinstance(program.umask, int):
+									umaskSave = os.umask(program.umask)
+								while instances > 0:
+									alarm = 0
+									retries = program.restartretries
+									while retries > 0:
+										try:
+											with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
+												proc = subprocess.Popen(cmdList, stdout=out, stderr=err, cwd=workingdir, env=envcopy, start_new_session=True)
+												break
+										except:
+											if retries > 0:
+												print("Could not run the subprocess for", program.name, end='')
+												print(f". retries left: {retries}")
+												retries -= 1
+												if retries == 0:
+													if isinstance(program.umask, int):
+														os.umask(umaskSave)
+													alarm = 1
+													print("Could not run the subprocess for", program.name,
+													"skipping this execution")
+												continue
+									if alarm == 1:
+										break
+									if isinstance(program.umask, int):
+										os.umask(umaskSave)
+									if program.starttime > 0:
+										program.pidList.append([proc, "Starting", None])
+										timer = threading.Timer(program.starttime, processes.start_time, [proc])
+										timer.daemon = True
+										timer.start()
+									else:
+										program.pidList.append([proc, "Running", None])
+									instances -= 1
+								if program.starttime > 0:
+									program.state = "Starting"
+								else:
+									program.state = "Running"
+						else:
+							pass
+						break
+			else:
+				pass
+		for program in programList:
+			if program.name not in [prevProgram.name for prevProgram in prevprogramList]:
+				pass
+		tools.check_differences(programList ,prevprogramList)
+		# tools.kill_all_jobs(prevprogramList)
