@@ -3,6 +3,10 @@ import sys
 import output
 import logging
 
+def parse_error():
+	print(output.bcolors.FAIL + "There was a fatal error while parsing the config file, exiting gracefully...", output.bcolors.ENDC, file=sys.stderr)
+	sys.exit(1)
+
 def error_execution(str):
 	print(output.bcolors.FAIL + "There was an error starting command:", str,
 	", not executing any instance of this command", output.bcolors.ENDC, file=sys.stderr)
@@ -40,13 +44,15 @@ def error_config(mode, command, param):
 	+ f' correctly in the config file')
 	return (1)
 
-def error_json(exc, e):
+def error_json(exc, mode, e):
 	"""error function for when json file doesn't load"""
 	print('\n' + "taskmaster : ", end='', file=sys.stderr)
 	print(exc, file=sys.stderr)
 	print("bad formatting or error loading json file", file=sys.stderr)
 	logging.error(f'Json file {sys.argv[1]} can\'t be load: {e}, exit TaskMaster RC=1')
-	sys.exit(1)
+	if mode == 0:
+		sys.exit(1)
+	return None
 
 def error_repeated_names(mode):
 	"""error function for when there's repeated program names"""
@@ -66,6 +72,16 @@ def error_instances(mode, totalinstances):
 		logging.error(f'{totalinstances} instances have been found, the limit is 400, exit TaskMaster. RC=1')
 		sys.exit(1)
 	logging.error(f'{totalinstances} instances have been found, the limit is 400')
+	return (1)
+
+def error_names(mode, totalinstances):
+	"""error function for when there's repeated names"""
+	print('\n' + "taskmaster : ", end='', file=sys.stderr)
+	print("Too many programs with the same name (max 1)", file=sys.stderr)
+	if mode == 0:
+		logging.error(f'There were multiple programs with the same name. RC=1')
+		sys.exit(1)
+	logging.error(f'There were multiple programs with the same name. RC=1')
 	return (1)
 
 def error_config_len(mode, len_param):

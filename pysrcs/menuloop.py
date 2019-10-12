@@ -6,7 +6,7 @@ import termios
 import signal
 import curses
 import cmd
-import logging
+import time
 
 import term_setup
 import output
@@ -16,6 +16,7 @@ import output
 import errors
 import execution
 import processes
+import userinput
 
 globProgramList = []
 globProgramconfigList = []
@@ -40,6 +41,13 @@ class TaskmasterShell(cmd.Cmd):
         output.display_status(globProgramList, arg)
         logging.info(f'STATUS CMD:\tUpdating status')
         execution.update_program_status(globProgramList)
+	
+    def complete_status(self, text, line, begidx, endidx):
+        execution.update_program_status(globProgramList)
+        newList = [i.name for i in globProgramList]
+        execution.update_program_status(globProgramList)
+        return [i for i in newList if i.startswith(text)]
+
     def do_start(self, arg):
         'Starts desired program(s). Usage -> start <program name(s)>'
         execution.update_program_status(globProgramList)
@@ -50,7 +58,7 @@ class TaskmasterShell(cmd.Cmd):
                 if c.isalpha():
                     checker = 1
                     break
-        if checker == 0:
+        if len(args) == 1 and checker == 0:
             args = ""
         if len(args) < 1:		
             print(output.bcolors.FAIL + "Please select valid program(s) to start!" + output.bcolors.ENDC)
@@ -74,6 +82,13 @@ class TaskmasterShell(cmd.Cmd):
         for program in globProgramList:
             program.selected = 0
         execution.update_program_status(globProgramList)
+
+
+    def complete_start(self, text, line, begidx, endidx):
+        execution.update_program_status(globProgramList)
+        newList = [i.name for i in globProgramList if i.state == "Not started"]
+        execution.update_program_status(globProgramList)
+        return [i for i in newList if i.startswith(text)]
 	
     def do_stop(self, arg):
         'Stops desired program(s). Usage -> stop <program name(s)>'
@@ -85,7 +100,7 @@ class TaskmasterShell(cmd.Cmd):
                 if c.isalpha():
                     checker = 1
                     break
-        if checker == 0:
+        if len(args) == 1 and checker == 0:
             args = ""
         if len(args) < 1:		
             print(output.bcolors.FAIL + "Please select valid program(s) to stop!" + output.bcolors.ENDC)
@@ -109,6 +124,12 @@ class TaskmasterShell(cmd.Cmd):
         for program in globProgramList:
             program.selected = 0
         execution.update_program_status(globProgramList)
+
+    def complete_stop(self, text, line, begidx, endidx):
+        execution.update_program_status(globProgramList)
+        newList = [i.name for i in globProgramList if i.state == "Running" or i.state == "Starting"]
+        execution.update_program_status(globProgramList)
+        return [i for i in newList if i.startswith(text)]
 	
     def do_restart(self, arg):
         'Restarts desired program(s). Usage -> stop <program name(s)>'
@@ -120,7 +141,7 @@ class TaskmasterShell(cmd.Cmd):
                 if c.isalpha():
                     checker = 1
                     break
-        if checker == 0:
+        if len(args) == 1 and checker == 0:
             args = ""
         if len(args) < 1:		
             print(output.bcolors.FAIL + "Please select valid program(s) to restart!" + output.bcolors.ENDC)
@@ -144,42 +165,36 @@ class TaskmasterShell(cmd.Cmd):
         for program in globProgramList:
             program.selected = 0
         execution.update_program_status(globProgramList)
+
+    def complete_restart(self, text, line, begidx, endidx):
+        execution.update_program_status(globProgramList)
+        newList = [i.name for i in globProgramList if i.state != "Not started"]
+        execution.update_program_status(globProgramList)
+        return [i for i in newList if i.startswith(text)]
 	
     def do_reload(self, arg):
         'Reloads the whole configuration. Usage -> reload'
-        pass
-        # execution.update_program_status(globProgramList)
-        # args = arg.split(' ')
-        # checker = 0
-        # if len(args) == 1:
-        #     for c in args:
-        #         if c.isalpha():
-        #             checker = 1
-        #             break
-        # if checker == 0:
-        #     args = ""
-        # if len(args) < 1:		
-        #     print(output.bcolors.FAIL + "Please select valid program(s) to restart!" + output.bcolors.ENDC)
-        #     print(output.bcolors.FAIL + "Possible programs: " + output.bcolors.ENDC)
-        #     for program in globProgramList:
-        #         print(output.bcolors.FAIL + program.name + output.bcolors.ENDC)
-        # else:
-        #     counter = 0
-        #     for a in args:
-        #         for program in globProgramList:
-        #             if program.name == a:
-        #                 program.selected = 1
-        #                 counter += 1
-        #     if counter == 0:
-        #         print(output.bcolors.FAIL + "Please select valid program(s) to restart!" + output.bcolors.ENDC)
-        #         print(output.bcolors.FAIL + "Possible programs: " + output.bcolors.ENDC)
-        #         for program in globProgramList:
-        #             print(output.bcolors.FAIL + program.name + output.bcolors.ENDC)
-        #     else:
-        #         processes.handle_program(globProgramList, 'restartselect')
-        # for program in globProgramList:
-        #     program.selected = 0
-        # execution.update_program_status(globProgramList)
+        global globProgramList
+        execution.update_program_status(globProgramList)
+        if userinput.ask_for_reload_confirmation():
+            output.display_progress()
+            start = time.time()
+            configList = tools.parse_json_file()
+            if configList == None:
+                print(f"Couldn't load the new configuration, error while parsing the json config file")
+                return
+            verif = tools.verify_config(1, configList)
+            if verif == 1:
+                print(f"Couldn't load the new configuration, error while verifying the new configuration")
+                return
+            programList = classes.init_classes(configList)
+            end = time.time()
+            verif = userinput.ask_for_confirmation(programList, str(end - start), None, 1)
+            if verif != 1:
+                tools.kill_jobs(globProgramList)
+                execution.load_or_reload(programList, None)
+                globProgramList = programList
+        execution.update_program_status(globProgramList)
 	
     def do_exit(self, arg):
         'Stop recording, close the Taskmaster window, and exit. Usage -> exit'
