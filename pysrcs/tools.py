@@ -10,6 +10,38 @@ import errors
 
 configFile = None
 
+def delete_instances(program, nb):
+    """kills nb instances of desired job"""
+    if nb >= program.cmdammount:
+        kill_job(program)
+    elif nb > 0 and program.state != "Finished" and program.state != "Stopped" and program.state != "Not started":
+        for pid in program.pidList:
+            if nb == 0:
+                return
+            if pid[1] != "Finished" and pid[1] != "Stopped":
+                os.kill(pid[0].pid, signal.SIGKILL)
+                program.pidList.remove(pid)
+            nb -= 1
+
+def kill_instances(program, nb):
+    """kills nb instances of desired job"""
+    if nb >= program.cmdammount:
+        kill_job(program)
+    elif nb > 0 and program.state != "Finished" and program.state != "Stopped" and program.state != "Not started":
+        for pid in program.pidList:
+            if nb == 0:
+                return
+            if pid[1] != "Finished" and pid[1] != "Stopped":
+                os.kill(pid[0].pid, signal.SIGKILL)
+            nb -= 1
+
+def kill_job(program):
+    """kills selected job"""
+    if program.state != "Finished" and program.state != "Stopped" and program.state != "Not started":
+        for pid in program.pidList:
+            if pid[1] != "Finished" and pid[1] != "Stopped":
+                os.kill(pid[0].pid, signal.SIGKILL)
+
 def kill_jobs(programList):
     """kills remaining processes on exit"""
     for program in programList:
