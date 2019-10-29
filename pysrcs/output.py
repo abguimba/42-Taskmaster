@@ -127,6 +127,7 @@ def display_status(programList, args):
 				for code in program.exitcodes:
 					print(code, end=' ')
 			print('\n', end='')
+		print(f'       Start time -> {program.starttime}\n       Stop time -> {program.stoptime}')
 	print("\n################################\n")
 
 def display_special_str(str, mode, newline):
