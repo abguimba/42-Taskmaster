@@ -45,3 +45,14 @@ def ask_for_reload_confirmation():
 		confirmation = input().lower()
 	logging.info(f'User input "{confirmation}".')
 	return 1
+
+def ask_for_exit_kill_confirmation():
+	"""Asks for confirmation of killing all remaining jobs at exit action"""
+	logging.info(f'Asking the user if he wants to kill all remaining jobs')
+	confirmation = input("\nYou are about to exit Taskmaster, would you like to kill all remaining jobs (yes/no/cancel)?\n").lower()
+	while confirmation != 'y' and confirmation != "yes" and confirmation != 'n' and confirmation != "no" and confirmation != 'c' and confirmation != "cancel":
+		logging.info(f'User input invalid:"{confirmation}". Re-asking')
+		print("Please answer with yes/y, no/n or cancel/c")
+		confirmation = input().lower()
+	logging.info(f'User input "{confirmation}".')
+	return confirmation

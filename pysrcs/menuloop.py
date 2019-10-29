@@ -193,9 +193,19 @@ class TaskmasterShell(cmd.Cmd):
 	
     def do_exit(self, arg):
         'Close the Taskmaster shell, kill remaining jobs and exit. Usage -> exit'
-        print('\nAll programs are being terminated... Please wait. Thank you for using our Taskmaster.')
-        self.close()
-        return True
+        confirmation = userinput.ask_for_exit_kill_confirmation()
+        global exit
+        if confirmation == "yes" or confirmation == "y":
+            print('\nAll programs are being terminated... Please wait. Thank you for using our Taskmaster.')
+            exit = True
+            self.close()
+            return True
+        elif confirmation == "no" or confirmation == "n":
+            print('\nNo programs were terminated... Please wait. Thank you for using our Taskmaster.')
+            self.close()
+            return True
+        elif confirmation == "cancel" or confirmation == "c":
+            print('\nExit was cancelled.\n')
 
     def close(self):
         if self.file:
@@ -206,6 +216,8 @@ def parse(arg):
     'Convert a series of zero or more numbers to an argument tuple'
     return tuple(map(int, arg.split()))
 
+exit = False
+
 def setuploop(programList, configList):
 	"""This function setups the menu loop"""
 	global globProgramList
@@ -213,4 +225,5 @@ def setuploop(programList, configList):
 	globProgramList = programList
 	globConfigList = configList
 	TaskmasterShell().cmdloop()
-	tools.kill_jobs(programList)
+	if exit == True:
+		tools.kill_jobs(programList)
