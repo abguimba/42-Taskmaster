@@ -341,7 +341,6 @@ def load_or_reload(programList, prevProgramList):
 			else:
 				restartList.append(0)
 		i = 0
-		print(restartList)
 		while i < len(restartList):
 			if restartList[i] == 0 or restartList[i] == 1:
 				logging.info(f'Configuring instance for \"{programList[i].name}\"')

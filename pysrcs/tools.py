@@ -84,9 +84,13 @@ def verify_config(mode, configList):
         elif isinstance(config[4], str) != True or (config[4] != "never" and config[4] != "always"
         and config[4] != "unexpected"):
             return errors.error_config(mode, config[0], "autorestart")
-        elif ((config[5] < 0 or isinstance(config[5], int) != True)
-        or (config[6] < 0 or isinstance(config[6], int) != True)
-        or (config[7] < 0 or isinstance(config[7], int))) != True:
+        elif config[5] < 0 or isinstance(config[5], int) != True:
+            return errors.error_config(mode, config[0],
+            "starttime/stoptime/restartretries")
+        elif config[6] < 0 or isinstance(config[6], int) != True:
+            return errors.error_config(mode, config[0],
+            "starttime/stoptime/restartretries")
+        elif config[7] < 0 or isinstance(config[7], int) != True:
             return errors.error_config(mode, config[0],
             "starttime/stoptime/restartretries")
         elif (isinstance(config[8], str) != True or (config[8] != "TERM" and

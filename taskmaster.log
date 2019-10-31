@@ -1,41 +1,11 @@
-2019-10-29 14:33:10,319 INFO	Checking valid params...
-2019-10-29 14:33:10,320 INFO	Params checked: VALID
-2019-10-29 14:33:10,320 INFO	Setting signal handlers...
-2019-10-29 14:33:10,320 INFO	Signal handlers setted.
-2019-10-29 14:33:10,320 INFO	Opening config file... config_files/testconfig.json
-2019-10-29 14:33:10,320 INFO	Config file config_files/testconfig.json open.
-2019-10-29 14:33:10,320 INFO	Loading config file... config_files/testconfig.json
-2019-10-29 14:33:10,320 INFO	Config file config_files/testconfig.json loaded.
-2019-10-29 14:33:10,320 INFO	Checking configuration...
-2019-10-29 14:33:10,320 INFO	16 instances have been found
-2019-10-29 14:33:10,320 INFO	Config verified succesfully: sleep
-2019-10-29 14:33:10,320 INFO	Config verified succesfully: ls
-2019-10-29 14:33:10,320 INFO	Config verified succesfully: env
-2019-10-29 14:33:10,320 INFO	Initializing programs list
-2019-10-29 14:33:10,320 INFO	Programs list initilized
-2019-10-29 14:33:10,320 INFO	Asking the user if he wants to continue
-2019-10-29 14:33:10,923 INFO	User input invalid:"". Re-asking
-2019-10-29 14:33:11,341 INFO	User input "y".
-2019-10-29 14:33:11,341 INFO	There is no previous program list.
-2019-10-29 14:33:11,341 INFO	Configuring instance for "sleep"
-2019-10-29 14:33:11,341 INFO	Creating environment.
-2019-10-29 14:33:11,341 INFO	Selecting standard outputs.
-2019-10-29 14:33:11,341 INFO	Selected standard outputs in:
-					STDOUT: /tmp/outfile.log
-					STDERR: /tmp/outfile.log
-2019-10-29 14:33:11,341 INFO	Configuring instance for "ls"
-2019-10-29 14:33:11,341 INFO	Creating environment.
-2019-10-29 14:33:11,341 INFO		ANSWER = 42
-2019-10-29 14:33:11,342 INFO	Environment created succesfully.
-2019-10-29 14:33:11,342 INFO	Selecting standard outputs.
-2019-10-29 14:33:11,342 INFO	Selected standard outputs in:
-					STDOUT: /tmp/outfile.log
-					STDERR: /tmp/outfile.log
-2019-10-29 14:33:11,342 INFO	Configuring instance for "env"
-2019-10-29 14:33:11,342 INFO	Creating environment.
-2019-10-29 14:33:11,342 INFO	Selecting standard outputs.
-2019-10-29 14:33:11,342 INFO	Selected standard outputs in:
-					STDOUT: /tmp/cacafile.log
-					STDERR: /dev/null
-2019-10-29 14:33:16,231 INFO	Asking the user if he wants to kill all remaining jobs
-2019-10-29 14:33:16,737 INFO	User input "no".
+2019-10-30 14:19:07,191 INFO	Checking valid params...
+2019-10-30 14:19:07,191 INFO	Params checked: VALID
+2019-10-30 14:19:07,191 INFO	Setting signal handlers...
+2019-10-30 14:19:07,191 INFO	Signal handlers setted.
+2019-10-30 14:19:07,191 INFO	Opening config file... config_files/testconfig.json
+2019-10-30 14:19:07,191 INFO	Config file config_files/testconfig.json open.
+2019-10-30 14:19:07,191 INFO	Loading config file... config_files/testconfig.json
+2019-10-30 14:19:07,191 INFO	Config file config_files/testconfig.json loaded.
+2019-10-30 14:19:07,191 INFO	Checking configuration...
+2019-10-30 14:19:07,191 INFO	16 instances have been found
+2019-10-30 14:19:07,191 ERROR	Command sleep has starttime/stoptime/restartretries not seted correctly in the config file, exit TaskMaster. RC=1
