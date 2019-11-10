@@ -1,42 +1,17 @@
-2019-11-10 21:31:41,296 INFO	Checking valid params...
-2019-11-10 21:31:41,297 INFO	Params checked: VALID
-2019-11-10 21:31:41,297 INFO	Setting signal handlers...
-2019-11-10 21:31:41,297 INFO	Signal handlers set.
-2019-11-10 21:31:41,297 INFO	Opening config file... config_files/testconfig.json
-2019-11-10 21:31:41,301 INFO	Config file config_files/testconfig.json open.
-2019-11-10 21:31:41,301 INFO	Loading config file... config_files/testconfig.json
-2019-11-10 21:31:41,301 INFO	Config file config_files/testconfig.json loaded.
-2019-11-10 21:31:41,301 INFO	Checking configuration...
-2019-11-10 21:31:41,302 INFO	16 instances have been found
-2019-11-10 21:31:41,302 INFO	Config verified succesfully: sleep
-2019-11-10 21:31:41,302 INFO	Config verified succesfully: ls
-2019-11-10 21:31:41,302 INFO	Config verified succesfully: env
-2019-11-10 21:31:41,302 INFO	Initializing programs list
-2019-11-10 21:31:41,302 INFO	Programs list initilized
-2019-11-10 21:31:41,302 INFO	Asking the user if he wants to continue
-2019-11-10 21:31:41,920 INFO	User input "y".
-2019-11-10 21:31:41,920 INFO	There is no previous program list.
-2019-11-10 21:31:41,920 INFO	Configuring instance for "sleep"
-2019-11-10 21:31:41,920 INFO	Creating environment.
-2019-11-10 21:31:41,921 INFO	Selecting standard outputs.
-2019-11-10 21:31:41,921 INFO	Selected standard outputs in:
-					STDOUT: /tmp/outfile.log
-					STDERR: /tmp/outfile.log
-2019-11-10 21:31:41,921 INFO	Configuring instance for "ls"
-2019-11-10 21:31:41,921 INFO	Creating environment.
-2019-11-10 21:31:41,921 INFO		ANSWER = 42
-2019-11-10 21:31:41,921 INFO	Environment created succesfully.
-2019-11-10 21:31:41,921 INFO	Selecting standard outputs.
-2019-11-10 21:31:41,921 INFO	Selected standard outputs in:
-					STDOUT: /tmp/outfile.log
-					STDERR: /tmp/outfile.log
-2019-11-10 21:31:41,921 INFO	Configuring instance for "env"
-2019-11-10 21:31:41,921 INFO	Creating environment.
-2019-11-10 21:31:41,921 INFO	Selecting standard outputs.
-2019-11-10 21:31:41,921 INFO	Selected standard outputs in:
-					STDOUT: /tmp/cacafile.log
-					STDERR: /dev/null
-2019-11-10 21:31:43,944 INFO	Asking the user if he wants to kill all remaining jobs
-2019-11-10 21:31:48,480 INFO	User input "no".
-2019-11-10 21:31:48,480 INFO	No programs were terminated on exit.
-2019-11-10 21:31:48,480 INFO	Taskmaster loop started.
+2019-11-10 22:06:18,554 INFO	Checking valid params...
+2019-11-10 22:06:18,554 INFO	Params checked: VALID
+2019-11-10 22:06:18,554 INFO	Setting signal handlers...
+2019-11-10 22:06:18,554 INFO	Signal handlers set.
+2019-11-10 22:06:18,554 INFO	Opening config file... config_files/testconfig.json
+2019-11-10 22:06:18,554 INFO	Config file config_files/testconfig.json open.
+2019-11-10 22:06:18,554 INFO	Loading config file... config_files/testconfig.json
+2019-11-10 22:06:18,554 INFO	Config file config_files/testconfig.json loaded.
+2019-11-10 22:06:18,554 INFO	Checking configuration...
+2019-11-10 22:06:18,554 INFO	16 instances have been found
+2019-11-10 22:06:18,554 INFO	Config verified succesfully: sleep
+2019-11-10 22:06:18,555 INFO	Config verified succesfully: ls
+2019-11-10 22:06:18,555 INFO	Config verified succesfully: env
+2019-11-10 22:06:18,555 INFO	Initializing programs list
+2019-11-10 22:06:18,555 INFO	Programs list initilized
+2019-11-10 22:06:18,555 INFO	Asking the user if he wants to continue
+2019-11-10 22:06:31,869 INFO	User input n, exit Taskmaster with RC=0.
