@@ -1,7 +1,7 @@
 {
     "programs": {
         "sleep": {
-            "cmd": "sleep 1000",
+            "cmd": "/usr/local/bin/vogsphere-worker --no-prefork",
             "cmdammount": 10,
             "autostart": false,
             "autorestart": "never",
