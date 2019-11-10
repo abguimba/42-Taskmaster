@@ -6,6 +6,7 @@ import os
 import signal
 import time
 import threading
+import logging
 import sys
 
 import output
@@ -17,6 +18,7 @@ def stop_time(saved_pid):
 			if saved_pid == pid[0]:
 				if pid[1] == "Stopping":
 						pid[1] = "Stopped"
+	logging.info(f'Timer for stoptime parameter set.')
 
 def start_time(saved_pid):
 	for program in menuloop.globProgramList:
@@ -24,6 +26,8 @@ def start_time(saved_pid):
 			if saved_pid == pid[0]:
 				if pid[1] == "Starting":
 						pid[1] = "Running"
+	logging.info(f'Timer for starttime parameter set.')
+
 
 def stop_program(programList):
 	"""this function stops a program with the desired signal"""
@@ -38,10 +42,6 @@ def stop_program(programList):
 					s = signal.SIGINT
 				elif program.quitsig == "KILL":
 					s = signal.SIGKILL
-				# elif program.quitsig == "TSTP":
-				# 	s = signal.SIGTSTP
-				# elif program.quitsig == "STOP":
-				# 	s = signal.SIGSTOP
 				for pid in program.pidList:
 					if pid[1] != "Stopped" and pid[1] != "Finished" and pid[1] != "Stopping":
 							os.kill(pid[0].pid, s)
@@ -56,7 +56,9 @@ def stop_program(programList):
 					program.state = "Stopping"
 				else:
 					program.state = "Stopped"
+				logging.info(f'Program: {program.name} was stopped with {program.quitsig}.')
 			else:
+				logging.info(f'Program: {program.name} wasn\'t stopped.')
 				print(output.bcolors.FAIL + "Program " + program.name + " was already stopped/finished/killed or hadn't started!" + output.bcolors.ENDC)
 	return 0
 
@@ -138,7 +140,9 @@ def restart_program(programList):
 					else:
 						program.pidList.append([proc, "Running", None])
 					instances -= 1
+				logging.info(f'Program: {program.name} was restarted.')
 			else:
+				logging.info(f'Program: {program.name} wasn\'t restarted.')
 				print(f"The program: {program.name} had never been started, so restarting is not possible!", file=sys.stderr)
 	return programList
 
@@ -216,11 +220,13 @@ def start_program(programList):
 					else:
 						program.pidList.append([proc, "Running", None])
 					instances -= 1
+				logging.info(f'Program: {program.name} was started.')
 				if program.starttime > 0:
 					program.state = "Starting"
 				else:
 					program.state = "Running"
 			else:
+				logging.info(f'Program: {program.name} was started.')
 				print(output.bcolors.FAIL + "Program " + program.name + " was already started/stopped!" + output.bcolors.ENDC)
 	return 0
 

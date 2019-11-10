@@ -55,8 +55,6 @@ def check_revive_process(programList):
 								programList[i].state = "Starting"
 							else:
 								programList[i].state = "Running"
-							# instances = program.cmdammount
-							# while instances > 0:
 							alarm = 0
 							retries = programList[i].restartretries
 							if programList[i].workingdir != "None" and isinstance(programList[i].workingdir, str):
@@ -94,6 +92,7 @@ def check_revive_process(programList):
 							else:
 								programList[i].pidList[j] = ([proc, "Running", None])
 					j += 1		# instances -= 1
+				logging.info(f'Program: {programList[i].name} was revived')
 			elif l == "always":
 				j = 0
 				while j < len(programList[i].pidList):
@@ -171,6 +170,7 @@ def check_revive_process(programList):
 						# instances -= 1
 						# break
 					j += 1
+				logging.info(f'Program: {programList[i].name} was revived')
 		i += 1
 
 def update_program_status(programList):
@@ -212,19 +212,14 @@ def update_program_status(programList):
 				elif pid[1] == "Stopping":
 					stoppingCount += 1
 			if stoppedCount == len(program.pidList):
-				# print("1")
 				program.state = "Stopped"
 			if stoppingCount == len(program.pidList):
-				# print("2")
 				program.state = "Stopping"
 			if finishedCount == len(program.pidList):
-				# print("3")
 				program.state = "Finished"
 			if startingCount == len(program.pidList):
-				# print("4")
 				program.state == "Starting"
 			if runningCount > 0:
-				# print("5")
 				program.state = "Running"
 	check_revive_process(programList)
 
