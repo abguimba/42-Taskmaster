@@ -56,7 +56,7 @@
             "stderr": "None",
             "env": "None"
         }
-	},
-	"log-name": "taskmaster.log",
-	"log-path": "./"
+    },
+    "log-active": true,
+	"log-file": "pysrcs/taskmaster.log"
 }
