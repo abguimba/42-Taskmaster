@@ -107,17 +107,17 @@ def verify_config(mode, configList):
 
 def parse_json_file():
     """parses the json config file and returns it to the main function"""
-    logging.info(f'Opening config file... {sys.argv[1]}')
-    configList = None
-    global configFile
-    if configFile == None:
-        file = sys.argv[1]
-        configFile = os.getcwd() + "/" + sys.argv[1]
-    else:
-        file = configFile
-    with open(file, 'r') as stream:
-        logging.info(f'Config file {sys.argv[1]} open.')
-        try:
+    try:
+        logging.info(f'Opening config file... {sys.argv[1]}')
+        configList = None
+        global configFile
+        if configFile == None:
+            file = sys.argv[1]
+            configFile = os.getcwd() + "/" + sys.argv[1]
+        else:
+            file = configFile
+        with open(file, 'r') as stream:
+            logging.info(f'Config file {sys.argv[1]} open.')
             logging.info(f'Loading config file... {sys.argv[1]}')
             configload = json.load(stream)
             for data in configload:
@@ -130,7 +130,7 @@ def parse_json_file():
                     for param in configload[data][program]:
                         config.append(configload[data][program][param])
                     configList.append(config)
-        except Exception as e:
-            return errors.error_json(f"Json file: {e}", 1, e)
-        logging.info(f'Config file {sys.argv[1]} loaded.')
+            logging.info(f'Config file {sys.argv[1]} loaded.')
+    except Exception as e:
+        return errors.error_json(f"Json file: {e}", 1, e)
     return configList
