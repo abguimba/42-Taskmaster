@@ -190,7 +190,6 @@ class TaskmasterShell(cmd.Cmd):
             end = time.time()
             verif = userinput.ask_for_confirmation(programList, str(end - start), None, 1)
             if verif != 1:
-            	#tools.kill_jobs(globProgramList)
                 execution.load_or_reload(programList, globProgramList)
                 globProgramList = programList
                 globConfigList = configList

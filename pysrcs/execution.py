@@ -24,7 +24,6 @@ def check_revive_process(programList):
 				while j < len(programList[i].pidList):
 					if programList[i].pidList[j][1] == "Finished" or programList[i].pidList[j][1] == "Stopped" or programList[i].pidList[j][1] == "Stopping":
 						if int(programList[i].pidList[j][2]) not in codes:
-							# program.pidList = []
 							if programList[i].env == "None" or programList[i].env == "default":
 								envcopy = None
 							else:
@@ -91,13 +90,12 @@ def check_revive_process(programList):
 								timer.start()
 							else:
 								programList[i].pidList[j] = ([proc, "Running", None])
-					j += 1		# instances -= 1
+					j += 1
 				logging.info(f'Program: {programList[i].name} was revived')
 			elif l == "always":
 				j = 0
 				while j < len(programList[i].pidList):
 					if programList[i].pidList[j][1] == "Finished" or programList[i].pidList[j][1] == "Stopped" or programList[i].pidList[j][1] == "Stopping":
-						# program.pidList = []
 						if programList[i].env == "None" or programList[i].env == "default":
 								envcopy = None
 						else:
@@ -128,8 +126,6 @@ def check_revive_process(programList):
 						else:
 							programList[i].state = "Running"
 						cmdList = programList[i].cmd.split()
-						# instances = program.cmdammount
-						# while instances > 0:
 						alarm = 0
 						retries = programList[i].restartretries
 						if programList[i].workingdir != "None" and isinstance(programList[i].workingdir, str):
@@ -166,9 +162,6 @@ def check_revive_process(programList):
 							timer.start()
 						else:
 							programList[i].pidList[j] = ([proc, "Running", None])
-
-						# instances -= 1
-						# break
 					j += 1
 				logging.info(f'Program: {programList[i].name} was revived')
 		i += 1
@@ -181,7 +174,6 @@ def update_program_status(programList):
 				if pid[1] == "Stopping":
 					status = pid[0].poll()
 					if status[0] == '-':
-						# pid[1] = "Killed"
 						status = status[1:]
 					pid[2] = status
 				else:
@@ -190,12 +182,10 @@ def update_program_status(programList):
 						pid[1] = "Finished"
 						status = str(status)
 						if status[0] == '-':
-							# pid[1] = "Killed"
 							status = status[1:]
 						pid[2] = status
 		if program.state == "Running" or program.state == "Starting":
 			runningCount = 0
-			# finishedCount = 0
 			stoppingCount = 0
 			startingCount = 0
 			stoppedCount = 0
