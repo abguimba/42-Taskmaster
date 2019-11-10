@@ -3,6 +3,10 @@ import sys
 import output
 import logging
 
+def permission_config_error():
+	print(output.bcolors.FAIL + "Permission denied when loading the configuration file, exiting gracefully...", output.bcolors.ENDC, file=sys.stderr)
+	sys.exit(1)
+
 def parse_error():
 	logging.error(f'There was a fatal error while parsing the config file, exiting gracefully...')
 	print(output.bcolors.FAIL + "There was a fatal error while parsing the config file, exiting gracefully...", output.bcolors.ENDC, file=sys.stderr)

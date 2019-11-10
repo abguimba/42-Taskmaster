@@ -30,6 +30,8 @@ def main():
 			elif config_list['log-active'] == True:
 				userinput.ask_for_confirmation(None, None, "log-file", 0)
 	except Exception as error_log:
+		if str(error_log).find("Errno 13") != -1:
+			errors.permission_config_error()
 		userinput.ask_for_confirmation(None, None, error_log, 0)
 	errors.error_check_params()
 	signals.set_signal_handlers_taskmaster()
