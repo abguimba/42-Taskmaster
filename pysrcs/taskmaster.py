@@ -22,10 +22,13 @@ def main():
 		with open(sys.argv[1], 'r') as config:
 			config_list = json.load(config)
 			config.close()
-			logging.basicConfig(filename=f'{config_list["log-path"]}{config_list["log-name"]}',
-							level=logging.DEBUG,
-							filemode='w',
-							format='%(asctime)s %(levelname)s\t%(message)s')
+			if config_list['log-active'] == True and config_list['log-file'].find('pysrcs/') == -1:
+				logging.basicConfig(filename=f'{config_list["log-file"]}',
+								level=logging.DEBUG,
+								filemode='w',
+								format='%(asctime)s %(levelname)s\t%(message)s')
+			elif config_list['log-active'] == True:
+				userinput.ask_for_confirmation(None, None, "log-file", 0)
 	except Exception as error_log:
 		userinput.ask_for_confirmation(None, None, error_log, 0)
 	errors.error_check_params()
