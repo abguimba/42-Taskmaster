@@ -13,12 +13,16 @@ import execution
 import logging
 
 import sys
+import json
 import subprocess
 
 def main():
 	"""main function"""
 	try:
-		logging.basicConfig(filename='taskmaster.log',
+		with open(sys.argv[1], 'r') as config:
+			config_list = json.load(config)
+			config.close()
+			logging.basicConfig(filename=f'{config_list["log-path"]}{config_list["log-name"]}',
 							level=logging.DEBUG,
 							filemode='w',
 							format='%(asctime)s %(levelname)s\t%(message)s')

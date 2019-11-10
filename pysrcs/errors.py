@@ -4,14 +4,17 @@ import output
 import logging
 
 def parse_error():
+	logging.error(f'There was a fatal error while parsing the config file, exiting gracefully...')
 	print(output.bcolors.FAIL + "There was a fatal error while parsing the config file, exiting gracefully...", output.bcolors.ENDC, file=sys.stderr)
 	sys.exit(1)
 
 def error_execution(str):
+	logging.error(f'There was an error starting command: {str}')
 	print(output.bcolors.FAIL + "There was an error starting command:", str,
 	", not executing any instance of this command", output.bcolors.ENDC, file=sys.stderr)
 
 def error_reload_config():
+	logging.error(f'There was an error reloading the config file, staying on old config')
 	print(output.bcolors.FAIL + "There was an error reloading the config file" +
 	", staying on old config", output.bcolors.ENDC, file=sys.stderr)
 

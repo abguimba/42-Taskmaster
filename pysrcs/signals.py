@@ -17,6 +17,7 @@ def reset_signal_handlers_process():
 	signal.signal(signal.SIGHUP, signal.SIG_DFL)
 	signal.signal(signal.SIGWINCH, signal.SIG_DFL)
 	signal.signal(signal.SIGHUP, signal.SIG_DFL)
+	logging.info(f'Signal handlers reset.')
 
 def set_signal_handlers_taskmaster():
 	"""Ignores all signals for taskmaster except SIGCHLD"""
@@ -29,5 +30,5 @@ def set_signal_handlers_taskmaster():
 	signal.signal(signal.SIGTTOU, signal.SIG_IGN)
 	signal.signal(signal.SIGHUP, signal.SIG_IGN)
 	signal.signal(signal.SIGCHLD, signal.SIG_DFL)
-	logging.info(f'Signal handlers setted.')
+	logging.info(f'Signal handlers set.')
 

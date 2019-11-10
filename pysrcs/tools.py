@@ -17,23 +17,13 @@ def delete_instances(program, nb):
     elif nb > 0 and program.state != "Finished" and program.state != "Stopped" and program.state != "Not started":
         for pid in program.pidList:
             if nb == 0:
+                logging.info(f'No instances of {program.name} were killed')
                 return
             if pid[1] != "Finished" and pid[1] != "Stopped":
                 os.kill(pid[0].pid, signal.SIGKILL)
                 program.pidList.remove(pid)
             nb -= 1
-
-def kill_instances(program, nb):
-    """kills nb instances of desired job"""
-    if nb >= program.cmdammount:
-        kill_job(program)
-    elif nb > 0 and program.state != "Finished" and program.state != "Stopped" and program.state != "Not started":
-        for pid in program.pidList:
-            if nb == 0:
-                return
-            if pid[1] != "Finished" and pid[1] != "Stopped":
-                os.kill(pid[0].pid, signal.SIGKILL)
-            nb -= 1
+    logging.info(f'All instances of {program.name} were killed')
 
 def kill_job(program):
     """kills selected job"""
@@ -41,6 +31,7 @@ def kill_job(program):
         for pid in program.pidList:
             if pid[1] != "Finished" and pid[1] != "Stopped":
                 os.kill(pid[0].pid, signal.SIGKILL)
+    logging.info(f'Job: {program.name} was killed')
 
 def kill_jobs(programList):
     """kills remaining processes on exit"""
@@ -49,6 +40,7 @@ def kill_jobs(programList):
             for pid in program.pidList:
                 if pid[1] != "Finished" and pid[1] != "Stopped":
                     os.kill(pid[0].pid, signal.SIGKILL)
+    logging.info(f'All jobs were killed on exit')
 
 def verify_config(mode, configList):
     """Verifies that the parsed yaml file doesn't contain any errors and has
@@ -129,6 +121,8 @@ def parse_json_file():
             logging.info(f'Loading config file... {sys.argv[1]}')
             configload = json.load(stream)
             for data in configload:
+                if data != "programs":
+                    break
                 configList = []
                 for program in configload[data]:
                     config = []

@@ -1,7 +1,7 @@
 {
     "programs": {
         "sleep": {
-            "cmd": "/usr/local/bin/vogsphere-worker --no-prefork",
+            "cmd": "sleep 1000",
             "cmdammount": 10,
             "autostart": false,
             "autorestart": "never",
@@ -56,5 +56,7 @@
             "stderr": "None",
             "env": "None"
         }
-    }
+	},
+	"log-name": "taskmaster.log",
+	"log-path": "./"
 }

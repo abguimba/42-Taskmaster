@@ -9,8 +9,6 @@ import sys
 
 import processes
 import errors
-import term_setup
-import signals
 import execution
 import tools
 

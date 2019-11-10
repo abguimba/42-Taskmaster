@@ -8,7 +8,6 @@ import curses
 import cmd
 import time
 
-import term_setup
 import output
 import tools
 import classes
@@ -17,6 +16,7 @@ import errors
 import execution
 import processes
 import userinput
+import logging
 
 globProgramList = []
 globProgramconfigList = []
@@ -32,6 +32,7 @@ class TaskmasterShell(cmd.Cmd):
     def do_status(self, arg):
         'Displays status for all supervised programs, or invididual programs. Usage -> status or status <program name>'
         execution.update_program_status(globProgramList)
+        logging.info(f'Displaying program status.')
         output.display_status(globProgramList, arg)
         execution.update_program_status(globProgramList)
 	
@@ -44,6 +45,7 @@ class TaskmasterShell(cmd.Cmd):
     def do_start(self, arg):
         'Starts desired program(s). Usage -> start <program name(s)>'
         execution.update_program_status(globProgramList)
+        logging.info(f'Starting programs.')
         args = arg.split(' ')
         checker = 0
         if len(args) == 1:
@@ -86,6 +88,7 @@ class TaskmasterShell(cmd.Cmd):
     def do_stop(self, arg):
         'Stops desired program(s). Usage -> stop <program name(s)>'
         execution.update_program_status(globProgramList)
+        logging.info(f'Stopping programs.')
         args = arg.split(' ')
         checker = 0
         if len(args) == 1:
@@ -127,6 +130,7 @@ class TaskmasterShell(cmd.Cmd):
     def do_restart(self, arg):
         'Restarts desired program(s). Usage -> stop <program name(s)>'
         execution.update_program_status(globProgramList)
+        logging.info(f'Restarting programs.')
         args = arg.split(' ')
         checker = 0
         if len(args) == 1:
@@ -170,6 +174,7 @@ class TaskmasterShell(cmd.Cmd):
         global globProgramList
         global globConfigList
         execution.update_program_status(globProgramList)
+        logging.info(f'Reloading programs.')
         if userinput.ask_for_reload_confirmation():
             output.display_progress()
             start = time.time()
@@ -202,9 +207,11 @@ class TaskmasterShell(cmd.Cmd):
             return True
         elif confirmation == "no" or confirmation == "n":
             print('\nNo programs were terminated... Please wait. Thank you for using our Taskmaster.')
+            logging.info(f'No programs were terminated on exit.')
             self.close()
             return True
         elif confirmation == "cancel" or confirmation == "c":
+            logging.info(f'Exit was cancelled.')
             print('\nExit was cancelled.\n')
 
     def close(self):
@@ -225,5 +232,6 @@ def setuploop(programList, configList):
 	globProgramList = programList
 	globConfigList = configList
 	TaskmasterShell().cmdloop()
+	logging.info(f'Taskmaster loop started.')
 	if exit == True:
 		tools.kill_jobs(programList)

@@ -1,40 +1,40 @@
-2019-11-10 19:35:38,593 INFO	Checking valid params...
-2019-11-10 19:35:38,593 INFO	Params checked: VALID
-2019-11-10 19:35:38,593 INFO	Setting signal handlers...
-2019-11-10 19:35:38,593 INFO	Signal handlers setted.
-2019-11-10 19:35:38,593 INFO	Opening config file... config_files/testconfig.json
-2019-11-10 19:35:38,593 INFO	Config file config_files/testconfig.json open.
-2019-11-10 19:35:38,593 INFO	Loading config file... config_files/testconfig.json
-2019-11-10 19:35:38,594 INFO	Config file config_files/testconfig.json loaded.
-2019-11-10 19:35:38,594 INFO	Checking configuration...
-2019-11-10 19:35:38,594 INFO	16 instances have been found
-2019-11-10 19:35:38,594 INFO	Config verified succesfully: sleep
-2019-11-10 19:35:38,594 INFO	Config verified succesfully: ls
-2019-11-10 19:35:38,594 INFO	Config verified succesfully: env
-2019-11-10 19:35:38,594 INFO	Initializing programs list
-2019-11-10 19:35:38,594 INFO	Programs list initilized
-2019-11-10 19:35:38,595 INFO	Asking the user if he wants to continue
-2019-11-10 19:35:40,617 INFO	User input "y".
-2019-11-10 19:35:40,617 INFO	There is no previous program list.
-2019-11-10 19:35:40,617 INFO	Configuring instance for "sleep"
-2019-11-10 19:35:40,617 INFO	Creating environment.
-2019-11-10 19:35:40,617 INFO	Selecting standard outputs.
-2019-11-10 19:35:40,617 INFO	Selected standard outputs in:
+2019-11-10 20:04:49,173 INFO	Checking valid params...
+2019-11-10 20:04:49,173 INFO	Params checked: VALID
+2019-11-10 20:04:49,173 INFO	Setting signal handlers...
+2019-11-10 20:04:49,174 INFO	Signal handlers setted.
+2019-11-10 20:04:49,174 INFO	Opening config file... config_files/testconfig.json
+2019-11-10 20:04:49,174 INFO	Config file config_files/testconfig.json open.
+2019-11-10 20:04:49,174 INFO	Loading config file... config_files/testconfig.json
+2019-11-10 20:04:49,174 INFO	Config file config_files/testconfig.json loaded.
+2019-11-10 20:04:49,174 INFO	Checking configuration...
+2019-11-10 20:04:49,174 INFO	16 instances have been found
+2019-11-10 20:04:49,174 INFO	Config verified succesfully: sleep
+2019-11-10 20:04:49,174 INFO	Config verified succesfully: ls
+2019-11-10 20:04:49,174 INFO	Config verified succesfully: env
+2019-11-10 20:04:49,175 INFO	Initializing programs list
+2019-11-10 20:04:49,175 INFO	Programs list initilized
+2019-11-10 20:04:49,175 INFO	Asking the user if he wants to continue
+2019-11-10 20:04:52,840 INFO	User input "y".
+2019-11-10 20:04:52,841 INFO	There is no previous program list.
+2019-11-10 20:04:52,841 INFO	Configuring instance for "sleep"
+2019-11-10 20:04:52,841 INFO	Creating environment.
+2019-11-10 20:04:52,841 INFO	Selecting standard outputs.
+2019-11-10 20:04:52,841 INFO	Selected standard outputs in:
 					STDOUT: /tmp/outfile.log
 					STDERR: /tmp/outfile.log
-2019-11-10 19:35:40,617 INFO	Configuring instance for "ls"
-2019-11-10 19:35:40,617 INFO	Creating environment.
-2019-11-10 19:35:40,617 INFO		ANSWER = 42
-2019-11-10 19:35:40,617 INFO	Environment created succesfully.
-2019-11-10 19:35:40,617 INFO	Selecting standard outputs.
-2019-11-10 19:35:40,618 INFO	Selected standard outputs in:
+2019-11-10 20:04:52,841 INFO	Configuring instance for "ls"
+2019-11-10 20:04:52,841 INFO	Creating environment.
+2019-11-10 20:04:52,841 INFO		ANSWER = 42
+2019-11-10 20:04:52,842 INFO	Environment created succesfully.
+2019-11-10 20:04:52,842 INFO	Selecting standard outputs.
+2019-11-10 20:04:52,842 INFO	Selected standard outputs in:
 					STDOUT: /tmp/outfile.log
 					STDERR: /tmp/outfile.log
-2019-11-10 19:35:40,618 INFO	Configuring instance for "env"
-2019-11-10 19:35:40,618 INFO	Creating environment.
-2019-11-10 19:35:40,618 INFO	Selecting standard outputs.
-2019-11-10 19:35:40,618 INFO	Selected standard outputs in:
+2019-11-10 20:04:52,842 INFO	Configuring instance for "env"
+2019-11-10 20:04:52,842 INFO	Creating environment.
+2019-11-10 20:04:52,842 INFO	Selecting standard outputs.
+2019-11-10 20:04:52,842 INFO	Selected standard outputs in:
 					STDOUT: /tmp/cacafile.log
 					STDERR: /dev/null
-2019-11-10 19:36:15,223 INFO	Asking the user if he wants to kill all remaining jobs
-2019-11-10 19:36:16,255 INFO	User input "yes".
+2019-11-10 20:05:29,343 INFO	Asking the user if he wants to kill all remaining jobs
+2019-11-10 20:05:35,727 INFO	User input "yes".
