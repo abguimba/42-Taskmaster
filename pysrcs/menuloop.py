@@ -17,9 +17,41 @@ import execution
 import processes
 import userinput
 import logging
+import tkinter as tk
+import threading
+import queue
 
 globProgramList = []
 globProgramconfigList = []
+
+class Wind():
+    def __init__(self):
+        global globProgramList
+        window = tk.Tk()
+        self.text_box = tk.Text(window)
+        self.text_box.grid(row=0, column=0)
+        self.text_box.after(30, self.refresh(globProgramList))
+#        y = threading.Thread(target=self.refresh, daemon=True)
+ #       y.start
+#        x = threading.Thread(target=window.mainloop, daemon=True)
+#        x.start
+    
+    def refresh(self, glob):
+        show_str = ''
+        for program in glob:
+            print(program.name)
+            show_str += f'Program: {program.name}\n'
+            show_str += f'\tState: {program.state}\n'
+        self.text_box.delete(1.0, 'end')
+        self.text_box.insert(1.0, show_str)
+
+    def auto_refresh(self):
+        while 1:
+            global globProgramList
+            print("entro")
+            execution.update_program_status(globProgramList)
+            self.refresh(globProgramList)
+
 
 class TaskmasterShell(cmd.Cmd):
     global globProgramList
@@ -29,6 +61,13 @@ class TaskmasterShell(cmd.Cmd):
     file = None
 
     # ----- basic taskmaster commands -----
+    def do_display(self, arg):
+        self.window = Wind()
+        print("arranco 1")
+        x = threading.Thread(target=self.window.auto_refresh, daemon=True)
+        x.start
+        print("arrancado")
+
     def do_status(self, arg):
         'Displays status for all supervised programs, or invididual programs. Usage -> status or status <program name>'
         execution.update_program_status(globProgramList)
