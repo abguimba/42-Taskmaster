@@ -14,12 +14,45 @@ import classes
 import output
 import errors
 import execution
+import tkinter as tk
+from tkinter import messagebox
 import processes
 import userinput
 import logging
 
 globProgramList = []
 globProgramconfigList = []
+
+class Wind():
+	def __init__(self):
+		self.text = ''
+		self.after = ''
+		self.window = tk.Tk()
+		self.window.protocol("WM_DELETE_WINDOW", self.on_closing)
+		self.text_box = tk.Text(self.window)
+		self.text_box.grid(row=0, column=0)
+		self.text_box.after(1, self.update_stuff)
+
+	def on_closing(self):
+		if messagebox.askokcancel("Quit", "Do you want to quit the window?"):
+			self.text_box.after_cancel(self.after)
+			self.text_box.destroy()
+			self.window.destroy()
+
+	def update_stuff(self):
+		self.refresh()
+		new_text = self.text
+		self.text_box.delete(1.0, 'end')
+		self.text_box.insert(1.0, new_text)
+		self.after = self.text_box.after(250, self.update_stuff)
+
+	def refresh(self):
+		global globProgramList
+		show_str = ''
+		for program in globProgramList:
+			show_str += f'Program: {program.name}\n'
+			show_str += f'\tState: {program.state}\n'
+		self.text = show_str
 
 class TaskmasterShell(cmd.Cmd):
     global globProgramList
@@ -28,6 +61,9 @@ class TaskmasterShell(cmd.Cmd):
     prompt = '($>) '
     file = None
 
+	# ----- basic taskmaster commands -----
+    def do_display(self, arg):
+        self.window = Wind()
     # ----- basic taskmaster commands -----
     def do_status(self, arg):
         'Displays status for all supervised programs, or invididual programs. Usage -> status or status <program name>'
