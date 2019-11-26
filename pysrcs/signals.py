@@ -28,7 +28,6 @@ def set_signal_handlers_taskmaster():
 	signal.signal(signal.SIGCONT, signal.SIG_IGN)
 	signal.signal(signal.SIGTTIN, signal.SIG_IGN)
 	signal.signal(signal.SIGTTOU, signal.SIG_IGN)
-	signal.signal(signal.SIGHUP, signal.SIG_IGN)
 	signal.signal(signal.SIGCHLD, signal.SIG_DFL)
 	logging.info(f'Signal handlers set.')
 

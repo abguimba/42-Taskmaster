@@ -1,0 +1,2 @@
+-hacer signalhandler SIGUP -> do_reload()
+-meter el updating en un thread

@@ -14,6 +14,9 @@ import classes
 import output
 import errors
 import execution
+import threading
+import tkinter as tk
+from tkinter import messagebox
 import processes
 import userinput
 import logging
@@ -25,33 +28,36 @@ globProgramList = []
 globProgramconfigList = []
 
 class Wind():
-    def __init__(self):
-        global globProgramList
-        window = tk.Tk()
-        self.text_box = tk.Text(window)
-        self.text_box.grid(row=0, column=0)
-        self.text_box.after(30, self.refresh(globProgramList))
-#        y = threading.Thread(target=self.refresh, daemon=True)
- #       y.start
-#        x = threading.Thread(target=window.mainloop, daemon=True)
-#        x.start
-    
-    def refresh(self, glob):
-        show_str = ''
-        for program in glob:
-            print(program.name)
-            show_str += f'Program: {program.name}\n'
-            show_str += f'\tState: {program.state}\n'
-        self.text_box.delete(1.0, 'end')
-        self.text_box.insert(1.0, show_str)
+	def __init__(self):
+		self.text = ''
+		self.after = ''
+		self.window = tk.Tk()
+		self.window.protocol("WM_DELETE_WINDOW", self.on_closing)
+		self.text_box = tk.Text(self.window)
+		self.text_box.grid(row=0, column=0)
+		self.text_box.after(1, self.update_stuff)
 
-    def auto_refresh(self):
-        while 1:
-            global globProgramList
-            print("entro")
-            execution.update_program_status(globProgramList)
-            self.refresh(globProgramList)
+	def on_closing(self):
+		if messagebox.askokcancel("Quit", "Do you want to quit the window?"):
+			self.text_box.after_cancel(self.after)
+			self.text_box.destroy()
+			self.window.destroy()
 
+	def update_stuff(self):
+		self.refresh()
+		new_text = self.text
+		self.text_box.delete(1.0, 'end')
+		self.text_box.insert(1.0, new_text)
+		self.after = self.text_box.after(250, self.update_stuff)
+
+	def refresh(self):
+		global globProgramList
+		show_str = ''
+		for program in globProgramList:
+			show_str += f'Program: {program.name}\n'
+			show_str += f'\tState: {program.state}\n'
+			show_str += f'\tPIDs: {program.pidList}\n'
+		self.text = show_str
 
 class TaskmasterShell(cmd.Cmd):
     global globProgramList
@@ -60,6 +66,9 @@ class TaskmasterShell(cmd.Cmd):
     prompt = '($>) '
     file = None
 
+	# ----- basic taskmaster commands -----
+    def do_display(self, arg):
+        self.window = Wind()
     # ----- basic taskmaster commands -----
     def do_display(self, arg):
         self.window = Wind()
@@ -70,20 +79,15 @@ class TaskmasterShell(cmd.Cmd):
 
     def do_status(self, arg):
         'Displays status for all supervised programs, or invididual programs. Usage -> status or status <program name>'
-        execution.update_program_status(globProgramList)
         logging.info(f'Displaying program status.')
         output.display_status(globProgramList, arg)
-        execution.update_program_status(globProgramList)
 	
     def complete_status(self, text, line, begidx, endidx):
-        execution.update_program_status(globProgramList)
         newList = [i.name for i in globProgramList]
-        execution.update_program_status(globProgramList)
         return [i for i in newList if i.startswith(text)]
 
     def do_start(self, arg):
         'Starts desired program(s). Usage -> start <program name(s)>'
-        execution.update_program_status(globProgramList)
         logging.info(f'Starting programs.')
         args = arg.split(' ')
         checker = 0
@@ -115,18 +119,13 @@ class TaskmasterShell(cmd.Cmd):
                 processes.handle_program(globProgramList, 'startselect')            
         for program in globProgramList:
             program.selected = 0
-        execution.update_program_status(globProgramList)
-
 
     def complete_start(self, text, line, begidx, endidx):
-        execution.update_program_status(globProgramList)
         newList = [i.name for i in globProgramList if i.state == "Not started"]
-        execution.update_program_status(globProgramList)
         return [i for i in newList if i.startswith(text)]
 	
     def do_stop(self, arg):
         'Stops desired program(s). Usage -> stop <program name(s)>'
-        execution.update_program_status(globProgramList)
         logging.info(f'Stopping programs.')
         args = arg.split(' ')
         checker = 0
@@ -158,17 +157,13 @@ class TaskmasterShell(cmd.Cmd):
                 processes.handle_program(globProgramList, 'stopselect')
         for program in globProgramList:
             program.selected = 0
-        execution.update_program_status(globProgramList)
 
     def complete_stop(self, text, line, begidx, endidx):
-        execution.update_program_status(globProgramList)
         newList = [i.name for i in globProgramList if i.state == "Running" or i.state == "Starting"]
-        execution.update_program_status(globProgramList)
         return [i for i in newList if i.startswith(text)]
 	
     def do_restart(self, arg):
         'Restarts desired program(s). Usage -> stop <program name(s)>'
-        execution.update_program_status(globProgramList)
         logging.info(f'Restarting programs.')
         args = arg.split(' ')
         checker = 0
@@ -200,19 +195,15 @@ class TaskmasterShell(cmd.Cmd):
                 processes.handle_program(globProgramList, 'restartselect')
         for program in globProgramList:
             program.selected = 0
-        execution.update_program_status(globProgramList)
 
     def complete_restart(self, text, line, begidx, endidx):
-        execution.update_program_status(globProgramList)
         newList = [i.name for i in globProgramList if i.state != "Not started"]
-        execution.update_program_status(globProgramList)
         return [i for i in newList if i.startswith(text)]
 	
     def do_reload(self, arg):
         'Reloads the whole configuration. Usage -> reload'
         global globProgramList
         global globConfigList
-        execution.update_program_status(globProgramList)
         logging.info(f'Reloading programs.')
         if userinput.ask_for_reload_confirmation():
             output.display_progress()
@@ -232,7 +223,6 @@ class TaskmasterShell(cmd.Cmd):
                 execution.load_or_reload(programList, globProgramList)
                 globProgramList = programList
                 globConfigList = configList
-        execution.update_program_status(globProgramList)
 	
     def do_exit(self, arg):
         'Close the Taskmaster shell, kill remaining jobs and exit. Usage -> exit'
@@ -263,12 +253,20 @@ def parse(arg):
 
 exit = False
 
+def regular_update():
+	global globProgramList
+	while True:
+		time.sleep(0.25)
+		execution.update_program_status(globProgramList)
+
 def setuploop(programList, configList):
 	"""This function setups the menu loop"""
 	global globProgramList
 	global globConfigList
 	globProgramList = programList
 	globConfigList = configList
+	t = threading.Thread(target=regular_update)
+	t.start()
 	TaskmasterShell().cmdloop()
 	logging.info(f'Taskmaster loop started.')
 	if exit == True:
