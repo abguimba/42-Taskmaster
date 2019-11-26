@@ -41,6 +41,18 @@ class Wind():
 		self.text_box = tk.Text(self.window)
 		self.text_box.grid(row=0, column=0)
 		self.text_box.after(1, self.update_stuff)
+		self.focused = 0
+
+
+	def focus(self, event):
+		self.text_box.after_cancel(self.after)
+		self.text_box.unbind('<FocusIn>')
+		self.text_box.unbind('<Enter>')
+		self.text_box.bind('<Leave>', self.update_stuff)
+		self.text_box.bind('<FocusOut>', self.update_stuff)
+
+
+
 
 	def on_closing(self):
 		global windowActive
@@ -50,7 +62,11 @@ class Wind():
 			self.text_box.destroy()
 			self.window.destroy()
 
-	def update_stuff(self):
+	def update_stuff(self, event=None):
+		self.text_box.unbind('<Leave>')
+		self.text_box.unbind('<FocusOut>')
+		self.text_box.bind('<FocusIn>', self.focus)
+		self.text_box.bind('<Enter>', self.focus)
 		self.refresh()
 		new_text = self.text
 		self.text_box.delete(1.0, 'end')
@@ -63,6 +79,28 @@ class Wind():
 		for program in globProgramList:
 			show_str += f'Program: {program.name}\n'
 			show_str += f'\tState: {program.state}\n'
+			show_str += f'\tConfiguration:\n'
+			show_str += f'\t\tCommand:\t{program.cmd}\n'
+			show_str += f'\t\tAmmount:\t{program.cmdammount}\n'
+			show_str += f'\t\tAuto Start:\t{program.autostart}\t\t\tAuto Restart: {program.autorestart}\n'
+			show_str += f'\t\tRestart Retries:\t{program.restartretries}\n'
+			show_str += f'\t\tStart Time:\t{program.starttime}\t\t\tStop Time: {program.stoptime}\n'
+			show_str += f'\t\tQuit Signal:\t{program.quitsig}\n'
+			if program.exitcodes == "None":
+				show_str += f'\t\tExit Codes:\t{program.exitcodes}\n'
+			else:
+				show_str += f'\t\tExit Codes:\n'
+				for code in program.exitcodes:
+					show_str += f'\t\t\t{code}\n'
+			show_str += f'\t\tWorking Directory:\t{program.workingdir}\n'
+			show_str += f'\t\tUmask:\t{program.umask}\n'
+			show_str += f'\t\tStdout:\t{program.stdout}\t\t\tStderr: {program.stderr}\n'
+			if program.env == "None":
+				show_str += f'\t\tEnvironment:\t{program.env}\n'
+			else:
+				for env in program.env:
+					show_str += f'\t\tEnvironment:\n'
+					show_str += f'\t\t\t{env}\n'
 			show_str += f'\tPIDs: {program.pidList}\n'
 		self.text = show_str
 
@@ -76,13 +114,6 @@ class TaskmasterShell(cmd.Cmd):
 	# ----- basic taskmaster commands -----
     def do_display(self, arg):
         self.window = Wind()
-    # ----- basic taskmaster commands -----
-    def do_display(self, arg):
-        self.window = Wind()
-        print("arranco 1")
-        x = threading.Thread(target=self.window.auto_refresh, daemon=True)
-        x.start
-        print("arrancado")
 
     def do_status(self, arg):
         'Displays status for all supervised programs, or invididual programs. Usage -> status or status <program name>'
