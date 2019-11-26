@@ -58,5 +58,5 @@
         }
     },
     "log-active": true,
-	"log-file": "pysrcs/taskmaster.log"
+	"log-file": "taskmaster.log"
 }

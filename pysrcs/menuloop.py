@@ -23,9 +23,14 @@ import logging
 
 globProgramList = []
 globProgramconfigList = []
+windowActive = 0
 
 class Wind():
 	def __init__(self):
+		global windowActive
+		if windowActive == 1:
+			return
+		windowActive = 1
 		self.text = ''
 		self.after = ''
 		self.window = tk.Tk()
@@ -35,7 +40,9 @@ class Wind():
 		self.text_box.after(1, self.update_stuff)
 
 	def on_closing(self):
+		global windowActive
 		if messagebox.askokcancel("Quit", "Do you want to quit the window?"):
+			windowActive = 0
 			self.text_box.after_cancel(self.after)
 			self.text_box.destroy()
 			self.window.destroy()
@@ -256,6 +263,7 @@ def setuploop(programList, configList):
 	globProgramList = programList
 	globConfigList = configList
 	t = threading.Thread(target=regular_update)
+	t.daemon = True
 	t.start()
 	TaskmasterShell().cmdloop()
 	logging.info(f'Taskmaster loop started.')
