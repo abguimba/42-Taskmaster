@@ -381,77 +381,79 @@ def load_or_reload(programList, prevProgramList):
 									print(f". retries left: {retries}")
 									retries -= 1
 									if retries == 0:
-										if isinstance(programList.umask, int):
+										if isinstance(programList[i].umask, int):
 											os.umask(umaskSave)
 										alarm = 1
-										print("Could not run the subprocess for", programList.name,
+										print("Could not run the subprocess for", programList[i].name,
 										"skipping this execution")
 									continue
 						if alarm == 1:
 							break
-						if isinstance(programList.umask, int):
+						if isinstance(programList[i].umask, int):
 							os.umask(umaskSave)
-						if programList.starttime > 0:
-							programList.pidList.append([proc, "Starting", None])
-							timer = threading.Timer(programList.starttime, processes.start_time, [proc])
+						if programList[i].starttime > 0:
+							programList[i].pidList.append([proc, "Starting", None])
+							timer = threading.Timer(programList[i].starttime, processes.start_time, [proc])
 							timer.daemon = True
 							timer.start()
 						else:
-							programList.pidList.append([proc, "Running", None])
+							programList[i].pidList.append([proc, "Running", None])
 						instances -= 1
-					if programList.starttime > 0:
-						programList.state = "Starting"
+					if programList[i].starttime > 0:
+						programList[i].state = "Starting"
 					else:
-						programList.state = "Running"
+						programList[i].state = "Running"
 			elif restartList[i] == 2:
-				if programList.cmdammount < len(programList.pidList):
-					tools.delete_instances(newProgram, len(programList.pidList) - programList.cmdammount)
+				if programList[i].cmdammount < len(programList[i].pidList):
+					l = len(programList[i].pidList) - programList[i].cmdammount
+					tools.delete_instances(programList[i], l)
+					programList[i].pidList = programList[i].pidList[l:]
 				else:
-					realinstances = newProgram.cmdammount - len(programList.pidList)
-					logging.info(f'Configuring instance for \"{programList.name}\"')
+					realinstances = programList[i].cmdammount - len(programList[i].pidList)
+					logging.info(f'Configuring instance for \"{programList[i].name}\"')
 					logging.info(f'Creating environment.')
-					if programList.env == "None" or programList.env == "default":
+					if programList[i].env == "None" or programList[i].env == "default":
 						envcopy = None
 					else:
 						envcopy = os.environ.copy()
-						if programList.env != "default" and isinstance(programList.env, list):
-							for envitem in programList.env:
+						if programList[i].env != "default" and isinstance(programList[i].env, list):
+							for envitem in programList[i].env:
 								l = envitem.split('=', 2)
 								envcopy[l[0]] = l[1]
 							logging.info(f'\t{l[0]} = {envcopy[l[0]]}')
 						logging.info(f'Environment created succesfully.')
 					logging.info('Selecting standard outputs.')	
-					if (isinstance(programList.stdout, str)
-						and programList.stdout != "None" and programList.stdout != "discard"):
-							if programList.workingdir != "None":
-								outpath = programList.workingdir + programList.stdout
+					if (isinstance(programList[i].stdout, str)
+						and programList[i].stdout != "None" and programList[i].stdout != "discard"):
+							if programList[i].workingdir != "None":
+								outpath = programList[i].workingdir + programList[i].stdout
 							else:
-								outpath = programList.stdout
+								outpath = programList[i].stdout
 					else:
 						outpath = os.devnull
-					if (isinstance(programList.stderr, str)
-						and programList.stderr != "None" and programList.stderr != "discard"):
-							if programList.workingdir != "None":
-								errpath = programList.workingdir + programList.stderr
+					if (isinstance(programList[i].stderr, str)
+						and programList[i].stderr != "None" and programList[i].stderr != "discard"):
+							if programList[i].workingdir != "None":
+								errpath = programList[i].workingdir + programList[i].stderr
 							else:
-								errpath = programList.stderr
+								errpath = programList[i].stderr
 					else:
 						errpath = os.devnull
 					logging.info(f'Selected standard outputs in:\n\t\t\t\t\tSTDOUT: {outpath}\n\t\t\t\t\tSTDERR: {errpath}')	
-					if programList.autostart == True:
-						programList.started = True
-						cmdList = programList.cmd.split()
+					if programList[i].autostart == True:
+						programList[i].started = True
+						cmdList = programList[i].cmd.split()
 						instances = realinstances
 						logging.info(f'Starting {instances} instances')
-						if programList.workingdir != "None" and isinstance(programList.workingdir, str):
-							workingdir = os.chdir(programList.workingdir)
+						if programList[i].workingdir != "None" and isinstance(programList[i].workingdir, str):
+							workingdir = os.chdir(programList[i].workingdir)
 						else:
 							workingdir = os.chdir(os.getcwd())
-						if isinstance(programList.umask, int):
-							umaskSave = os.umask(programList.umask)
+						if isinstance(programList[i].umask, int):
+							umaskSave = os.umask(programList[i].umask)
 						while instances > 0:
 							alarm = 0
-							retries = programList.restartretries
+							retries = programList[i].restartretries
 							while retries > 0:
 								try:
 									with open(outpath, "wb", 0) as out, open(errpath, "wb", 0) as err:
@@ -459,30 +461,30 @@ def load_or_reload(programList, prevProgramList):
 										break
 								except:
 									if retries > 0:
-										print("Could not run the subprocess for", programList.name, end='')
+										print("Could not run the subprocess for", programList[i].name, end='')
 										print(f". retries left: {retries}")
 										retries -= 1
 										if retries == 0:
-											if isinstance(programList.umask, int):
+											if isinstance(programList[i].umask, int):
 												os.umask(umaskSave)
 											alarm = 1
-											print("Could not run the subprocess for", programList.name,
+											print("Could not run the subprocess for", programList[i].name,
 											"skipping this execution")
 										continue
 							if alarm == 1:
 								break
-							if isinstance(programList.umask, int):
+							if isinstance(programList[i].umask, int):
 								os.umask(umaskSave)
-							if programList.starttime > 0:
-								programList.pidList.append([proc, "Starting", None])
-								timer = threading.Timer(programList.starttime, processes.start_time, [proc])
+							if programList[i].starttime > 0:
+								programList[i].pidList.append([proc, "Starting", None])
+								timer = threading.Timer(programList[i].starttime, processes.start_time, [proc])
 								timer.daemon = True
 								timer.start()
 							else:
-								programList.pidList.append([proc, "Running", None])
+								programList[i].pidList.append([proc, "Running", None])
 							instances -= 1
-						if programList.starttime > 0:
-							programList.state = "Starting"
+						if programList[i].starttime > 0:
+							programList[i].state = "Starting"
 						else:
-							programList.state = "Running"
+							programList[i].state = "Running"
 			i += 1

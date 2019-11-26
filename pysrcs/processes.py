@@ -28,7 +28,6 @@ def start_time(saved_pid):
 						pid[1] = "Running"
 	logging.info(f'Timer for starttime parameter set.')
 
-
 def stop_program(programList):
 	"""this function stops a program with the desired signal"""
 	for program in programList:

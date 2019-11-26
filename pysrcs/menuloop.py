@@ -34,6 +34,7 @@ class Wind():
 		self.text = ''
 		self.after = ''
 		self.window = tk.Tk()
+		self.window.title("Taskmaster")
 		self.window.protocol("WM_DELETE_WINDOW", self.on_closing)
 		self.text_box = tk.Text(self.window)
 		self.text_box.grid(row=0, column=0)
@@ -196,7 +197,7 @@ class TaskmasterShell(cmd.Cmd):
     def complete_restart(self, text, line, begidx, endidx):
         newList = [i.name for i in globProgramList if i.state != "Not started"]
         return [i for i in newList if i.startswith(text)]
-	
+
     def do_reload(self, arg):
         'Reloads the whole configuration. Usage -> reload'
         global globProgramList
@@ -220,7 +221,29 @@ class TaskmasterShell(cmd.Cmd):
                 execution.load_or_reload(programList, globProgramList)
                 globProgramList = programList
                 globConfigList = configList
-	
+
+    def sighup_reload(self, arg):
+        'Reloads the whole configuration after a SIGHUP'
+        print(f'Manual reload through SIGHUP detected. Verifying config...')
+        global globProgramList
+        global globConfigList
+        logging.info(f'Reloading programs after a SIGHUP.')
+        configList = tools.parse_json_file()
+        if configList == None:
+            print(f"Couldn't load the new configuration, error while parsing the json config file")
+            return
+        verif = tools.verify_config(1, configList)
+        if verif == 1:
+            print(f"Couldn't load the new configuration, error while verifying the new configuration")
+            return
+        programList = classes.init_classes(configList)
+        execution.load_or_reload(programList, globProgramList)
+        globProgramList = programList
+        globConfigList = configList
+        print(f'Manual reload completed!')
+
+    signal.signal(signal.SIGHUP, sighup_reload)
+
     def do_exit(self, arg):
         'Close the Taskmaster shell, kill remaining jobs and exit. Usage -> exit'
         confirmation = userinput.ask_for_exit_kill_confirmation()

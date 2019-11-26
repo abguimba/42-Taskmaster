@@ -12,16 +12,12 @@ configFile = None
 
 def delete_instances(program, nb):
     """kills nb instances of desired job"""
-    if nb >= program.cmdammount:
-        kill_job(program)
-    elif nb > 0 and program.state != "Finished" and program.state != "Stopped" and program.state != "Not started":
+    if nb > 0 and program.state != "Finished" and program.state != "Stopped" and program.state != "Not started":
         for pid in program.pidList:
             if nb == 0:
-                logging.info(f'No instances of {program.name} were killed')
                 return
             if pid[1] != "Finished" and pid[1] != "Stopped":
                 os.kill(pid[0].pid, signal.SIGKILL)
-                program.pidList.remove(pid)
             nb -= 1
     logging.info(f'All instances of {program.name} were killed')
 
