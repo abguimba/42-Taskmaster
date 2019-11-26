@@ -1,6 +1,5 @@
 """File for general tooling"""
 import sys
-import yaml
 import json
 import os
 import signal
