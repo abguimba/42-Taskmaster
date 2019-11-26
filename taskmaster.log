@@ -1,0 +1,114 @@
+2019-11-26 18:03:14,025 INFO	Checking valid params...
+2019-11-26 18:03:14,025 INFO	Params checked: VALID
+2019-11-26 18:03:14,025 INFO	Setting signal handlers...
+2019-11-26 18:03:14,025 INFO	Signal handlers set.
+2019-11-26 18:03:14,025 INFO	Opening config file... config_files/testconfig.json
+2019-11-26 18:03:14,025 INFO	Config file config_files/testconfig.json open.
+2019-11-26 18:03:14,025 INFO	Loading config file... config_files/testconfig.json
+2019-11-26 18:03:14,026 INFO	Config file config_files/testconfig.json loaded.
+2019-11-26 18:03:14,026 INFO	Checking configuration...
+2019-11-26 18:03:14,026 INFO	16 instances have been found
+2019-11-26 18:03:14,026 INFO	Config verified succesfully: sleep
+2019-11-26 18:03:14,026 INFO	Config verified succesfully: ls
+2019-11-26 18:03:14,026 INFO	Config verified succesfully: env
+2019-11-26 18:03:14,026 INFO	Initializing programs list
+2019-11-26 18:03:14,026 INFO	Programs list initilized
+2019-11-26 18:03:14,026 INFO	Asking the user if he wants to continue
+2019-11-26 18:03:14,662 INFO	User input "y".
+2019-11-26 18:03:14,662 INFO	There is no previous program list.
+2019-11-26 18:03:14,662 INFO	Configuring instance for "sleep"
+2019-11-26 18:03:14,663 INFO	Creating environment.
+2019-11-26 18:03:14,663 INFO	Selecting standard outputs.
+2019-11-26 18:03:14,663 INFO	Selected standard outputs in:
+					STDOUT: /tmp/outfile.log
+					STDERR: /tmp/outfile.log
+2019-11-26 18:03:14,663 INFO	Configuring instance for "ls"
+2019-11-26 18:03:14,663 INFO	Creating environment.
+2019-11-26 18:03:14,663 INFO		ANSWER = 42
+2019-11-26 18:03:14,663 INFO	Environment created succesfully.
+2019-11-26 18:03:14,663 INFO	Selecting standard outputs.
+2019-11-26 18:03:14,663 INFO	Selected standard outputs in:
+					STDOUT: /tmp/outfile.log
+					STDERR: /tmp/outfile.log
+2019-11-26 18:03:14,663 INFO	Configuring instance for "env"
+2019-11-26 18:03:14,663 INFO	Creating environment.
+2019-11-26 18:03:14,663 INFO	Selecting standard outputs.
+2019-11-26 18:03:14,663 INFO	Selected standard outputs in:
+					STDOUT: /tmp/cacafile.log
+					STDERR: /dev/null
+2019-11-26 18:03:14,918 INFO	Program: ls was revived
+2019-11-26 18:03:14,918 INFO	Program: env was revived
+2019-11-26 18:03:15,172 INFO	Program: ls was revived
+2019-11-26 18:03:15,172 INFO	Program: env was revived
+2019-11-26 18:03:15,423 INFO	Program: ls was revived
+2019-11-26 18:03:15,423 INFO	Program: env was revived
+2019-11-26 18:03:15,677 INFO	Program: ls was revived
+2019-11-26 18:03:15,677 INFO	Program: env was revived
+2019-11-26 18:03:15,927 INFO	Program: ls was revived
+2019-11-26 18:03:15,928 INFO	Program: env was revived
+2019-11-26 18:03:16,183 INFO	Program: ls was revived
+2019-11-26 18:03:16,183 INFO	Program: env was revived
+2019-11-26 18:03:16,710 INFO	Program: ls was revived
+2019-11-26 18:03:16,710 INFO	Program: env was revived
+2019-11-26 18:03:16,964 INFO	Program: ls was revived
+2019-11-26 18:03:16,965 INFO	Program: env was revived
+2019-11-26 18:03:17,220 INFO	Program: ls was revived
+2019-11-26 18:03:17,220 INFO	Program: env was revived
+2019-11-26 18:03:17,472 INFO	Program: ls was revived
+2019-11-26 18:03:17,472 INFO	Program: env was revived
+2019-11-26 18:03:17,727 INFO	Program: ls was revived
+2019-11-26 18:03:17,727 INFO	Program: env was revived
+2019-11-26 18:03:17,982 INFO	Program: ls was revived
+2019-11-26 18:03:17,982 INFO	Program: env was revived
+2019-11-26 18:03:18,233 INFO	Program: ls was revived
+2019-11-26 18:03:18,233 INFO	Program: env was revived
+2019-11-26 18:03:18,487 INFO	Program: ls was revived
+2019-11-26 18:03:18,487 INFO	Program: env was revived
+2019-11-26 18:03:18,742 INFO	Program: ls was revived
+2019-11-26 18:03:18,742 INFO	Program: env was revived
+2019-11-26 18:03:18,998 INFO	Program: ls was revived
+2019-11-26 18:03:18,998 INFO	Program: env was revived
+2019-11-26 18:03:19,248 INFO	Program: ls was revived
+2019-11-26 18:03:19,248 INFO	Program: env was revived
+2019-11-26 18:03:19,499 INFO	Program: ls was revived
+2019-11-26 18:03:19,499 INFO	Program: env was revived
+2019-11-26 18:03:19,754 INFO	Program: ls was revived
+2019-11-26 18:03:19,754 INFO	Program: env was revived
+2019-11-26 18:03:20,005 INFO	Program: ls was revived
+2019-11-26 18:03:20,005 INFO	Program: env was revived
+2019-11-26 18:03:20,260 INFO	Program: ls was revived
+2019-11-26 18:03:20,260 INFO	Program: env was revived
+2019-11-26 18:03:20,514 INFO	Program: ls was revived
+2019-11-26 18:03:20,514 INFO	Program: env was revived
+2019-11-26 18:03:20,768 INFO	Program: ls was revived
+2019-11-26 18:03:20,768 INFO	Program: env was revived
+2019-11-26 18:03:21,020 INFO	Program: ls was revived
+2019-11-26 18:03:21,021 INFO	Program: env was revived
+2019-11-26 18:03:21,274 INFO	Program: ls was revived
+2019-11-26 18:03:21,274 INFO	Program: env was revived
+2019-11-26 18:03:21,526 INFO	Program: ls was revived
+2019-11-26 18:03:21,526 INFO	Program: env was revived
+2019-11-26 18:03:21,777 INFO	Program: ls was revived
+2019-11-26 18:03:21,777 INFO	Program: env was revived
+2019-11-26 18:03:22,027 INFO	Program: ls was revived
+2019-11-26 18:03:22,027 INFO	Program: env was revived
+2019-11-26 18:03:22,283 INFO	Program: ls was revived
+2019-11-26 18:03:22,283 INFO	Program: env was revived
+2019-11-26 18:03:22,537 INFO	Program: ls was revived
+2019-11-26 18:03:22,537 INFO	Program: env was revived
+2019-11-26 18:03:22,792 INFO	Program: ls was revived
+2019-11-26 18:03:22,792 INFO	Program: env was revived
+2019-11-26 18:03:23,047 INFO	Program: ls was revived
+2019-11-26 18:03:23,047 INFO	Program: env was revived
+2019-11-26 18:03:23,302 INFO	Program: ls was revived
+2019-11-26 18:03:23,303 INFO	Program: env was revived
+2019-11-26 18:03:23,510 INFO	Asking the user if he wants to kill all remaining jobs
+2019-11-26 18:03:23,556 INFO	Program: ls was revived
+2019-11-26 18:03:23,556 INFO	Program: env was revived
+2019-11-26 18:03:23,809 INFO	Program: ls was revived
+2019-11-26 18:03:23,809 INFO	Program: env was revived
+2019-11-26 18:03:24,064 INFO	Program: ls was revived
+2019-11-26 18:03:24,064 INFO	Program: env was revived
+2019-11-26 18:03:24,262 INFO	User input "y".
+2019-11-26 18:03:24,262 INFO	Taskmaster loop started.
+2019-11-26 18:03:24,262 INFO	All jobs were killed on exit
