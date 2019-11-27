@@ -35,22 +35,40 @@ class Wind():
 			return
 		windowActive = 1
 		self.text = ''
-		self.after = ''
+		self.pid_text = ''
+		self.after = 0
+		self.pid_after = ''
 		self.window = tk.Tk()
+		self.window.title('TaskMaster GUID')
+		self.window.geometry('1210x260')
+		self.window.minsize(1210, 260)
+		self.window.maxsize(1210, 800)
 		self.window.protocol("WM_DELETE_WINDOW", self.on_closing)
-		self.text_box = tk.Text(self.window)
-		self.text_box.grid(row=0, column=0)
+		self.window.configure(background='#183254')
+		self.text_box = tk.Text(self.window, state='disabled', background='black', foreground='green')
+		self.pid_box = tk.Text(self.window, state='disabled', background='black', foreground='green')
+		self.text_box.pack(fill='y', side='left', padx=20, pady=20)
+		self.pid_box.pack(fill='y', side='right', padx=20, pady=20)
 		self.text_box.after(1, self.update_stuff)
-		self.focused = 0
+		self.focuser = 0
+		self.text_box.bind('<Enter>', self.focus)
+		self.pid_box.bind('<Enter>', self.focus_pid)
+		self.text_box.bind('<Leave>', self.test)
+		self.pid_box.bind('<Leave>', self.test)
 
+	def test(self, event):
+		if self.focuser == 0:
+			self.focuser = 1
+			self.update_stuff()
 
 	def focus(self, event):
 		self.text_box.after_cancel(self.after)
-		self.text_box.unbind('<FocusIn>')
-		self.text_box.unbind('<Enter>')
-		self.text_box.bind('<Leave>', self.update_stuff)
-		self.text_box.bind('<FocusOut>', self.update_stuff)
+		self.focuser = 0
 
+
+	def focus_pid(self, event):
+		self.text_box.after_cancel(self.after)
+		self.focuser = 0
 
 
 
@@ -60,24 +78,32 @@ class Wind():
 			windowActive = 0
 			self.text_box.after_cancel(self.after)
 			self.text_box.destroy()
+			self.pid_box.destroy()
 			self.window.destroy()
 
 	def update_stuff(self, event=None):
-		self.text_box.unbind('<Leave>')
-		self.text_box.unbind('<FocusOut>')
-		self.text_box.bind('<FocusIn>', self.focus)
-		self.text_box.bind('<Enter>', self.focus)
 		self.refresh()
 		new_text = self.text
+		new_pid_text = self.pid_text
+		self.text_box.config(state='normal')
+		self.pid_box.config(state='normal')
 		self.text_box.delete(1.0, 'end')
 		self.text_box.insert(1.0, new_text)
+		self.pid_box.delete(1.0, 'end')
+		self.pid_box.insert(1.0, new_pid_text)
+		self.text_box.config(state='disabled')
+		self.pid_box.config(state='disabled')
 		self.after = self.text_box.after(250, self.update_stuff)
 
 	def refresh(self):
 		global globProgramList
 		show_str = ''
+		show_pid_str = ''
 		for program in globProgramList:
 			show_str += f'Program: {program.name}\n'
+			show_pid_str += f'{program.name}:\n'
+			for pid in program.pidList:
+				show_pid_str += f'\t{pid[0].pid}\n'
 			show_str += f'\tState: {program.state}\n'
 			show_str += f'\tConfiguration:\n'
 			show_str += f'\t\tCommand:\t{program.cmd}\n'
@@ -101,8 +127,8 @@ class Wind():
 				for env in program.env:
 					show_str += f'\t\tEnvironment:\n'
 					show_str += f'\t\t\t{env}\n'
-			show_str += f'\tPIDs: {program.pidList}\n'
 		self.text = show_str
+		self.pid_text = show_pid_str
 
 class TaskmasterShell(cmd.Cmd):
     global globProgramList
