@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 2019-11-27 06:10:27,173 INFO	Checking valid params...
 2019-11-27 06:10:27,174 INFO	Params checked: VALID
 2019-11-27 06:10:27,174 INFO	Setting signal handlers...
@@ -2893,3 +2894,253 @@
 2019-11-27 06:15:09,072 INFO	Program: env was revived
 2019-11-27 06:15:09,177 INFO	Program: env was revived
 2019-11-27 06:15:09,281 INFO	Program: env was revived
+=======
+2019-11-27 06:07:42,062 INFO	Checking valid params...
+2019-11-27 06:07:42,062 INFO	Params checked: VALID
+2019-11-27 06:07:42,063 INFO	Setting signal handlers...
+2019-11-27 06:07:42,063 INFO	Signal handlers set.
+2019-11-27 06:07:42,063 INFO	Opening config file... config_files/fulltestconfig.json
+2019-11-27 06:07:42,063 INFO	Config file config_files/fulltestconfig.json open.
+2019-11-27 06:07:42,063 INFO	Loading config file... config_files/fulltestconfig.json
+2019-11-27 06:07:42,063 INFO	Config file config_files/fulltestconfig.json loaded.
+2019-11-27 06:07:42,063 INFO	Checking configuration...
+2019-11-27 06:07:42,063 INFO	177 instances have been found
+2019-11-27 06:07:42,063 INFO	Config verified succesfully: sleep
+2019-11-27 06:07:42,063 INFO	Config verified succesfully: ls
+2019-11-27 06:07:42,063 INFO	Config verified succesfully: env
+2019-11-27 06:07:42,064 INFO	Config verified succesfully: yes
+2019-11-27 06:07:42,064 INFO	Config verified succesfully: sl
+2019-11-27 06:07:42,064 INFO	Initializing programs list
+2019-11-27 06:07:42,064 INFO	Programs list initilized
+2019-11-27 06:07:42,064 INFO	Asking the user if he wants to continue
+2019-11-27 06:07:42,409 INFO	User input "y".
+2019-11-27 06:07:42,409 INFO	There is no previous program list.
+2019-11-27 06:07:42,409 INFO	Configuring instance for "sleep"
+2019-11-27 06:07:42,409 INFO	Creating environment.
+2019-11-27 06:07:42,410 INFO	Selecting standard outputs.
+2019-11-27 06:07:42,410 INFO	Selected standard outputs in:
+					STDOUT: /tmp/outfile.log
+					STDERR: /tmp/outfile.log
+2019-11-27 06:07:42,410 INFO	Configuring instance for "ls"
+2019-11-27 06:07:42,410 INFO	Creating environment.
+2019-11-27 06:07:42,410 INFO		ANSWER = 42
+2019-11-27 06:07:42,410 INFO	Environment created succesfully.
+2019-11-27 06:07:42,410 INFO	Selecting standard outputs.
+2019-11-27 06:07:42,410 INFO	Selected standard outputs in:
+					STDOUT: /tmp/outfile.log
+					STDERR: /tmp/outfile.log
+2019-11-27 06:07:42,410 INFO	Configuring instance for "env"
+2019-11-27 06:07:42,410 INFO	Creating environment.
+2019-11-27 06:07:42,410 INFO	Selecting standard outputs.
+2019-11-27 06:07:42,410 INFO	Selected standard outputs in:
+					STDOUT: /tmp/cacafile.log
+					STDERR: /dev/null
+2019-11-27 06:07:42,410 INFO	Configuring instance for "yes"
+2019-11-27 06:07:42,410 INFO	Creating environment.
+2019-11-27 06:07:42,411 INFO	Selecting standard outputs.
+2019-11-27 06:07:42,411 INFO	Selected standard outputs in:
+					STDOUT: /tmp/outfile.log
+					STDERR: /tmp/outfile.log
+2019-11-27 06:07:42,411 INFO	Configuring instance for "sl"
+2019-11-27 06:07:42,411 INFO	Creating environment.
+2019-11-27 06:07:42,411 INFO	Selecting standard outputs.
+2019-11-27 06:07:42,411 INFO	Selected standard outputs in:
+					STDOUT: /tmp/outfile.log
+					STDERR: /tmp/outfile.log
+2019-11-27 06:07:42,666 INFO	Program: ls was revived
+2019-11-27 06:07:42,666 INFO	Program: env was revived
+2019-11-27 06:07:42,918 INFO	Program: ls was revived
+2019-11-27 06:07:42,918 INFO	Program: env was revived
+2019-11-27 06:07:43,168 INFO	Program: ls was revived
+2019-11-27 06:07:43,169 INFO	Program: env was revived
+2019-11-27 06:07:43,422 INFO	Program: ls was revived
+2019-11-27 06:07:43,422 INFO	Program: env was revived
+2019-11-27 06:07:43,672 INFO	Program: ls was revived
+2019-11-27 06:07:43,672 INFO	Program: env was revived
+2019-11-27 06:07:43,928 INFO	Program: ls was revived
+2019-11-27 06:07:43,928 INFO	Program: env was revived
+2019-11-27 06:07:44,180 INFO	Program: ls was revived
+2019-11-27 06:07:44,180 INFO	Program: env was revived
+2019-11-27 06:07:44,431 INFO	Program: ls was revived
+2019-11-27 06:07:44,431 INFO	Program: env was revived
+2019-11-27 06:07:44,633 INFO	Starting programs.
+2019-11-27 06:07:44,665 INFO	Program: sleep was started.
+2019-11-27 06:07:44,681 INFO	Program: ls was revived
+2019-11-27 06:07:44,681 INFO	Program: env was revived
+2019-11-27 06:07:44,937 INFO	Program: ls was revived
+2019-11-27 06:07:44,937 INFO	Program: env was revived
+2019-11-27 06:07:45,191 INFO	Program: ls was revived
+2019-11-27 06:07:45,191 INFO	Program: env was revived
+2019-11-27 06:07:45,447 INFO	Program: ls was revived
+2019-11-27 06:07:45,447 INFO	Program: env was revived
+2019-11-27 06:07:45,700 INFO	Program: ls was revived
+2019-11-27 06:07:45,700 INFO	Program: env was revived
+2019-11-27 06:07:45,955 INFO	Program: ls was revived
+2019-11-27 06:07:45,955 INFO	Program: env was revived
+2019-11-27 06:07:46,206 INFO	Program: ls was revived
+2019-11-27 06:07:46,206 INFO	Program: env was revived
+2019-11-27 06:07:46,456 INFO	Program: ls was revived
+2019-11-27 06:07:46,457 INFO	Program: env was revived
+2019-11-27 06:07:46,710 INFO	Program: ls was revived
+2019-11-27 06:07:46,710 INFO	Program: env was revived
+2019-11-27 06:07:46,961 INFO	Program: ls was revived
+2019-11-27 06:07:46,961 INFO	Program: env was revived
+2019-11-27 06:07:47,009 INFO	Stopping programs.
+2019-11-27 06:07:47,011 INFO	Program: sleep was stopped with TERM.
+2019-11-27 06:07:47,216 INFO	Program: ls was revived
+2019-11-27 06:07:47,216 INFO	Program: env was revived
+2019-11-27 06:07:47,470 INFO	Program: ls was revived
+2019-11-27 06:07:47,470 INFO	Program: env was revived
+2019-11-27 06:07:47,723 INFO	Program: ls was revived
+2019-11-27 06:07:47,723 INFO	Program: env was revived
+2019-11-27 06:07:47,801 INFO	Displaying program status.
+2019-11-27 06:07:47,975 INFO	Program: ls was revived
+2019-11-27 06:07:47,975 INFO	Program: env was revived
+2019-11-27 06:07:48,226 INFO	Program: ls was revived
+2019-11-27 06:07:48,226 INFO	Program: env was revived
+2019-11-27 06:07:48,481 INFO	Program: ls was revived
+2019-11-27 06:07:48,481 INFO	Program: env was revived
+2019-11-27 06:07:48,735 INFO	Program: ls was revived
+2019-11-27 06:07:48,735 INFO	Program: env was revived
+2019-11-27 06:07:48,990 INFO	Program: ls was revived
+2019-11-27 06:07:48,990 INFO	Program: env was revived
+2019-11-27 06:07:49,548 INFO	Program: ls was revived
+2019-11-27 06:07:49,548 INFO	Program: env was revived
+2019-11-27 06:07:49,802 INFO	Program: ls was revived
+2019-11-27 06:07:49,802 INFO	Program: env was revived
+2019-11-27 06:07:50,055 INFO	Program: ls was revived
+2019-11-27 06:07:50,055 INFO	Program: env was revived
+2019-11-27 06:07:50,308 INFO	Program: ls was revived
+2019-11-27 06:07:50,309 INFO	Program: env was revived
+2019-11-27 06:07:50,564 INFO	Program: ls was revived
+2019-11-27 06:07:50,564 INFO	Program: env was revived
+2019-11-27 06:07:50,818 INFO	Program: ls was revived
+2019-11-27 06:07:50,819 INFO	Program: env was revived
+2019-11-27 06:07:51,074 INFO	Program: ls was revived
+2019-11-27 06:07:51,074 INFO	Program: env was revived
+2019-11-27 06:07:51,328 INFO	Program: ls was revived
+2019-11-27 06:07:51,329 INFO	Program: env was revived
+2019-11-27 06:07:51,584 INFO	Program: ls was revived
+2019-11-27 06:07:51,584 INFO	Program: env was revived
+2019-11-27 06:07:51,839 INFO	Program: ls was revived
+2019-11-27 06:07:51,839 INFO	Program: env was revived
+2019-11-27 06:07:52,090 INFO	Program: ls was revived
+2019-11-27 06:07:52,090 INFO	Program: env was revived
+2019-11-27 06:07:52,345 INFO	Program: ls was revived
+2019-11-27 06:07:52,345 INFO	Program: env was revived
+2019-11-27 06:07:52,596 INFO	Program: ls was revived
+2019-11-27 06:07:52,596 INFO	Program: env was revived
+2019-11-27 06:07:52,851 INFO	Program: ls was revived
+2019-11-27 06:07:52,851 INFO	Program: env was revived
+2019-11-27 06:07:53,101 INFO	Program: ls was revived
+2019-11-27 06:07:53,102 INFO	Program: env was revived
+2019-11-27 06:07:53,355 INFO	Program: ls was revived
+2019-11-27 06:07:53,355 INFO	Program: env was revived
+2019-11-27 06:07:53,610 INFO	Program: ls was revived
+2019-11-27 06:07:53,610 INFO	Program: env was revived
+2019-11-27 06:07:53,865 INFO	Program: ls was revived
+2019-11-27 06:07:53,866 INFO	Program: env was revived
+2019-11-27 06:07:54,117 INFO	Program: ls was revived
+2019-11-27 06:07:54,118 INFO	Program: env was revived
+2019-11-27 06:07:54,373 INFO	Program: ls was revived
+2019-11-27 06:07:54,373 INFO	Program: env was revived
+2019-11-27 06:07:54,628 INFO	Program: ls was revived
+2019-11-27 06:07:54,628 INFO	Program: env was revived
+2019-11-27 06:07:54,881 INFO	Program: ls was revived
+2019-11-27 06:07:54,881 INFO	Program: env was revived
+2019-11-27 06:07:55,131 INFO	Program: ls was revived
+2019-11-27 06:07:55,132 INFO	Program: env was revived
+2019-11-27 06:07:55,387 INFO	Program: ls was revived
+2019-11-27 06:07:55,387 INFO	Program: env was revived
+2019-11-27 06:07:55,642 INFO	Program: ls was revived
+2019-11-27 06:07:55,642 INFO	Program: env was revived
+2019-11-27 06:07:55,894 INFO	Program: ls was revived
+2019-11-27 06:07:55,894 INFO	Program: env was revived
+2019-11-27 06:07:56,148 INFO	Program: ls was revived
+2019-11-27 06:07:56,148 INFO	Program: env was revived
+2019-11-27 06:07:56,400 INFO	Program: ls was revived
+2019-11-27 06:07:56,400 INFO	Program: env was revived
+2019-11-27 06:07:56,652 INFO	Program: ls was revived
+2019-11-27 06:07:56,652 INFO	Program: env was revived
+2019-11-27 06:07:56,907 INFO	Program: ls was revived
+2019-11-27 06:07:56,907 INFO	Program: env was revived
+2019-11-27 06:07:57,013 INFO	Timer for stoptime parameter set.
+2019-11-27 06:07:57,013 INFO	Timer for stoptime parameter set.
+2019-11-27 06:07:57,013 INFO	Timer for stoptime parameter set.
+2019-11-27 06:07:57,013 INFO	Timer for stoptime parameter set.
+2019-11-27 06:07:57,013 INFO	Timer for stoptime parameter set.
+2019-11-27 06:07:57,014 INFO	Timer for stoptime parameter set.
+2019-11-27 06:07:57,014 INFO	Timer for stoptime parameter set.
+2019-11-27 06:07:57,014 INFO	Timer for stoptime parameter set.
+2019-11-27 06:07:57,014 INFO	Timer for stoptime parameter set.
+2019-11-27 06:07:57,014 INFO	Timer for stoptime parameter set.
+2019-11-27 06:07:57,162 INFO	Program: ls was revived
+2019-11-27 06:07:57,162 INFO	Program: env was revived
+2019-11-27 06:07:57,415 INFO	Program: ls was revived
+2019-11-27 06:07:57,415 INFO	Program: env was revived
+2019-11-27 06:07:57,665 INFO	Program: ls was revived
+2019-11-27 06:07:57,665 INFO	Program: env was revived
+2019-11-27 06:07:57,917 INFO	Program: ls was revived
+2019-11-27 06:07:57,918 INFO	Program: env was revived
+2019-11-27 06:07:58,173 INFO	Program: ls was revived
+2019-11-27 06:07:58,173 INFO	Program: env was revived
+2019-11-27 06:07:58,425 INFO	Program: ls was revived
+2019-11-27 06:07:58,425 INFO	Program: env was revived
+2019-11-27 06:07:58,680 INFO	Program: ls was revived
+2019-11-27 06:07:58,681 INFO	Program: env was revived
+2019-11-27 06:07:58,936 INFO	Program: ls was revived
+2019-11-27 06:07:58,936 INFO	Program: env was revived
+2019-11-27 06:07:59,188 INFO	Program: ls was revived
+2019-11-27 06:07:59,188 INFO	Program: env was revived
+2019-11-27 06:07:59,438 INFO	Program: ls was revived
+2019-11-27 06:07:59,438 INFO	Program: env was revived
+2019-11-27 06:07:59,690 INFO	Program: ls was revived
+2019-11-27 06:07:59,690 INFO	Program: env was revived
+2019-11-27 06:07:59,945 INFO	Program: ls was revived
+2019-11-27 06:07:59,945 INFO	Program: env was revived
+2019-11-27 06:08:00,200 INFO	Program: ls was revived
+2019-11-27 06:08:00,200 INFO	Program: env was revived
+2019-11-27 06:08:00,451 INFO	Program: ls was revived
+2019-11-27 06:08:00,451 INFO	Program: env was revived
+2019-11-27 06:08:00,701 INFO	Program: ls was revived
+2019-11-27 06:08:00,701 INFO	Program: env was revived
+2019-11-27 06:08:00,764 INFO	Displaying program status.
+2019-11-27 06:08:00,954 INFO	Program: ls was revived
+2019-11-27 06:08:00,954 INFO	Program: env was revived
+2019-11-27 06:08:01,209 INFO	Program: ls was revived
+2019-11-27 06:08:01,209 INFO	Program: env was revived
+2019-11-27 06:08:01,462 INFO	Program: ls was revived
+2019-11-27 06:08:01,462 INFO	Program: env was revived
+2019-11-27 06:08:01,717 INFO	Program: ls was revived
+2019-11-27 06:08:01,718 INFO	Program: env was revived
+2019-11-27 06:08:01,972 INFO	Program: ls was revived
+2019-11-27 06:08:01,972 INFO	Program: env was revived
+2019-11-27 06:08:02,222 INFO	Program: ls was revived
+2019-11-27 06:08:02,223 INFO	Program: env was revived
+2019-11-27 06:08:02,473 INFO	Program: ls was revived
+2019-11-27 06:08:02,473 INFO	Program: env was revived
+2019-11-27 06:08:02,723 INFO	Program: ls was revived
+2019-11-27 06:08:02,723 INFO	Program: env was revived
+2019-11-27 06:08:02,978 INFO	Program: ls was revived
+2019-11-27 06:08:02,978 INFO	Program: env was revived
+2019-11-27 06:08:03,233 INFO	Program: ls was revived
+2019-11-27 06:08:03,233 INFO	Program: env was revived
+2019-11-27 06:08:03,487 INFO	Program: ls was revived
+2019-11-27 06:08:03,487 INFO	Program: env was revived
+2019-11-27 06:08:03,743 INFO	Program: ls was revived
+2019-11-27 06:08:03,743 INFO	Program: env was revived
+2019-11-27 06:08:03,993 INFO	Program: ls was revived
+2019-11-27 06:08:03,993 INFO	Program: env was revived
+2019-11-27 06:08:04,246 INFO	Program: ls was revived
+2019-11-27 06:08:04,247 INFO	Program: env was revived
+2019-11-27 06:08:04,501 INFO	Program: ls was revived
+2019-11-27 06:08:04,501 INFO	Program: env was revived
+2019-11-27 06:08:04,756 INFO	Program: ls was revived
+2019-11-27 06:08:04,756 INFO	Program: env was revived
+2019-11-27 06:08:04,800 INFO	Asking the user if he wants to kill all remaining jobs
+2019-11-27 06:08:05,010 INFO	Program: ls was revived
+2019-11-27 06:08:05,010 INFO	Program: env was revived
+2019-11-27 06:08:05,096 INFO	User input "y".
+2019-11-27 06:08:05,096 INFO	Taskmaster loop started.
+2019-11-27 06:08:05,096 INFO	All jobs were killed on exit
+>>>>>>> Stashed changes

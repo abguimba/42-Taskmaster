@@ -184,7 +184,7 @@ def update_program_status(programList):
 						if status[0] == '-':
 							status = status[1:]
 						pid[2] = status
-		if program.state == "Running" or program.state == "Starting":
+		if program.state == "Running" or program.state == "Starting" or program.state == "Stopping":
 			runningCount = 0
 			stoppingCount = 0
 			startingCount = 0
@@ -308,6 +308,7 @@ def load_or_reload(programList, prevProgramList):
 					if program.name == newProgram.name:
 						if program.cmd != newProgram.cmd:
 							restartList.append(1)
+							tools.kill_job(program)
 							break
 						elif program.cmdammount != newProgram.cmdammount:
 							restartList.append(2)

@@ -84,7 +84,7 @@ def verify_config(mode, configList):
         config[8] != "QUIT" and config[8] != "INT" and config[8] != "KILL"
         and config[8] != "TSTP" and config[8] != "STOP" )):
             return errors.error_config(mode, config[0], "quitsig")
-        elif isinstance(config[9], str) != True and isinstance(config[9], list) != True:
+        elif config[9] != "None" and isinstance(config[9], list) != True:
             return errors.error_config(mode, config[0], "exitcodes")
         elif isinstance(config[10], str) != True or os.path.isdir(config[10]) == False:
             return errors.error_config(mode, config[0], "workingdir")
@@ -94,10 +94,18 @@ def verify_config(mode, configList):
             return errors.error_config(mode, config[0], "stdout")
         elif isinstance(config[13], str) != True:
             return errors.error_config(mode, config[0], "stdin")
-        elif isinstance(config[14], str) != True and isinstance(config[14], list) != True:
+        elif config[14] != "None" and isinstance(config[14], list) != True:
             return errors.error_config(mode, config[0], "env")
         if config[10][len(config[10]) - 1] != '/':
             config[10] += '/'
+        if isinstance(config[14], list):
+            for e in config[14]:
+                if e.count('=') != 1:
+                    return errors.error_config(mode, config[0], "env")
+        if isinstance(config[9], list):
+            for e in config[9]:
+                if isinstance(e, int) == False:
+                    return errors.error_config(mode, config[0], "exitcodes")
         logging.info(f'Config verified succesfully: {config[0]}')
 
 def parse_json_file():
