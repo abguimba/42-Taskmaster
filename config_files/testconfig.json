@@ -20,7 +20,7 @@
             "cmd": "ls",
             "cmdammount": 20,
             "autostart": true,
-            "autorestart": "always",
+            "autorestart": "never",
             "starttime": 0,
             "stoptime": 0,
             "restartretries": 3,

@@ -93,7 +93,7 @@ class Wind():
 		self.pid_box.insert(1.0, new_pid_text)
 		self.text_box.config(state='disabled')
 		self.pid_box.config(state='disabled')
-		self.after = self.text_box.after(250, self.update_stuff)
+		self.after = self.text_box.after(100, self.update_stuff)
 
 	def refresh(self):
 		global globProgramList
@@ -103,7 +103,7 @@ class Wind():
 			show_str += f'Program: {program.name}\n'
 			show_pid_str += f'{program.name}:\n'
 			for pid in program.pidList:
-				show_pid_str += f'\t{pid[0].pid}\n'
+				show_pid_str += f'\t{pid[0].pid} {pid[1]}\n'
 			show_str += f'\tState: {program.state}\n'
 			show_str += f'\tConfiguration:\n'
 			show_str += f'\t\tCommand:\t{program.cmd}\n'
@@ -342,7 +342,7 @@ exit = False
 def regular_update():
 	global globProgramList
 	while True:
-		time.sleep(0.25)
+		time.sleep(0.1)
 		execution.update_program_status(globProgramList)
 
 def setuploop(programList, configList):
