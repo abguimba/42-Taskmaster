@@ -53,10 +53,10 @@ class Wind():
 		self.focuser = 0
 		self.text_box.bind('<Enter>', self.focus)
 		self.pid_box.bind('<Enter>', self.focus_pid)
-		self.text_box.bind('<Leave>', self.test)
-		self.pid_box.bind('<Leave>', self.test)
+		self.text_box.bind('<Leave>', self.focus_control)
+		self.pid_box.bind('<Leave>', self.focus_control)
 
-	def test(self, event):
+	def focus_control(self, event):
 		if self.focuser == 0:
 			self.focuser = 1
 			self.update_stuff()

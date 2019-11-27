@@ -18,8 +18,8 @@
         },
         "ls": {
             "cmd": "ls",
-            "cmdammount": 1,
-            "autostart": false,
+            "cmdammount": 20,
+            "autostart": true,
             "autorestart": "always",
             "starttime": 0,
             "stoptime": 0,
