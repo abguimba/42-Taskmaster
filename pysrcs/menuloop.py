@@ -103,7 +103,11 @@ class Wind():
 			show_str += f'Program: {program.name}\n'
 			show_pid_str += f'{program.name}:\n'
 			for pid in program.pidList:
-				show_pid_str += f'\t{pid[0].pid} {pid[1]}\n'
+				show_pid_str += f'\t{pid[0].pid}\t\t{pid[1]}'
+				if pid[1] == 'Finished':
+					show_pid_str += f' Rc: {pid[2]}\n'
+				else:
+					show_pid_str += f'\n'
 			show_str += f'\tState: {program.state}\n'
 			show_str += f'\tConfiguration:\n'
 			show_str += f'\t\tCommand:\t{program.cmd}\n'

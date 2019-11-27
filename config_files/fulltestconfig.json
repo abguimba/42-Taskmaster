@@ -2,7 +2,7 @@
     "programs": {
         "sleep": {
             "cmd": "sleep 100",
-            "cmdammount": 10,
+            "cmdammount": 1,
             "autostart": false,
             "autorestart": "never",
             "starttime": 100,
@@ -18,7 +18,7 @@
         },
         "ls": {
             "cmd": "ls",
-            "cmdammount": 20,
+            "cmdammount": 50,
             "autostart": false,
             "autorestart": "always",
             "starttime": 0,
@@ -37,10 +37,10 @@
         },
         "env": {
             "cmd": "env",
-            "cmdammount": 5,
+            "cmdammount": 1,
             "autostart": false,
             "autorestart": "unexpected",
-            "starttime": 10,
+            "starttime": 1,
             "stoptime": 0,
             "restartretries": 3,
             "quitsig": "TERM",
@@ -58,7 +58,7 @@
 		},
 		"yes": {
             "cmd": "yes",
-            "cmdammount": 42,
+            "cmdammount": 1,
             "autostart": false,
             "autorestart": "never",
             "starttime": 0,
@@ -74,7 +74,7 @@
 		},
 		"sl": {
             "cmd": "sl",
-            "cmdammount": 100,
+            "cmdammount": 1,
             "autostart": false,
             "autorestart": "never",
             "starttime": 0,
