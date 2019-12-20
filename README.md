@@ -60,7 +60,7 @@ The only argument needed is a config file. All info about making your own config
 
 ## Examples
 
-![alt text](README_resources/start_taskmaster.gif)
-![alt text](README_resources/start_ls.gif)
-![alt text](README_resources/display_command.gif)
-![alt text](README_resources/display.gif)
+![alt text](resources/Taskmaster1.gif)
+![alt text](resources/Taskmaster2.gif)
+![alt text](resources/Taskmaster3.gif)
+![alt text](resources/Taskmaster4.gif)
