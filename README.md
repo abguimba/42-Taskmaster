@@ -60,7 +60,7 @@ The only argument needed is a config file. All info about making your own config
 
 ## Examples
 
-![alt text](resources/Taskmaster4.gif)
-![alt text](resources/Taskmaster3.gif)
-![alt text](resources/Taskmaster2.gif)
 ![alt text](resources/Taskmaster1.gif)
+![alt text](resources/Taskmaster2.gif)
+![alt text](resources/Taskmaster3.gif)
+![alt text](resources/Taskmaster4.gif)
